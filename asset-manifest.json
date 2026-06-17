@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/bike-heaven/static/css/main.b8a717eb.css",
+    "main.js": "/bike-heaven/static/js/main.2b87b1b3.js",
+    "static/js/787.1be79a77.chunk.js": "/bike-heaven/static/js/787.1be79a77.chunk.js",
+    "static/media/payement.jpeg": "/bike-heaven/static/media/payement.6db6d8661e19799b070a.jpeg",
+    "static/media/login_wallpaper.png": "/bike-heaven/static/media/login_wallpaper.9b8b1590e14434381f33.png",
+    "static/media/registration_background.jpeg": "/bike-heaven/static/media/registration_background.d24b92a02ed4ab058ec1.jpeg",
+    "static/media/employeesLogin.jpeg": "/bike-heaven/static/media/employeesLogin.8fa26085c96e96797335.jpeg",
+    "static/media/login_wallpaper.jpeg": "/bike-heaven/static/media/login_wallpaper.eb7f780c3bb0fe944689.jpeg",
+    "static/media/menu_background.jpg": "/bike-heaven/static/media/menu_background.8d0583ebd7767851c985.jpg",
+    "static/media/cartWallpaper.jpeg": "/bike-heaven/static/media/cartWallpaper.fbaa669165490df08129.jpeg",
+    "static/media/accountBackground.jpeg": "/bike-heaven/static/media/accountBackground.c10a96cc48672de3bad8.jpeg",
+    "static/media/result.jpeg": "/bike-heaven/static/media/result.ea0b4815db68576b7b8b.jpeg",
+    "index.html": "/bike-heaven/index.html",
+    "main.b8a717eb.css.map": "/bike-heaven/static/css/main.b8a717eb.css.map",
+    "main.2b87b1b3.js.map": "/bike-heaven/static/js/main.2b87b1b3.js.map",
+    "787.1be79a77.chunk.js.map": "/bike-heaven/static/js/787.1be79a77.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b8a717eb.css",
+    "static/js/main.2b87b1b3.js"
+  ]
+}
