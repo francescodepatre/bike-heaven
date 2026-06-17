@@ -68,6 +68,11 @@ const addAccessoryQuantity = require('./addAccessoryQ')
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+const cors = require('cors')
+
+app.use(cors({
+    origin: "https://francescodepatre.github.io"
+}))
 
 app.post('/api/register', async (req, res) => {
     console.log(req.body)
