@@ -5,7 +5,7 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 
-const dotenv = require('dotenv').config()
+require('dotenv').config()
 const bodyParser = require('body-parser')
 const express = require('express')
 const jwt = require('jsonwebtoken')
@@ -25,10 +25,9 @@ const productAdd = require("./productAdder")
 const getCart = require("./getCartByID")
 const cartCreator = require("./cartCreator")
 const maxId = require('./maxId')
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT
 const secretKey = process.env.JWT_SECRET
 const privateStripe = process.env.STRIPE_SECRET
-
 const stripe = require('stripe')(privateStripe)
 const customerFinder = require('./findCustomer')
 const infoSender = require('./payInfoSender')
