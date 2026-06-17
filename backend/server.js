@@ -28,9 +28,7 @@ const maxId = require('./maxId')
 const PORT = process.env.PORT || 8000
 const secretKey = process.env.JWT_SECRET
 const privateStripe = process.env.STRIPE_SECRET
-//const PORT = 8000
-//const secretKey = 'Francesco01.'
-//const privateStripe = "sk_test_51Nh9CuHKIas7nMAJagwCkYghcVzaJ7ZKowtQKKzeTQFAWcVHxMaYPmd6Q18TaP8czImiRFYjl5ShgJW7LQHNdBaX00LVzxJz0E"
+
 const stripe = require('stripe')(privateStripe)
 const customerFinder = require('./findCustomer')
 const infoSender = require('./payInfoSender')
