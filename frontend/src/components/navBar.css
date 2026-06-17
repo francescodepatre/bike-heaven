@@ -1,0 +1,80 @@
+/*
+    Author: @FrancescoDePatre
+    Matricola: 318319
+    Università di Parma - Corso di Tecnologie Internet
+    Email:  francesco.depatre@studenti.unipr.it
+*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+.navBar{
+    margin-top: 0px;
+    position: absolute;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6) ;
+    display: flex;
+    justify-content: flex-end;
+}
+.items{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+    margin-top: 5px;
+    
+}
+.item{
+    margin-left: 10px;
+    font-size: 11px;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+#filled_basic{
+    margin-right: 50px;
+    color: white;
+}
+.textual_navbar{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbar_home_button{
+    border: 0px;
+    background-color: transparent;
+    display: flex;
+    margin-top: 0px;
+    margin-left: 20px;
+    height: 38px;
+    width: 60px;
+}
+
+.navbar_home_button:hover{
+        cursor: pointer;
+    }
+
+.navbar_search_button{
+    border: 0px;
+    display: flex;
+    background-color: transparent;
+    justify-content: flex-end;
+    margin-top: 8px;
+    margin-left: 20px;
+    height: 35px;
+    width: 49px;
+}
+
+.navbar_search_button:hover{
+    cursor: pointer;
+}
+
+a,a:link,a:visited {
+  color: white;
+  text-decoration: none;
+}
+a:link{
+    color: white;
+}
+
+a:visited{
+    color: white;
+}

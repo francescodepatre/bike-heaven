@@ -1,0 +1,109 @@
+/*
+    Author: @FrancescoDePatre
+    Matricola: 318319
+    Università di Parma - Corso di Tecnologie Internet
+    Email:  francesco.depatre@studenti.unipr.it
+*/
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+.personalCart {
+    background-image: url("./components/login_wallpaper.png");
+    background-size: cover;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.cartTitle{
+  margin-top: 5%;
+  margin-left: 5%;
+}
+
+.titleCart,.bicycleTitle,.accessoriesTitle,.servicesTitle{
+  font-family: 'Signika', sans-serif;
+  color: white;
+}
+
+.nodata{
+  font-size: larger;
+  font-family: 'Signika', sans-serif;
+  color: white;
+}
+
+.cartContainer {
+    margin-top: 2%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.productsContainer {
+  flex: 70%;
+  margin-right: 2%;
+}
+
+.bikesContainer,.accessoriesContainer,.servicesContainer{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+    gap: 1%;
+}
+
+.productsDetails {
+  flex: 20%;
+  height: fit-content;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.detailTitle h1 {
+  font-family: 'Signika', sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.productTable {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+.productTable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.productTable th,
+.productTable td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.productTable .subtotal-row {
+  font-weight: bold;
+}
+
+/* Stili per il pulsante Checkout */
+.check-out {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.check-out button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.check-out button:hover {
+  background-color: #0056b3;
+}
+
+/* Altri stili personalizzati */

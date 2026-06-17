@@ -1,0 +1,33 @@
+/*
+    Author: @FrancescoDePatre
+    Matricola: 318319
+    Università di Parma - Corso di Tecnologie Internet
+    Email:  francesco.depatre@studenti.unipr.it
+*/
+
+const mysql = require('mysql2')
+
+async function updateDetails(id, name, surname, birth){
+    try{
+        const connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: 'root',
+            database: 'bikeheaven',
+            port: '3307'
+        })
+
+        const MYSQLQUERY = `UPDATE customers SET name = "${name}", surname = "${surname}", birth = '${birth}' WHERE idcustomer = ${id}`
+
+        if(await connection.execute(MYSQLQUERY)){
+            return{
+                success: true
+            }
+        }
+
+    }catch(err){
+        console.error("Error: ", err)
+    }
+}
+
+module.exports = updateDetails

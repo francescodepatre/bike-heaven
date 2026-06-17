@@ -1,0 +1,19 @@
+/*
+    Author: @FrancescoDePatre
+    Matricola: 318319
+    Università di Parma - Corso di Tecnologie Internet
+    Email:  francesco.depatre@studenti.unipr.it
+*/
+.singleCard{
+    max-width: 345px;
+    margin-left: 5px; 
+    margin-left: 5px; 
+    margin-top: 10px; 
+    margin-bottom: 10px;
+}
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }

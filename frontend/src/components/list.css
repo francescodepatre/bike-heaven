@@ -1,0 +1,74 @@
+/*
+    Author: @FrancescoDePatre
+    Matricola: 318319
+    Università di Parma - Corso di Tecnologie Internet
+    Email:  francesco.depatre@studenti.unipr.it
+*/
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500&display=swap');
+
+.listitems{
+    width: 100%;
+    height: auto;
+    display: block;
+    justify-content: center;
+}
+
+.tableTitle{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-family: 'Signika', sans-serif;
+}
+
+.itemstemp{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+    font-size: xx-large;
+    font-family: 'Signika', sans-serif;
+}
+
+.itemContainer{
+    margin-bottom: 5%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
+    gap: 1%;
+}
+
+.itemsTable {
+    width: fit-content;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .itemsTable th,
+  .itemsTable td {
+    padding: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .itemsTable th {
+    background-color: #f5f5f5;
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  .itemsTable td {
+    text-align: center;
+  }
+  
+  .itemstemp {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+  
+  .itemsTable thead th {
+    background-color: white;
+  }
+  
+  .itemsTable tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  

@@ -1,0 +1,69 @@
+/*
+    Author: @FrancescoDePatre
+    Matricola: 318319
+    Università di Parma - Corso di Tecnologie Internet
+    Email:  francesco.depatre@studenti.unipr.it
+*/
+.checkoutPage{
+    width: 100%;
+    height: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("./components/payement.jpeg");
+    background-size: cover;
+}
+
+.checkOut{
+    justify-content: center;
+    width: 80%;
+    margin-top: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 10%;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.payContent{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 10%;
+    margin-top: 10%;
+
+}
+#paytitle{
+    margin-left: 10%;
+}
+
+.cardDetails{
+    justify-content: center;
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 5%;
+}
+
+.payementActions{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5%;
+}
+
+.accept{
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.deny{
+    margin-left: 20%;
+    margin-right: 20%;
+}
+#acc,#den{
+    height: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
