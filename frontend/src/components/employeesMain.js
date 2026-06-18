@@ -26,7 +26,7 @@ import AccessoryList from './accessoryList';
 import ServiceList from './serviceList';
 import AddAccessoryQuantity from './addAccessoryQuantity';
 import AddBikeQuantity from './addBikeQuantity';
-import "./employeesMain.css"
+import "./style/employeesMain.css"
 
 const EmployeesMain = () => {
 

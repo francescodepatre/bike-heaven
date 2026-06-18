@@ -10,7 +10,7 @@ import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useParams } from 'react-router-dom';
-import "./makeFeedback.css"
+import "./style/makeFeedback.css"
 
 const MakeFeedback = () => {
 

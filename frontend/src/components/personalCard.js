@@ -12,7 +12,7 @@ import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { CardActionArea } from '@mui/material';
-import './card_new.css';
+import './style/card_new.css';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 

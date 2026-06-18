@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputAdornment from '@mui/material/InputAdornment';
-import "./addBike.css";
+import "./style/addBike.css";
 
 const AddBike = () => {
 

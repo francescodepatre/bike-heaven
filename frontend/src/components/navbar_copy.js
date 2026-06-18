@@ -5,7 +5,7 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 import React, { useState } from 'react';
-import './navBar.css';
+import './style/navBar.css';
 import navbar_logo from './navbar_logo.png';
 import search from './search.png';
 import { useEffect } from 'react';

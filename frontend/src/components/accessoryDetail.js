@@ -5,7 +5,7 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 import React from "react";
-import "./product_page.css";
+import "./style/product_page.css";
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 

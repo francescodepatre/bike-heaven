@@ -6,7 +6,7 @@
 */
 import React, { useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
-import './navBar.css';
+import './style/navBar.css';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 

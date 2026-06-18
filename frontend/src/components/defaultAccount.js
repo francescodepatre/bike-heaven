@@ -5,7 +5,7 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 import React from 'react';
-import "./defaultAccount.css";
+import "./style/defaultAccount.css";
 
 const DefaultAccount = () => {
     return (

@@ -5,7 +5,7 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 import React, { useState } from 'react';
-import "./registration.css";
+import "./style/registration.css";
 import TextField from '@mui/material/TextField';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';

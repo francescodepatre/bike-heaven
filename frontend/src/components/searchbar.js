@@ -13,8 +13,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { Transition } from 'react-transition-group';
-import "./searchbar.css";
-import Src from "./search_bar_icon.png";
+import "./style/searchbar.css";
+import Src from "./images/search_bar_icon.png";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';

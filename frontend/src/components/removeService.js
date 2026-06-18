@@ -6,7 +6,7 @@
 */
 import React, {useState} from 'react';
 import TextField from '@mui/material/TextField';
-import "./remove.css";
+import "./style/remove.css";
 
 const RemoveService = () => {
     

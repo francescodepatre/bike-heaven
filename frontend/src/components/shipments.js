@@ -5,7 +5,7 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 import React, {useState, useEffect} from 'react';
-import "./shipments.css"
+import "./style/shipments.css"
 
 const Shipments = () => {
 

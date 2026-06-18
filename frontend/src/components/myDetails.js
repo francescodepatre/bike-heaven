@@ -6,7 +6,7 @@
 */
 import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs'
-import "./myDetails.css";
+import "./style/myDetails.css";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { DateField } from '@mui/x-date-pickers/DateField';

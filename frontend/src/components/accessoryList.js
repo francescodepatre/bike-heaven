@@ -5,7 +5,7 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 import React, {useState, useEffect} from 'react';
-import "./list.css";
+import "./style/list.css";
 
 const AccessoryList = () => {
     

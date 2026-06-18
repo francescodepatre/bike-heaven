@@ -5,7 +5,7 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 import React, {useState, useEffect} from 'react';
-import "./accountPage.css";
+import "./style/accountPage.css";
 import DefaultAccount from './defaultAccount';
 import MyDetails from './myDetails';
 import MyAddress from './myAddress';

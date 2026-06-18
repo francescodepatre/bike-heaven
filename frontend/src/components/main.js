@@ -9,11 +9,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 //import bikeTrailer from './bike_heaven.mp4';
 //import aboutVideo from './abus.mp4';
-import './main.css';
+import './style/main.css';
 import CardNew from './card_new';
-import Twitter from './twitter_icon.png';
-import Instagram from './instagram_icon.png';
-import YouTube from './youtube_icon.png';
+import Twitter from './images/twitter_icon.png';
+import Instagram from './images/instagram_icon.png';
+import YouTube from './images/youtube_icon.png';
 
 function Main_page(){
 

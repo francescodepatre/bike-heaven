@@ -6,7 +6,7 @@
 */
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import "./feedbackList.css";
+import "./style/feedbackList.css";
 import Rating from '@mui/material/Rating';
 
 function FeedbackList(){

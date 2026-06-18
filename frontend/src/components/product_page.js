@@ -6,7 +6,7 @@
 */
 import React, {useState, useEffect} from "react";
 import jwt_decode from "jwt-decode";
-import "./product_page.css";
+import "./style/product_page.css";
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Rating from '@mui/material/Rating';

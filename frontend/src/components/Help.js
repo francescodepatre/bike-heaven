@@ -5,7 +5,7 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 import React from 'react';
-import "./Help.css";
+import "./style/Help.css";
 
 const Help = () => {
     return (

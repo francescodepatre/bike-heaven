@@ -12,7 +12,7 @@ import './App.css';
 import Login from './components/login';
 import ShopMenu from './components/shopmenu';
 import Registration from './components/registration';
-import { HashRouter } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Results from './components/results';
 import ProductPage from './components/product_page';
 import Cart from './cart';

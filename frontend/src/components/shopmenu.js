@@ -6,7 +6,7 @@
 */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './shopmenu.css';
+import './style/shopmenu.css';
 
 function ShopMenu(){
 

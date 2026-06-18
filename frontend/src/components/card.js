@@ -7,7 +7,7 @@
 
 import React from 'react';
 import cart from './cart.png';
-import './card.css'
+import './style/card.css'
 import bike from './bike_test.png';
 
 function Card(){

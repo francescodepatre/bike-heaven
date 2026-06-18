@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import "./addAccessory.css";
+import "./style/addAccessory.css";
 
 const AddAccessory = () => {
 

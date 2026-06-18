@@ -11,7 +11,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import './card_new.css';
+import './style/card_new.css';
 import { useNavigate } from 'react-router-dom';
 
 function CardNew({id, title, price, description, immagine}){

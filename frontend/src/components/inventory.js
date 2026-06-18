@@ -6,7 +6,7 @@
 */
 import React, {useState, useEffect} from 'react'
 import CardNew from './card_new'
-import "./inventory.css"
+import "./style/inventory.css"
 
 const Inventory = () => {
 

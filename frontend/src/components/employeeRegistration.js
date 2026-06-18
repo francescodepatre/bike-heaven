@@ -8,7 +8,7 @@ import React, {useState} from 'react';
 import { DateField } from '@mui/x-date-pickers/DateField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import "./employeeRegistration.css";
+import "./style/employeeRegistration.css";
 import TextField from '@mui/material/TextField';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
