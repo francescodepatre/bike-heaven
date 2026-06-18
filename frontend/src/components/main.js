@@ -6,7 +6,7 @@
     https://www.youtube.com/watch?v=DfqZhItEK-U
 */
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 //import bikeTrailer from './bike_heaven.mp4';
 //import aboutVideo from './abus.mp4';
 import './style/main.css';
@@ -78,9 +78,9 @@ function Main_page(){
                     <h1 id="title">Welcome to Bike Heaven</h1>
                     <h3 id="subtitle">Where Cycling Science meets Adventure.</h3>
                     <div id="visit_shop">
-                         <a id="shop_button" href="/shop">
+                         <Link id="shop_button" to="/shop">
                             Shop
-                        </a>
+                        </Link>
                     </div>
                    
                 </div>
