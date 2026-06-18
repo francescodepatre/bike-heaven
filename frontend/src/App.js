@@ -12,7 +12,7 @@ import './App.css';
 import Login from './components/login';
 import ShopMenu from './components/shopmenu';
 import Registration from './components/registration';
-import { HashRouter as Router, Routes, Route} from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import Results from './components/results';
 import ProductPage from './components/product_page';
 import Cart from './cart';
@@ -37,28 +37,32 @@ function App() {
   }, [])  
 
   //
-  return (
-    <Router>
-      <div className="App">
-        <NavBar />
-        <Routes>
-          <Route path='/employeesLogin' element={<EmployeesLogin />} />
-          <Route path='/employees' element={<EmployeesMain /> } />
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/checkout/:id/:type" element={<Checkout />} />
-          <Route path="/cart/:token" element={<Cart />} />
-          <Route path="/product/:id" element={<ProductPage />} />
-          <Route path="/results/:searchID" element={<Results />} />
-          <Route path="/register" element={<Registration />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Main_page />} />
-          <Route path="/lalala" element={<Main_page />} />
-          <Route path="/shop" element={<ShopMenu />} />
-        </Routes>
-        </div>
-    </Router>
-    
-  );
+return (
+  <HashRouter>
+    <div className="App">
+      <NavBar />
+
+      <Routes>
+        <Route path="/" element={<Main_page />} />
+
+        <Route path="/shop" element={<ShopMenu />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Registration />} />
+
+        <Route path="/results/:searchID" element={<Results />} />
+        <Route path="/product/:id" element={<ProductPage />} />
+
+        <Route path="/cart/:token" element={<Cart />} />
+        <Route path="/checkout/:id/:type" element={<Checkout />} />
+
+        <Route path="/account" element={<AccountPage />} />
+
+        <Route path="/employeesLogin" element={<EmployeesLogin />} />
+        <Route path="/employees" element={<EmployeesMain />} />
+      </Routes>
+    </div>
+  </HashRouter>
+);
 }
 
 export default App;
