@@ -4,49 +4,70 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500&display=swap');
+@import './tokens.css';
 
 .shop-menu-container{
     width: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("./menu_background.jpg");
-    object-fit:scale-down;
+    background-color: var(--bh-ink);
+    background-image: linear-gradient(rgba(20,24,28,0.82), rgba(20,24,28,0.92)), url("./menu_background.jpg");
+    background-position: center;
+    background-size: cover;
+    box-sizing: border-box;
+    padding: 80px 0;
 }
 
 .menu-container{
     align-items: center;
     justify-content: center;
     width: 50%;
-    margin-top: 10%;
-    margin-bottom: 10%;
-    margin-left: 25%;
-    margin-right: 25%;
+    max-width: 460px;
+    min-width: 320px;
+    margin: 0;
     background-color: transparent;
-    border-radius: 10px;
+    border-radius: var(--bh-radius);
 }
 
 .menu-item{
-    color: white;
-    font-family: 'Signika', sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-    height: 40px;
+    color: var(--bh-paper);
+    font-family: var(--bh-font-display);
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    height: 56px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    background-color: grey;
-    margin-top: 30px;
+    padding: 0 24px;
+    box-sizing: border-box;
+    background-color: var(--bh-ink-light);
+    border: 1px solid var(--bh-line);
+    margin-top: 16px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.menu-item::after{
+    content: '→';
+    font-family: var(--bh-font-body);
+    color: var(--bh-grey);
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 #last{
-    margin-bottom: 30px; 
+    margin-bottom: 0;
 }
 
 .menu-item:hover{
-    background-color:rgba(128, 128, 128, 0.63);
+    border-color: var(--bh-accent);
+    color: var(--bh-accent);
+}
+
+.menu-item:hover::after{
+    color: var(--bh-accent);
+    transform: translateX(4px);
 }

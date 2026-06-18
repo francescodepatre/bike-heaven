@@ -9,7 +9,7 @@ import "./style/registration.css";
 import TextField from '@mui/material/TextField';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { DateField } from '@mui/x-date-pickers/DateField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -73,7 +73,7 @@ function Registration(){
             <div className="registration_container">
                 <h1 className="registration_title">Registration</h1>
                 <div className="cont4">
-                    <h3 className="login_string">Already have an account? <a id="login_link" href='/login'>Click here to Sign-in</a></h3>
+                    <h3 className="login_string">Already have an account? <Link id="login_link" to='/login'>Click here to Sign-in</Link></h3>
                 </div>
                 <div className="cont1">
                     <h3 className="registration_name">Name</h3>

@@ -4,127 +4,167 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import './tokens.css';
 
 .login_page{
     display: flex;
     width: 100%;
     height: fit-content;
-    background-image: url("./login_wallpaper.jpeg");
-    height: 810px;
+    min-height: 100vh;
+    background-color: var(--bh-ink);
+    background-image: linear-gradient(rgba(20,24,28,0.85), rgba(20,24,28,0.92)), url("./login_wallpaper.jpeg");
     background-position: center top;
     background-size: cover;
     margin: 0;
-    padding: 0;
+    padding: 80px 0;
+    box-sizing: border-box;
 }
 
 .login_container{
-    margin-top: 130px;
-    margin-bottom: 200px;
-    background-color: white;
-    opacity: 80%;
-    margin-left: auto; /* Imposta margin-left a auto per centrare il contenitore orizzontalmente */
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: var(--bh-ink-light);
+    border: 1px solid var(--bh-line);
+    opacity: 100%;
+    margin-left: auto;
     margin-right: auto;
     width: 60%;
-    height: 70%;
+    max-width: 480px;
+    padding: 40px 0;
 }
 
 .login_title{
-    margin-left: 80px;
-    margin-bottom: 20px;
-    font-family: 'Signika', sans-serif;
+    margin-left: 48px;
+    margin-bottom: 28px;
+    font-family: var(--bh-font-display);
+    font-size: 28px;
+    color: var(--bh-paper);
 }
 
 .login_usr{
-    margin-left: 0px;
+    margin-left: 48px;
     margin-right: 30px;
-    font-family: 'Signika', sans-serif;
-}
-
-.login_psw{
-    margin-left: 0px;
-    margin-right: 30px;
-    font-family: 'Signika', sans-serif;
+    font-family: var(--bh-font-body);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--bh-grey);
+    margin-bottom: 8px;
 }
 
 .username_field{
-    margin-left: 100px;
-    width: 80%;
+    margin-left: 48px;
+    width: calc(100% - 96px);
     height: 30px;
     font-size: large;
 }
 
-.password_field{
-    margin-left: 100px;
-    width: auto;
-    height: 30px;
-    font-size: large;
+.username_field .MuiOutlinedInput-root{
+    background-color: rgba(244,242,236,0.05);
+    border-radius: var(--bh-radius);
+}
+
+.username_field .MuiOutlinedInput-notchedOutline{
+    border-color: var(--bh-line);
+}
+
+.username_field .MuiInputBase-input{
+    color: var(--bh-paper);
+}
+
+.username_field .MuiInputLabel-root{
+    color: var(--bh-grey);
+}
+
+.username_field:hover .MuiOutlinedInput-notchedOutline{
+    border-color: var(--bh-grey);
+}
+
+.username_field .Mui-focused .MuiOutlinedInput-notchedOutline{
+    border-color: var(--bh-accent) !important;
 }
 
 .cont1{
-    margin-bottom: 50px;
-}
-
-.cont2{
-    margin-bottom: 50px;
+    margin-bottom: 28px;
 }
 
 .cont1,.cont2,.cont4{
-    margin-left: 100px;
+    margin-left: 0;
 }
 
 .cont3{
     display: flex;
-    justify-content: space-between 300px;
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-top: 100px;
-    margin-bottom: 1px;
-    width: 100%;
+    justify-content: flex-start;
+    gap: 16px;
+    margin-left: 48px;
+    margin-right: 48px;
+    margin-top: 36px;
+    margin-bottom: 8px;
+    width: auto;
 }
 
 #cancel{
-    padding: 10px 10px;
-    margin-left: 30px;
-    margin-right: 50px;
-    border-radius: 5px;
-    border: 2px solid;
+    padding: 12px 24px;
+    margin: 0;
+    border-radius: var(--bh-radius);
+    border: 1px solid var(--bh-line);
     opacity: 100%;
-    background-color: white;
+    background-color: transparent;
+    color: var(--bh-paper);
+    font-family: var(--bh-font-body);
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 #login{
-    padding: 10px 10px;
-    margin-left: 50px;
-    margin-right: 200px;
+    padding: 12px 28px;
+    margin: 0;
     opacity: 100%;
-    border-radius: 5px;
-    border: 2px solid;
-    border-color: black;
-    background-color: transparent;
+    border-radius: var(--bh-radius);
+    border: none;
+    background-color: var(--bh-accent);
+    color: var(--bh-ink);
+    font-family: var(--bh-font-body);
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 #cancel:hover{
-    transition: 0.5s;
-    background-color: crimson;
+    border-color: var(--bh-danger);
+    color: var(--bh-danger);
 }
 
 #login:hover{
-    transition: 0.5s;
-    background-color: green;
-    }
+    background-color: var(--bh-accent-hover);
+}
 
 .registration_string{
-    font-family: 'Poppins', sans-serif;
-    color: black;
-    margin-left: 50px;
+    font-family: var(--bh-font-body);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--bh-grey);
+    margin-left: 48px;
+    margin-right: 48px;
 }
 
 #registration_link{
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--bh-font-body);
     opacity: 100%;
-    color: black;
-    text-decoration: underline; 
-    cursor: pointer; 
+    color: var(--bh-accent);
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 4px;
+}
+
+#registration_link:hover{
+    text-decoration: underline;
 }

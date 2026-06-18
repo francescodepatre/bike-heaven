@@ -4,53 +4,85 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import './tokens.css';
 
 .navBar{
     margin-top: 0px;
     position: absolute;
+    z-index: 10;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.6) ;
+    background-color: rgba(20, 24, 28, 0.75);
+    border-bottom: 1px solid var(--bh-line);
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 40px;
+    box-sizing: border-box;
 }
+
 .items{
-    width: 100%;
+    width: auto;
     display: flex;
+    align-items: center;
     justify-content: flex-end;
-    margin-right: 20px;
-    margin-top: 5px;
-    
+    gap: 28px;
 }
+
 .item{
-    margin-left: 10px;
-    font-size: 11px;
-    font-family: 'Roboto', sans-serif;
-    color: white;
+    font-size: 13px;
+    font-family: var(--bh-font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--bh-paper);
+}
+
+.item h1{
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.item:hover{
+    color: var(--bh-accent);
+    cursor: pointer;
 }
 
 #filled_basic{
-    margin-right: 50px;
-    color: white;
+    margin-right: 0px;
+    color: var(--bh-paper);
 }
+
 .textual_navbar{
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    gap: 28px;
 }
 
 .navbar_home_button{
     border: 0px;
     background-color: transparent;
     display: flex;
-    margin-top: 0px;
-    margin-left: 20px;
-    height: 38px;
-    width: 60px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar_home_button h3{
+    font-family: var(--bh-font-display);
+    font-size: 17px;
+    letter-spacing: 0.02em;
+    color: var(--bh-paper);
+    margin: 0;
 }
 
 .navbar_home_button:hover{
-        cursor: pointer;
-    }
+    cursor: pointer;
+}
+
+.navbar_home_button:hover h3{
+    color: var(--bh-accent);
+}
 
 .navbar_search_button{
     border: 0px;
@@ -68,13 +100,25 @@
 }
 
 a,a:link,a:visited {
-  color: white;
+  color: var(--bh-paper);
   text-decoration: none;
 }
 a:link{
-    color: white;
+    color: var(--bh-paper);
 }
 
 a:visited{
-    color: white;
+    color: var(--bh-paper);
+}
+
+/* Campo di ricerca MUI: bordo e testo coerenti col tema scuro */
+.item .MuiFilledInput-root{
+    background-color: rgba(244,242,236,0.06);
+    border-radius: var(--bh-radius);
+}
+.item .MuiFilledInput-root:hover{
+    background-color: rgba(244,242,236,0.1);
+}
+.item .MuiFilledInput-underline:after{
+    border-bottom-color: var(--bh-accent);
 }

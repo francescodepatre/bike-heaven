@@ -3,7 +3,30 @@
     Matricola: 318319
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
+
+    NOTA: questo file è stato ricreato perché non era presente tra i file caricati.
+    Se il tuo App.css originale conteneva altre regole, uniscile a queste.
 */
-.app{
-  background-color: black;
+@import './components/style/tokens.css';
+
+*{
+    box-sizing: border-box;
+}
+
+html, body{
+    margin: 0;
+    padding: 0;
+    background-color: var(--bh-ink);
+    font-family: var(--bh-font-body);
+}
+
+.App{
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bh-ink);
+}
+
+::selection{
+    background-color: var(--bh-accent);
+    color: var(--bh-ink);
 }

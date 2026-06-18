@@ -1,0 +1,27 @@
+/*
+    Bike Heaven — Design Tokens
+    File condiviso di variabili: colori, font, spaziature.
+    Importare in cima a ogni foglio di stile del progetto.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+    /* Colori */
+    --bh-ink: #14181C;          /* sfondo scuro principale (asfalto) */
+    --bh-ink-light: #1B2026;    /* superfici scure leggermente più chiare (card, header) */
+    --bh-paper: #F4F2EC;        /* bianco caldo, testo su sfondo scuro */
+    --bh-accent: #FF5A1F;       /* arancio segnaletica — accento primario */
+    --bh-accent-hover: #FF7438;
+    --bh-moss: #3D5A40;         /* verde sentiero — accento secondario */
+    --bh-moss-hover: #4D6E51;
+    --bh-grey: #8A8F98;         /* testo secondario / muted */
+    --bh-line: rgba(244,242,236,0.14); /* bordi sottili su sfondo scuro */
+    --bh-danger: #D8503A;       /* errori / azioni distruttive */
+
+    /* Tipografia */
+    --bh-font-display: 'Archivo Black', sans-serif;
+    --bh-font-body: 'Inter', sans-serif;
+
+    /* Raggio bordi — squadrato, coerente col tema "strada" */
+    --bh-radius: 2px;
+}

@@ -4,18 +4,20 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import './tokens.css';
 
 .main_containers{
     width: 100%;
     position:static;
     height: fit-content;
+    background-color: var(--bh-ink);
+    font-family: var(--bh-font-body);
 }
 
 .first_container{
     width: 100%;
     height: fit-content;
+    position: relative;
 }
 
 #video{
@@ -23,6 +25,7 @@
     height: 100vh;
     border: none;
     display: block;
+    filter: brightness(0.55);
 }
 
 video{
@@ -33,77 +36,109 @@ video{
 }
 
 .title_container{
-    margin-top: 20%;
-    margin-left: 200px;
+    margin-top: 0;
+    margin-left: 64px;
     position: absolute;
-    color: aliceblue;
+    top: 38%;
+    color: var(--bh-paper);
+    max-width: 560px;
 }
 
 #title{
-    font-size:50px;
-    font-family: 'Signika', sans-serif;
+    font-size: 56px;
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    font-family: var(--bh-font-display);
+    margin-bottom: 18px;
 }
 
 #subtitle{
-    font-size: 20px;
-    font-family: 'Signika', sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--bh-grey);
+    font-family: var(--bh-font-body);
+    margin-bottom: 32px;
 }
-
 
 #shop_button{
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
-    width: 120px;
-    background-color: black;
-    opacity: 70%;
-    color: aliceblue;
+    height: 48px;
+    width: auto;
+    padding: 0 28px;
+    background-color: var(--bh-accent);
+    opacity: 100%;
+    color: var(--bh-ink);
     border: 0px;
-    font-family: 'Signika', sans-serif;
-    font-size: medium;
+    border-radius: var(--bh-radius);
+    font-family: var(--bh-font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 13px;
     margin-left: 0px;
+    transition: background-color 0.2s ease;
 }
+
+#shop_button:hover{
+    background-color: var(--bh-accent-hover);
+}
+
 #second_title{
-    margin-top: 100px;
-    margin-left: 200px;
-    font-size: 50px;
-    margin-bottom: 100px;
+    margin-top: 90px;
+    margin-left: 64px;
+    font-size: 34px;
+    font-family: var(--bh-font-display);
+    color: var(--bh-paper);
+    margin-bottom: 40px;
 }
 
 .Cards_container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 20px;
-    margin-left: 60px;
-    margin-right: 60px;
-    margin-bottom: 10%;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-gap: 24px;
+    margin-left: 64px;
+    margin-right: 64px;
+    margin-bottom: 100px;
 }
 
 
 #about_title{
-    font-size:50px;
-    font-family: 'Signika', sans-serif;
+    font-size: 34px;
+    font-family: var(--bh-font-display);
+    margin-bottom: 18px;
 }
 
 #about_subtitle{
-    font-size: 20px;
-    font-family: 'Signika', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--bh-grey);
+    font-family: var(--bh-font-body);
     margin-bottom: auto;
 }
 
+.third_container{
+    position: relative;
+}
+
 .about{
-    margin-top: 15%;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-top: 0;
+    margin-left: 64px;
+    margin-right: 64px;
     position: absolute;
-    color: aliceblue;
+    top: 12%;
+    max-width: 560px;
+    color: var(--bh-paper);
+    z-index: 2;
 }
 
 .fourth_container{
     width: 100%;
-    height: 300px;
-    margin-bottom: 10%;
+    height: auto;
+    padding: 70px 0;
+    margin-bottom: 0;
+    border-top: 1px solid var(--bh-line);
 }
 
 .left_container,.right_container{
@@ -121,34 +156,73 @@ video{
 }
 
 .social_buttons{
-    margin-left: 125px;
+    margin-left: 64px;
     display: flex;
 }
 
 #youtube_button, #instagram_button, #twitter_button{
     background-color: transparent;
-    width: 70px;
-    height: 70px;
-    margin-right: 50px;
-    margin-left: 50px;
+    width: 36px;
+    height: 36px;
+    margin-right: 24px;
+    margin-left: 0px;
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
 }
 
+#youtube_button:hover, #instagram_button:hover, #twitter_button:hover{
+    opacity: 1;
+}
+
+#youtube_button img, #instagram_button img, #twitter_button img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
 .left_title{
-    margin-left: 100px;
-    font-size:50px;
-    font-family: 'Signika', sans-serif;
+    margin-left: 64px;
+    font-size: 28px;
+    font-family: var(--bh-font-display);
+    color: var(--bh-paper);
+    margin-bottom: 28px;
 }
 
-.right_title{ 
-    margin-left: 100px;
-    font-size:50px;
-    font-family: 'Signika', sans-serif;
+.right_title{
+    margin-left: 64px;
+    font-size: 28px;
+    font-family: var(--bh-font-display);
+    color: var(--bh-paper);
+    margin-bottom: 24px;
 }
 
 .cont{
-    margin-left: 50px;
-    font-family: 'Signika', sans-serif;
+    margin-left: 64px;
+    font-family: var(--bh-font-body);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--bh-grey);
+    margin-bottom: 16px;
+}
+
+.cont input, .cont textarea{
+    font-family: var(--bh-font-body);
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    background-color: rgba(244,242,236,0.06);
+    border: 1px solid var(--bh-line);
+    border-radius: var(--bh-radius);
+    color: var(--bh-paper);
+    padding: 8px 10px;
+}
+
+.cont input:focus, .cont textarea:focus{
+    outline: none;
+    border-color: var(--bh-accent);
 }
 
 #nameField{
@@ -164,13 +238,13 @@ video{
 
 #emailField{
     margin-left: 10px;
-    width: 500px;
+    width: 400px;
 }
 
 #messageField{
-    margin-left: 50px;
-    width: 570px;
-    height: 200px;
+    margin-left: 64px;
+    width: 480px;
+    height: 140px;
 }
 
 textarea{
@@ -178,29 +252,40 @@ textarea{
 }
 
 #sendButton{
-    width: 70px;
-    height: 35px;
-    background-color: white;
-    color: black;
-    border: 2px solid black;
-    margin-top: 20px; 
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    width: auto;
+    padding: 0 24px;
+    height: 42px;
+    background-color: var(--bh-accent);
+    color: var(--bh-ink);
+    font-family: var(--bh-font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    border: none;
+    margin-top: 24px;
+    margin-left: 64px;
+    border-radius: var(--bh-radius);
+    transition: background-color 0.2s ease;
 }
 
 #sendButton:hover{
-    background-color: black;
-    color: white;
+    background-color: var(--bh-accent-hover);
 }
 
 #bottom_info{
-    font-family: 'Signika', sans-serif;
-    font-size: 30px;
-    margin-left: 50px;
+    font-family: var(--bh-font-body);
+    font-size: 14px;
+    color: var(--bh-grey);
+    margin-left: 64px;
+    margin-top: 24px;
 }
 
 #authorInfo{
-    font-family: 'Poppins', sans-serif;
-    margin-left: 50px;
-    font-size: 25px;
+    font-family: var(--bh-font-body);
+    margin-left: 64px;
+    font-size: 12px;
+    color: var(--bh-grey);
+    opacity: 0.6;
+    margin-top: 6px;
 }

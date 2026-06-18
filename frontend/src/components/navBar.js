@@ -51,9 +51,9 @@ function NavBar(){
 
     return(
         <div className="navBar">
-            <a className="navbar_home_button" href="/">
+            <Link className="navbar_home_button" to="/">
                 <h3>BikeHeaven</h3>
-            </a>
+            </Link>
             <div className="items">
                     <div className="item">
                         <Link to="/"><h1>Home</h1></Link>
