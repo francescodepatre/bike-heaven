@@ -23,7 +23,7 @@ const MyAddress = () => {
         async function fetchData() {
             const token = localStorage.getItem("token")
             try{
-                const response = await fetch(`/api/getAddress/${token}`)
+                const response = await fetch(`https://bike-heaven.onrender.com/api/getAddress/${token}`)
                 if (response.status === 500) {
                     throw new Error("Fetching data failed");
                 }

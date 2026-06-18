@@ -38,7 +38,7 @@ const EmployeeRegistration = () => {
             username:username,
             password:password
         }
-        fetch("api/setEmployee", {
+        fetch("https://bike-heaven.onrender.com/api/setEmployee", {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"

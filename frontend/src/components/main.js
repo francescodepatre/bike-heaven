@@ -28,7 +28,7 @@ function Main_page(){
     useEffect(() => {
         async function fetchData() {
             try{
-                const response = await fetch("/api/home");
+                const response = await fetch("https://bike-heaven.onrender.com/api/home");
 
                 if (response.status === 500) {
                     throw new Error("Fetching data failed");

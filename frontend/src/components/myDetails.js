@@ -26,7 +26,7 @@ const MyDetails = () => {
         async function fetchData() {
             const token = localStorage.getItem("token")
             try{
-                const response = await fetch(`/api/getDetails/${token}`)
+                const response = await fetch(`https://bike-heaven.onrender.com/api/getDetails/${token}`)
                 if (response.status === 500) {
                     throw new Error("Fetching data failed");
                 }

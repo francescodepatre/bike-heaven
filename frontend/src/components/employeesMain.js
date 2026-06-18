@@ -46,7 +46,7 @@ const EmployeesMain = () => {
                     const expirationDate = new Date(decodedToken.exp * 1000);
                     if (expirationDate > new Date()){
                         try{
-                            const response = await fetch(`/api/getReviews/${decodedToken.id}`)
+                            const response = await fetch(`https://bike-heaven.onrender.com/api/getReviews/${decodedToken.id}`)
                             if (response.status === 500) {
                                 throw new Error("Fetching data failed")
                                 navigate("/")

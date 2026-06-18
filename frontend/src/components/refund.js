@@ -21,7 +21,7 @@ const Refund = () => {
         let refund = {
             id: refundId
         }
-        fetch("/api/refund", {
+        fetch("https://bike-heaven.onrender.com/api/refund", {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"

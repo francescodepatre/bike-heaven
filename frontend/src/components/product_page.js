@@ -42,7 +42,7 @@ function ProductPage(){
         async function fetchData() {
             try{
                 console.log("Passing: " + param_id)
-                const response = await fetch(`/api/productSearch/${param_id}`)
+                const response = await fetch(`https://bike-heaven.onrender.com/api/productSearch/${param_id}`)
                 console.log(response.status)
                 if (response.status === 500) {
                     throw new Error("Fetching data failed")
@@ -87,7 +87,7 @@ function ProductPage(){
                             userToken: localStorage.getItem("token"),
                             productID: param_id
                         }
-                        fetch("/api/addProduct", {
+                        fetch("https://bike-heaven.onrender.com/api/addProduct", {
                             method: "POST",
                             headers:{
                                 "Content-Type":"application/json"

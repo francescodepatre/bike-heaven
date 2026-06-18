@@ -35,7 +35,7 @@ const MakeFeedback = () => {
                         content: content,
                         codProduct: idproduct
                       }
-                      fetch('/api/setReview', {
+                      fetch('https://bike-heaven.onrender.com/api/setReview', {
                         method: 'POST',
                         headers: {
                           'Content-Type': 'application/json',

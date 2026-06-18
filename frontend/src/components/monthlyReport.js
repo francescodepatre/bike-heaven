@@ -12,7 +12,7 @@ const MonthlyReport = () => {
 
     function HandleDownload(event){
         event.preventDefault()
-        fetch('/api/download').then(response => {
+        fetch('https://bike-heaven.onrender.com/api/download').then(response => {
             if (!response.ok) {
                 throw new Error('Errore durante il download');
             }

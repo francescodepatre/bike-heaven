@@ -74,6 +74,17 @@ app.use(cors({
     origin: "https://francescodepatre.github.io"
 }))
 
+const { Pool } = require('pg')
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
+
+module.exports = pool
+
 app.post('/api/register', async (req, res) => {
     console.log(req.body)
     const profile = {

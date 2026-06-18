@@ -24,7 +24,7 @@ const AddAccessoryQuantity = () => {
             id: accId,
             quantity: quantity
         }
-        fetch("/api/increaseAccessory", {
+        fetch("https://bike-heaven.onrender.com/api/increaseAccessory", {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"

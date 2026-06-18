@@ -65,7 +65,7 @@ const AddService = () => {
         category: category
       }
       console.log(bikeData);
-      fetch('/api/postService', {
+      fetch('https://bike-heaven.onrender.com/api/postService', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

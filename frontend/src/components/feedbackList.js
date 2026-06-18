@@ -20,7 +20,7 @@ function FeedbackList(){
         async function fetchData() {
             try{
                 console.log("getting: " + idproduct)
-                const response = await fetch(`/api/getReviews/${idproduct}`)
+                const response = await fetch(`https://bike-heaven.onrender.com/api/getReviews/${idproduct}`)
                 if (response.status === 500) {
                     throw new Error("Fetching data failed")
                 }

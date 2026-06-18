@@ -34,7 +34,7 @@ function ProductPage(id){
     useEffect(() => {
         async function fetchData() {
             try{
-                const response = await fetch(`/api/productSearch/${param_id}`)
+                const response = await fetch(`https://bike-heaven.onrender.com/api/productSearch/${param_id}`)
                 console.log(response.status)
                 if (response.status === 500) {
                     throw new Error("Fetching data failed")

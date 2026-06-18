@@ -40,7 +40,7 @@ function PersonalCard({id, title, price, description, immagine, category, remove
                 category: cat,
                 customer: idCustomer
             }
-            fetch('/api/removeCard', {
+            fetch('https://bike-heaven.onrender.com/api/removeCard', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

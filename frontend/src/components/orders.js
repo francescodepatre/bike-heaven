@@ -15,7 +15,7 @@ const Orders = () => {
     useEffect(() => {
         async function fetchData() {
             try{
-                const response = await fetch(`/api/sales`)
+                const response = await fetch(`https://bike-heaven.onrender.com/api/sales`)
                 if (response.status === 500) {
                     throw new Error("Fetching data failed")
                 }

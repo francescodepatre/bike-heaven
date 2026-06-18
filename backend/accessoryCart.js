@@ -8,6 +8,15 @@ const mysql = require('mysql2')
 
 async function accessoryCart(idcustomer){
     try{
+        /*
+        NUOVA QUERY DA INSERIRE
+        const pool = require('./db')
+
+        async function getUsers() {
+        const result = await pool.query('SELECT * FROM users')
+        return result.rows
+        }
+        */
         const connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',

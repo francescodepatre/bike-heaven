@@ -65,7 +65,7 @@ const AddAccessory = () => {
       image: base64Image,
       category: category
     }
-    fetch('/api/setAccessory', {
+    fetch('https://bike-heaven.onrender.com/api/setAccessory', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
