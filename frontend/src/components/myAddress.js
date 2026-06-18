@@ -49,7 +49,7 @@ const MyAddress = () => {
             phone: phone,
             address: address,
         }
-        fetch("/api/setAddress", {
+        fetch("https://bike-heaven.onrender.com/api/setAddress", {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"

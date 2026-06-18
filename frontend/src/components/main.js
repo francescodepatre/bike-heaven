@@ -58,7 +58,7 @@ function Main_page(){
             email: email,
             message: message
         }
-        fetch("api/contact", {
+        fetch("https://bike-heaven.onrender.com/api/contact", {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"

@@ -53,7 +53,7 @@ const MyDetails = () => {
             surname: surname,
             birth: birth,
         }
-        fetch("/api/setAddress", {
+        fetch("https://bike-heaven.onrender.com/api/setAddress", {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"
