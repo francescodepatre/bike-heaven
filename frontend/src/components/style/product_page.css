@@ -1,0 +1,439 @@
+/*
+    Author: @FrancescoDePatre
+    Matricola: 318319
+    Università di Parma - Corso di Tecnologie Internet
+    Email:  francesco.depatre@studenti.unipr.it
+
+    Refactor UX/UI/A11y/Performance — vedi changelog in fondo al file.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
+:root{
+    --pp-accent: #c8ff3a;
+    --pp-accent-dark: #9fd418;
+    --pp-text: #16181c;
+    --pp-text-soft: #555c66;
+    --pp-border: #e2e4e8;
+    --pp-success: #1f8a4d;
+    --pp-success-bg: #e8f7ee;
+    --pp-warning: #b5650a;
+    --pp-warning-bg: #fdf1e3;
+    --pp-error: #d8453b;
+    --pp-error-bg: #fdecea;
+    --pp-radius: 12px;
+    --pp-transition: 0.25s ease;
+}
+
+.productContainer{
+    width: 100%;
+    height: fit-content;
+    padding-top: 96px;
+    box-sizing: border-box;
+}
+
+.productPage{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 48px;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+.productImage{
+    position: sticky;
+    top: 96px;
+    align-self: start;
+}
+
+.productImage img{
+    width: 100%;
+    height: auto;
+    border-radius: var(--pp-radius);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.productContent{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.productTitle{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.Title{
+    font-family: 'Signika', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin: 0;
+    color: var(--pp-text);
+}
+
+.SellerInfo{
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: var(--pp-text-soft);
+    margin: 0;
+}
+
+.Price{
+    font-family: 'Signika', sans-serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin: 0;
+    color: var(--pp-text);
+}
+
+/* ---------------------------- Disponibilità ---------------------------- */
+.productAvailability{
+    margin: -6px 0 0;
+}
+
+.availability_badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.availability_dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.av{
+    background-color: var(--pp-success-bg);
+    color: var(--pp-success);
+}
+.av .availability_dot{ background-color: var(--pp-success); }
+
+.few{
+    background-color: var(--pp-warning-bg);
+    color: var(--pp-warning);
+}
+.few .availability_dot{ background-color: var(--pp-warning); }
+
+.sold{
+    background-color: var(--pp-error-bg);
+    color: var(--pp-error);
+}
+.sold .availability_dot{ background-color: var(--pp-error); }
+
+/* ---------------------------- Descrizione ---------------------------- */
+.Description{
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--pp-text-soft);
+    margin: 0;
+}
+
+/* ---------------------------- Rating ---------------------------- */
+.productRatings{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* ---------------------------- Tabella specifiche ---------------------------- */
+.productSpecs table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.productSpecs tr:nth-child(even){
+    background-color: #f7f8f9;
+}
+
+.TableData,
+.BikeData{
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--pp-border);
+}
+
+.TableData{
+    font-family: 'Signika', sans-serif;
+    font-weight: 600;
+    color: var(--pp-text);
+    width: 35%;
+}
+
+.BikeData{
+    font-family: 'Poppins', sans-serif;
+    color: var(--pp-text-soft);
+}
+
+/* ---------------------------- Messaggi azione ---------------------------- */
+.action_message{
+    margin: 0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+}
+
+.action_success{
+    background-color: var(--pp-success-bg);
+    color: var(--pp-success);
+}
+
+.action_error{
+    background-color: var(--pp-error-bg);
+    color: var(--pp-error);
+}
+
+/* ---------------------------- Azioni: Add to Cart / Buy Now ---------------------------- */
+.actionMenu{
+    width: 100%;
+    max-width: 1200px;
+    margin: 32px auto 0;
+    padding: 0 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.addCart,
+.Buy{
+    flex: 1;
+}
+
+.addBtn,
+.buyBtn{
+    width: 100%;
+    padding: 16px 24px;
+    border-radius: 10px;
+    font-family: 'Signika', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition:
+        background-color var(--pp-transition),
+        color var(--pp-transition),
+        transform var(--pp-transition),
+        opacity var(--pp-transition);
+}
+
+/* Azione secondaria: aggiungere al carrello senza uscire dalla pagina */
+.addBtn{
+    background-color: transparent;
+    color: var(--pp-text);
+    border: 2px solid var(--pp-text);
+}
+
+.addBtn:hover:not(:disabled){
+    background-color: var(--pp-text);
+    color: #fff;
+}
+
+/* Azione primaria: acquisto immediato, massima prominenza visiva */
+.buyBtn{
+    background-color: var(--pp-accent);
+    color: var(--pp-text);
+    border: 2px solid var(--pp-accent);
+}
+
+.buyBtn:hover:not(:disabled){
+    background-color: var(--pp-accent-dark);
+    border-color: var(--pp-accent-dark);
+    transform: translateY(-2px);
+}
+
+.addBtn:disabled,
+.buyBtn:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.addBtn:focus-visible,
+.buyBtn:focus-visible{
+    outline: 3px solid var(--pp-accent-dark);
+    outline-offset: 2px;
+}
+
+/* ---------------------------- Skeleton loader ---------------------------- */
+.skeleton_image{
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--pp-radius);
+    background: linear-gradient(90deg, #ececec 25%, #f6f6f6 37%, #ececec 63%);
+    background-size: 400% 100%;
+    animation: skeleton_shimmer 1.4s ease infinite;
+}
+
+.skeleton_line{
+    height: 16px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, #ececec 25%, #f6f6f6 37%, #ececec 63%);
+    background-size: 400% 100%;
+    animation: skeleton_shimmer 1.4s ease infinite;
+}
+
+.skeleton_title{ width: 70%; height: 28px; }
+.skeleton_subtitle{ width: 40%; }
+.skeleton_price{ width: 25%; height: 22px; }
+.skeleton_text{ width: 100%; }
+
+@keyframes skeleton_shimmer{
+    0%{ background-position: 100% 50%; }
+    100%{ background-position: 0 50%; }
+}
+
+@media (prefers-reduced-motion: reduce){
+    .skeleton_image,
+    .skeleton_line{
+        animation: none;
+    }
+}
+
+/* ---------------------------- Stato di errore ---------------------------- */
+.state_message{
+    max-width: 600px;
+    margin: 96px auto 0;
+    text-align: center;
+    padding: 48px 24px;
+    border-radius: var(--pp-radius);
+    font-family: 'Poppins', sans-serif;
+}
+
+.state_error{
+    background-color: var(--pp-error-bg);
+    color: var(--pp-error);
+}
+
+.retry_button{
+    margin-top: 16px;
+    padding: 10px 24px;
+    border-radius: 999px;
+    border: 1px solid var(--pp-error);
+    background-color: transparent;
+    color: var(--pp-error);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--pp-transition), color var(--pp-transition);
+}
+
+.retry_button:hover{
+    background-color: var(--pp-error);
+    color: #fff;
+}
+
+.retry_button:focus-visible{
+    outline: 3px solid var(--pp-accent-dark);
+    outline-offset: 2px;
+}
+
+/* ---------------------------- Feedback / Recensioni ---------------------------- */
+.feedbacks{
+    width: 100%;
+    max-width: 900px;
+    margin: 64px auto 80px;
+    padding: 0 24px;
+    font-family: 'Signika', sans-serif;
+    box-sizing: border-box;
+}
+
+.feedbackListTitle h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 24px;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px){
+    .productPage{
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .productImage{
+        position: static;
+    }
+}
+
+@media (max-width: 600px){
+    .productContainer{
+        padding-top: 80px;
+    }
+
+    .productPage,
+    .actionMenu,
+    .feedbacks{
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .actionMenu{
+        flex-direction: column;
+    }
+
+    /* Su mobile l'azione primaria precede quella secondaria nel flusso
+       visivo, indipendentemente dall'ordine nel markup. */
+    .Buy{
+        order: -1;
+    }
+}
+
+/* ==========================================================================
+   CHANGELOG — sintesi delle modifiche rispetto alla versione originale
+   ==========================================================================
+
+   1. Layout immagine/contenuto da due blocchi al 40% (con 20% di
+      spazio implicito non dichiarato, probabile errore di calcolo) a
+      una vera grid a due colonne (.productPage) con gap esplicito,
+      che collassa a una colonna sotto i 900px — assente
+      nell'originale, dove sotto ~600px le colonne si comprimevano
+      illeggibili.
+   2. Immagine prodotto resa "sticky" su desktop (resta visibile
+      durante lo scroll del contenuto/specifiche), pattern comune sui
+      siti eCommerce premium per tenere il prodotto sempre in vista.
+   3. Gerarchia visiva tra i due bottoni: nell'originale erano
+      identici (entrambi neri pieni). Ora "Buy Now" (azione primaria,
+      porta dritto al checkout) usa il colore accent del brand,
+      "Add To Cart" (azione secondaria) resta in stile outline.
+   4. height: 200% sui bottoni (valore CSS fragile/imprevedibile su un
+      elemento senza riferimento di altezza esplicito) sostituito con
+      padding verticale generoso (16px), comportamento prevedibile.
+   5. font-weight: 1000 (non valido, i browser lo clampano
+      silenziosamente a 900) corretto a 600, valore standard.
+   6. Disponibilità prodotto: prima comunicata solo tramite colore del
+      testo (verde/coral/rosso), violando WCAG su non affidarsi al solo
+      colore. Aggiunto un badge con pallino colorato + testo sempre
+      presente, leggibile anche senza percezione del colore.
+   7. Tabella specifiche: th invece di td per le etichette (gestito in
+      JS), qui aggiunto styling con zebra striping leggero
+      (nth-child(even)) e bordo inferiore per migliorare la leggibilità
+      di un set di 7 righe dati, assente nell'originale.
+   8. Aggiunto skeleton loader (immagine + righe di testo) per lo stato
+      di caricamento, e uno stato di errore con CTA "Riprova" —
+      entrambi assenti nell'originale, dove la pagina restava vuota o
+      con dati incoerenti durante/dopo un fetch fallito.
+   9. Stile per .action_message (sostituisce i 6 alert() nativi
+      dell'originale) con varianti di successo/errore.
+   10. Bottoni con stato :disabled visivamente distinto durante
+       l'invio della richiesta, assente nell'originale.
+   11. Media query a 900px / 600px aggiunte ex novo (il file originale
+       non ne aveva nessuna): su mobile i bottoni passano da affiancati
+       a impilati a piena larghezza, con "Buy Now" per primo.
+   12. focus-visible su bottoni interattivi, assente nell'originale.
+*/

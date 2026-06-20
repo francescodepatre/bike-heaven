@@ -1,0 +1,273 @@
+/*
+    Author: @FrancescoDePatre
+    Matricola: 318319
+    Università di Parma - Corso di Tecnologie Internet
+    Email:  francesco.depatre@studenti.unipr.it
+
+    Refactor UX/UI/A11y/Performance — vedi changelog in fondo al file.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
+:root{
+    --results-accent: #c8ff3a;
+    --results-text: #f5f7fa;
+    --results-radius: 12px;
+    --results-transition: 0.25s ease;
+}
+
+.resultsContainer{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    background-image:
+        linear-gradient(180deg, rgba(12, 13, 16, 0.7) 0%, rgba(12, 13, 16, 0.9) 100%),
+        url("../images/result.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.resultPage{
+    width: 100%;
+    padding-bottom: 96px;
+}
+
+.resultString{
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 120px;
+    color: var(--results-text);
+    font-family: 'Signika', sans-serif;
+}
+
+.resultString h1{
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+
+.resultString em{
+    color: var(--results-accent);
+    font-style: normal;
+}
+
+.resultString p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: rgba(245, 247, 250, 0.75);
+    margin: 0;
+}
+
+/* ---------------------------- Griglia card ---------------------------- */
+.card_container{
+    width: 80%;
+    max-width: 1200px;
+    margin: 40px auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.card_product{
+    max-width: 345px;
+    margin: 10px 5px;
+}
+
+/* ---------------------------- Skeleton loader ---------------------------- */
+.skeleton_card{
+    border-radius: var(--results-radius);
+    overflow: hidden;
+    background-color: rgba(245, 247, 250, 0.06);
+    border: 1px solid rgba(245, 247, 250, 0.12);
+}
+
+.skeleton_image{
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(
+        90deg,
+        rgba(245, 247, 250, 0.06) 25%,
+        rgba(245, 247, 250, 0.14) 37%,
+        rgba(245, 247, 250, 0.06) 63%
+    );
+    background-size: 400% 100%;
+    animation: skeleton_shimmer 1.4s ease infinite;
+}
+
+.skeleton_line{
+    height: 14px;
+    margin: 16px 16px 0;
+    border-radius: 4px;
+    background: linear-gradient(
+        90deg,
+        rgba(245, 247, 250, 0.06) 25%,
+        rgba(245, 247, 250, 0.14) 37%,
+        rgba(245, 247, 250, 0.06) 63%
+    );
+    background-size: 400% 100%;
+    animation: skeleton_shimmer 1.4s ease infinite;
+}
+
+.skeleton_title{ width: 70%; }
+.skeleton_price{ width: 40%; margin-bottom: 16px; }
+
+@keyframes skeleton_shimmer{
+    0%{ background-position: 100% 50%; }
+    100%{ background-position: 0 50%; }
+}
+
+@media (prefers-reduced-motion: reduce){
+    .skeleton_image,
+    .skeleton_line{
+        animation: none;
+    }
+}
+
+/* ---------------------------- Stato: nessun risultato ---------------------------- */
+.noResults{
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 48px 24px;
+    border-radius: var(--results-radius);
+    background-color: rgba(0, 0, 0, 0.55);
+    color: var(--results-text);
+    font-family: 'Signika', sans-serif;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.noResults p{
+    margin: 0;
+}
+
+.back_to_shop_link{
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 24px;
+    border-radius: 999px;
+    background-color: var(--results-accent);
+    color: #0c0d10;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform var(--results-transition), box-shadow var(--results-transition);
+}
+
+.back_to_shop_link:hover,
+.back_to_shop_link:focus-visible{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(200, 255, 58, 0.3);
+}
+
+/* ---------------------------- Stato: errore ---------------------------- */
+.state_message{
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 48px 24px;
+    border-radius: var(--results-radius);
+    font-family: 'Poppins', sans-serif;
+}
+
+.state_error{
+    background-color: rgba(216, 69, 59, 0.15);
+    color: #ff8a80;
+}
+
+.retry_button{
+    margin-top: 16px;
+    padding: 10px 24px;
+    border-radius: 999px;
+    border: 1px solid #ff8a80;
+    background-color: transparent;
+    color: #ff8a80;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--results-transition), color var(--results-transition);
+}
+
+.retry_button:hover{
+    background-color: #ff8a80;
+    color: #0c0d10;
+}
+
+.retry_button:focus-visible,
+.back_to_shop_link:focus-visible{
+    outline: 3px solid var(--results-accent);
+    outline-offset: 3px;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px){
+    .resultString{
+        width: 90%;
+        padding-top: 96px;
+    }
+
+    .card_container{
+        width: 90%;
+        gap: 16px;
+    }
+
+    .noResults,
+    .state_message{
+        font-size: 1.05rem;
+        padding: 32px 16px;
+    }
+}
+
+@media (max-width: 420px){
+    .resultString{
+        width: 92%;
+    }
+
+    .card_container{
+        width: 92%;
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   CHANGELOG — sintesi delle modifiche rispetto alla versione originale
+   ==========================================================================
+
+   1. BUG: .card_product aveva max-width: 345, margin-left: 5,
+      margin-right: 5, margin-top: 10, margin-bottom: 10 senza unità di
+      misura — CSS non valido, queste dichiarazioni venivano scartate
+      dal browser e la classe di fatto non applicava alcuno stile.
+      Corrette tutte con px e consolidate in margin shorthand.
+   2. .card_container aveva gap: 1% (percentuale, poco prevedibile per
+      un grid-gap) sostituito con gap: 24px (16px su mobile), valore
+      fisso e prevedibile su qualunque larghezza di container.
+   3. height: max-content su .resultsContainer sostituito con
+      min-height: 100vh: con poco contenuto (es. stato di errore) il
+      background non si interrompeva prima della fine viewport.
+   4. Margini percentuali fragili (width:80%, margin-left/right:10%)
+      sostituiti con width 80-92% responsive + max-width fisso e
+      margin: 0 auto, più prevedibile su schermi molto larghi o stretti.
+   5. font-size: x-large fisso sostituito con clamp() sul titolo per
+      una tipografia fluida invece di un singolo valore non scalabile.
+   6. Aggiunto skeleton loader animato (shimmer), assente nell'originale
+      nonostante lo stato `loading` fosse già gestito in JS.
+   7. Aggiunto stato di errore visivamente distinto (.state_error) dal
+      "nessun risultato" (.noResults): nell'originale i due casi erano
+      indistinguibili per l'utente.
+   8. .noResults ridisegnato con padding reale (mancava nell'originale,
+      dove il background-color: black senza padding risultava in un
+      blocco testo schiacciato) e CTA "Torna allo Shop" per recovery.
+   9. focus-visible su CTA e bottone "Riprova", assente nell'originale.
+   10. Media query 768px / 420px aggiunte ex novo (il file originale
+       non ne aveva nessuna): card_container passa a colonna singola
+       sotto i 420px invece di restare in griglia stretta.
+   11. prefers-reduced-motion rispettato per l'animazione shimmer.
+*/

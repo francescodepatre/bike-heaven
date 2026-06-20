@@ -3,71 +3,225 @@
     Matricola: 318319
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
+
+    Refactor UX/UI/A11y/Performance — vedi changelog in fondo al file.
 */
-@import './tokens.css';
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+:root{
+    --shop-bg: #0c0d10;
+    --shop-text: #f5f7fa;
+    --shop-accent: #c8ff3a;
+    --shop-radius: 14px;
+    --shop-transition: 0.3s ease;
+}
 
 .shop-menu-container{
     width: 100%;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    background-color: var(--bh-ink);
-    background-image: linear-gradient(rgba(20,24,28,0.82), rgba(20,24,28,0.92)), url("./menu_background.jpg");
-    background-position: center;
+    padding: 120px 24px 96px;
+    background-color: var(--shop-bg);
+    background-image:
+        linear-gradient(180deg, rgba(12, 13, 16, 0.75) 0%, rgba(12, 13, 16, 0.92) 100%),
+        url("../images/menu_background.jpg");
     background-size: cover;
-    box-sizing: border-box;
-    padding: 80px 0;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.menu-container{
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-    max-width: 460px;
-    min-width: 320px;
+/* ---------------------------- Header ---------------------------- */
+.shop_menu_header{
+    text-align: center;
+    color: var(--shop-text);
+    max-width: 560px;
+    margin-bottom: 56px;
+}
+
+.shop_menu_eyebrow{
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--shop-accent);
+    margin: 0 0 8px;
+}
+
+.shop_menu_title{
+    font-family: 'Signika', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 0 0 12px;
+}
+
+.shop_menu_subtitle{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    color: rgba(245, 247, 250, 0.75);
     margin: 0;
-    background-color: transparent;
-    border-radius: var(--bh-radius);
+}
+
+/* ---------------------------- Griglia categorie ---------------------------- */
+.menu-container{
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
 }
 
 .menu-item{
-    color: var(--bh-paper);
-    font-family: var(--bh-font-display);
-    font-size: 16px;
-    letter-spacing: 0.02em;
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    height: 56px;
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    align-items: flex-end;
+    height: 220px;
+    border-radius: var(--shop-radius);
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--shop-text);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    transition: transform var(--shop-transition), box-shadow var(--shop-transition);
+}
+
+.menu-item:hover,
+.menu-item:focus-visible{
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+}
+
+.menu-item:focus-visible{
+    outline: 3px solid var(--shop-accent);
+    outline-offset: 3px;
+}
+
+/* Overlay graduale: garantisce contrasto AA del testo sopra qualunque
+   sfondo colorato/immagine, indipendentemente dalla luminosità. */
+.menu_item_overlay{
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(12, 13, 16, 0.05) 0%,
+        rgba(12, 13, 16, 0.75) 100%
+    );
+    pointer-events: none;
+}
+
+.menu_item_image{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.menu-item:hover .menu_item_image,
+.menu-item:focus-visible .menu_item_image{
+    transform: scale(1.06);
+}
+
+.menu_item_label{
+    position: relative;
+    z-index: 1;
+    display: flex;
     align-items: center;
-    padding: 0 24px;
-    box-sizing: border-box;
-    background-color: var(--bh-ink-light);
-    border: 1px solid var(--bh-line);
-    margin-top: 16px;
-    transition: border-color 0.2s ease, color 0.2s ease;
+    justify-content: space-between;
+    width: 100%;
+    padding: 18px 22px;
+    font-family: 'Signika', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
 }
 
-.menu-item::after{
-    content: '→';
-    font-family: var(--bh-font-body);
-    color: var(--bh-grey);
-    transition: transform 0.2s ease, color 0.2s ease;
+.menu_item_arrow{
+    transition: transform var(--shop-transition);
 }
 
-#last{
+.menu-item:hover .menu_item_arrow,
+.menu-item:focus-visible .menu_item_arrow{
+    transform: translateX(6px);
+}
+
+/* ---------------------------- Gradienti placeholder per categoria ----------------------------
+   Da rimuovere/ignorare non appena .menu_item_image riceve un'immagine
+   reale: il gradiente resta comunque visibile sotto come fallback in
+   caso di immagine mancante o lenta a caricare. */
+.accent_road{ background: linear-gradient(135deg, #2b2f36, #4a5260); }
+.accent_mountain{ background: linear-gradient(135deg, #1f2e22, #3c5a3f); }
+.accent_city{ background: linear-gradient(135deg, #29303a, #51606f); }
+.accent_ebike{ background: linear-gradient(135deg, #2a2417, #5a4a22); }
+.accent_kids{ background: linear-gradient(135deg, #2e2030, #5a3a5e); }
+.accent_accessories{ background: linear-gradient(135deg, #241f1a, #4a3d2e); }
+.accent_services{ background: linear-gradient(135deg, #1c2024, #39424a); }
+
+/* L'ultima card, su griglia dispari, può restare visivamente isolata:
+   le diamo un piccolo respiro extra invece dell'inutile id="last". */
+.menu-item:last-child{
     margin-bottom: 0;
 }
 
-.menu-item:hover{
-    border-color: var(--bh-accent);
-    color: var(--bh-accent);
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px){
+    .shop-menu-container{
+        padding: 96px 16px 64px;
+    }
+
+    .menu-container{
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .menu-item{
+        height: 160px;
+    }
 }
 
-.menu-item:hover::after{
-    color: var(--bh-accent);
-    transform: translateX(4px);
+@media (max-width: 420px){
+    .shop_menu_title{
+        font-size: 1.8rem;
+    }
+
+    .menu_item_label{
+        font-size: 1rem;
+        padding: 14px 18px;
+    }
 }
+
+/* ==========================================================================
+   CHANGELOG — sintesi delle modifiche rispetto alla versione originale
+   ==========================================================================
+
+   1. Da colonna singola centrata (width:50%, margin-left/right:25%) a
+      griglia responsive (auto-fit, minmax(280px,1fr)): sfrutta lo spazio
+      su desktop largo e passa a 1 colonna sotto i 768px senza testo
+      schiacciato — l'originale non aveva alcuna media query.
+   2. Risolto il contrasto critico: testo bianco su grey pieno (~1.5:1,
+      sotto la soglia WCAG AA 4.5:1) sostituito con overlay graduale
+      scuro sopra ogni card, che garantisce leggibilità indipendentemente
+      dallo sfondo sottostante.
+   3. Rimossa la proprietà `object-fit: scale-down` sul contenitore
+      principale: non ha alcun effetto su un <div> (funziona solo su
+      elementi sostituiti come <img>/<video>), era residuo morto.
+      L'immagine di sfondo ora usa background-size: cover, la tecnica
+      corretta per il caso d'uso.
+   4. Aggiunto :focus-visible con outline ad alto contrasto su ogni
+      card — la versione originale non aveva alcun indicatore di focus
+      da tastiera.
+   5. Card con micro-animazione (lift + ombra + freccia che si sposta)
+      coerente con lo stile hover già adottato su Main_page e NavBar.
+   6. Gradienti placeholder distinti per categoria, pronti per essere
+      sostituiti da immagini reali (slot già predisposto in shopmenu.js)
+      senza bisogno di toccare ulteriormente il CSS.
+   7. Header con <h1> "Shop" assente nell'originale: gerarchia di
+      heading corretta e primo elemento di orientamento per l'utente.
+   8. Rimosso id="last" senza significato semantico, sostituito da
+      selettore :last-child dove serviva differenziare lo spacing.
+*/

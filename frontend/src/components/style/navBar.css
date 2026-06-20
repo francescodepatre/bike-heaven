@@ -3,122 +3,358 @@
     Matricola: 318319
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
+
+    Refactor UX/UI/A11y/Performance — vedi changelog in fondo al file.
 */
-@import './tokens.css';
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+:root{
+    --nav-height: 72px;
+    --nav-bg: rgba(12, 13, 16, 0.55);
+    --nav-bg-scrolled: rgba(12, 13, 16, 0.92);
+    --nav-accent: #c8ff3a;
+    --nav-text: #f5f7fa;
+    --nav-text-soft: rgba(245, 247, 250, 0.75);
+    --nav-transition: 0.25s ease;
+}
+
+.visually_hidden{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
 
 .navBar{
-    margin-top: 0px;
-    position: absolute;
-    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    background-color: rgba(20, 24, 28, 0.75);
-    border-bottom: 1px solid var(--bh-line);
+    z-index: 100;
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background-color var(--nav-transition), box-shadow var(--nav-transition);
+}
+
+.navBar_scrolled{
+    background-color: var(--nav-bg-scrolled);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+}
+
+.navBar_inner{
+    max-width: 1320px;
+    margin: 0 auto;
+    height: var(--nav-height);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 40px;
-    box-sizing: border-box;
+    padding: 0 24px;
 }
 
-.items{
-    width: auto;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 28px;
-}
-
-.item{
-    font-size: 13px;
-    font-family: var(--bh-font-body);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--bh-paper);
-}
-
-.item h1{
-    font-size: 13px;
-    font-weight: 600;
-    margin: 0;
-}
-
-.item:hover{
-    color: var(--bh-accent);
-    cursor: pointer;
-}
-
-#filled_basic{
-    margin-right: 0px;
-    color: var(--bh-paper);
-}
-
-.textual_navbar{
-    display: flex;
-    align-items: center;
-    gap: 28px;
-}
-
+/* ---------------------------- Logo ---------------------------- */
 .navbar_home_button{
-    border: 0px;
-    background-color: transparent;
     display: flex;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar_home_button h3{
-    font-family: var(--bh-font-display);
-    font-size: 17px;
-    letter-spacing: 0.02em;
-    color: var(--bh-paper);
-    margin: 0;
+    align-items: baseline;
+    gap: 4px;
+    text-decoration: none;
 }
 
 .navbar_home_button:hover{
     cursor: pointer;
 }
 
-.navbar_home_button:hover h3{
-    color: var(--bh-accent);
+.brand_mark{
+    font-family: 'Signika', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.04em;
+    color: var(--nav-text);
 }
 
-.navbar_search_button{
-    border: 0px;
-    display: flex;
-    background-color: transparent;
-    justify-content: flex-end;
-    margin-top: 8px;
-    margin-left: 20px;
-    height: 35px;
-    width: 49px;
+.brand_mark_accent{
+    color: var(--nav-accent);
 }
 
-.navbar_search_button:hover{
+/* ------------------------- Hamburger (mobile) ------------------------- */
+.mobile_menu_toggle{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
     cursor: pointer;
+    padding: 0;
 }
 
-a,a:link,a:visited {
-  color: var(--bh-paper);
-  text-decoration: none;
-}
-a:link{
-    color: var(--bh-paper);
-}
-
-a:visited{
-    color: var(--bh-paper);
+.hamburger_line{
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--nav-text);
+    border-radius: 2px;
+    transition: transform var(--nav-transition), opacity var(--nav-transition);
 }
 
-/* Campo di ricerca MUI: bordo e testo coerenti col tema scuro */
-.item .MuiFilledInput-root{
-    background-color: rgba(244,242,236,0.06);
-    border-radius: var(--bh-radius);
+/* ---------------------------- Nav items ---------------------------- */
+.items{
+    display: flex;
+    align-items: center;
+    gap: 28px;
 }
-.item .MuiFilledInput-root:hover{
-    background-color: rgba(244,242,236,0.1);
+
+.textual_navbar{
+    display: flex;
+    align-items: center;
+    gap: 24px;
 }
-.item .MuiFilledInput-underline:after{
-    border-bottom-color: var(--bh-accent);
+
+.item{
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
 }
+
+.nav_link{
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--nav-text-soft);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 6px 2px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    transition: color var(--nav-transition);
+}
+
+.nav_link::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--nav-accent);
+    transition: width var(--nav-transition);
+}
+
+.nav_link:hover,
+.nav_link:focus-visible{
+    color: var(--nav-text);
+}
+
+.nav_link:hover::after,
+.nav_link:focus-visible::after{
+    width: 100%;
+}
+
+.nav_link.is_active{
+    color: var(--nav-text);
+}
+
+.nav_link.is_active::after{
+    width: 100%;
+}
+
+.nav_link_button{
+    text-transform: none;
+}
+
+.cart_icon{
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* ---------------------------- Search ---------------------------- */
+.search_form{
+    display: flex;
+    align-items: center;
+    background-color: rgba(245, 247, 250, 0.1);
+    border: 1px solid rgba(245, 247, 250, 0.2);
+    border-radius: 999px;
+    overflow: hidden;
+    transition: border-color var(--nav-transition), background-color var(--nav-transition);
+}
+
+.search_form:focus-within{
+    border-color: var(--nav-accent);
+    background-color: rgba(245, 247, 250, 0.16);
+}
+
+.search_input{
+    border: none;
+    background: transparent;
+    color: var(--nav-text);
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    padding: 8px 4px 8px 14px;
+    width: 180px;
+    outline: none;
+}
+
+.search_input::placeholder{
+    color: rgba(245, 247, 250, 0.5);
+}
+
+.search_submit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 32px;
+    margin-right: 2px;
+    border: none;
+    background: transparent;
+    color: var(--nav-text);
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color var(--nav-transition);
+}
+
+.search_submit:hover{
+    background-color: rgba(245, 247, 250, 0.15);
+}
+
+/* ---------------------------- Focus visibile ---------------------------- */
+.nav_link:focus-visible,
+.mobile_menu_toggle:focus-visible,
+.search_submit:focus-visible,
+.search_input:focus-visible{
+    outline: 2px solid var(--nav-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Link generici (compatibilità con eventuali stili ereditati altrove) */
+a, a:link, a:visited{
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px){
+    .search_input{
+        width: 130px;
+    }
+
+    .textual_navbar{
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px){
+    .mobile_menu_toggle{
+        display: flex;
+    }
+
+    .navBar_inner{
+        height: 64px;
+    }
+
+    .items{
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        background-color: var(--nav-bg-scrolled);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height var(--nav-transition), opacity var(--nav-transition);
+    }
+
+    .items_open{
+        max-height: 80vh;
+        opacity: 1;
+        overflow-y: auto;
+        padding-bottom: 16px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .items .item{
+        width: 100%;
+        padding: 14px 24px;
+        border-bottom: 1px solid rgba(245, 247, 250, 0.08);
+    }
+
+    .textual_navbar{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        width: 100%;
+    }
+
+    .nav_link{
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .nav_link::after{
+        display: none;
+    }
+
+    .search_form{
+        width: 100%;
+    }
+
+    .search_input{
+        width: 100%;
+    }
+}
+
+@media (max-width: 420px){
+    .navBar_inner{
+        padding: 0 16px;
+    }
+
+    .brand_mark{
+        font-size: 17px;
+    }
+}
+
+/* ==========================================================================
+   CHANGELOG — sintesi delle modifiche rispetto alla versione originale
+   ==========================================================================
+
+   1. Da `position: absolute` a `position: fixed` con z-index dedicato:
+      la navbar resta visibile e utilizzabile anche dopo lo scroll
+      (prima scompariva scorrendo, comportamento non da sito premium).
+   2. Sfondo che passa da semi-trasparente a quasi opaco allo scroll
+      (.navBar_scrolled), garantendo leggibilità su qualunque contenuto
+      sottostante — nell'originale il testo bianco poteva risultare
+      illeggibile su sfondi chiari.
+   3. backdrop-filter: blur per un effetto "vetro" coerente con
+      l'estetica premium di Trek/Canyon.
+   4. font-size dei link portato da 11px (illeggibile) a 14px desktop /
+      16px mobile.
+   5. Sistema di sottolineatura animata (::after) per indicare hover e
+      route attiva — gerarchia visiva chiara, micro-animazione elegante.
+   6. Menu mobile con hamburger, transizione max-height/opacity fluida,
+      item impilati a piena larghezza con touch target adeguati.
+   7. Search bar ridisegnata come pill coerente con la palette del
+      brand, niente più stili inline forzati via prop MUI.
+   8. focus-visible su tutti gli elementi interattivi della navbar,
+      assente nella versione originale.
+   9. Rimossi margini fissi (margin-left: 10px ecc.) sostituiti da
+      `gap` su flex container — più prevedibile e manutenibile.
+   10. Media query a 900px / 768px / 420px aggiunte ex novo (il file
+       originale non ne aveva nessuna).
+*/

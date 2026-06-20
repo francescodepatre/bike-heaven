@@ -1,0 +1,45 @@
+/*
+    Author: @FrancescoDePatre
+    Matricola: 318319
+    Università di Parma - Corso di Tecnologie Internet
+    Email:  francesco.depatre@studenti.unipr.it
+*/
+.refund{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.refundTitle {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .refContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .field {
+    flex: 1;
+  }
+  
+  .refundName {
+    flex-basis: 150px;
+    margin-right: 10px;
+  }
+  
+  #cancelRefund,
+  #confirmRefund {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#confirmRefund {
+    background-color: #28a745;
+}

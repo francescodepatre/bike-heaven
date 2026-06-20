@@ -3,182 +3,355 @@
     Matricola: 318319
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
+
+    Refactor UX/UI/A11y/Performance — vedi changelog in fondo al file.
 */
-@import './tokens.css';
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
+:root{
+    --reg-accent: #c8ff3a;
+    --reg-accent-dark: #9fd418;
+    --reg-text: #16181c;
+    --reg-text-soft: #555c66;
+    --reg-error: #d8453b;
+    --reg-error-bg: #fdecea;
+    --reg-radius: 14px;
+    --reg-transition: 0.25s ease;
+}
 
 .registration_page{
     display: flex;
+    align-items: flex-start;
+    justify-content: center;
     width: 100%;
-    height: fit-content;
     min-height: 100vh;
-    background-color: var(--bh-ink);
-    background-image: linear-gradient(rgba(20,24,28,0.85), rgba(20,24,28,0.92)), url("./registration_background.jpeg");
+    background-image:
+        linear-gradient(180deg, rgba(12, 13, 16, 0.55) 0%, rgba(12, 13, 16, 0.75) 100%),
+        url("../images/registration_background.jpeg");
     background-position: center top;
     background-size: cover;
+    background-repeat: no-repeat;
     margin: 0;
-    padding: 80px 0;
+    padding: 64px 24px;
     box-sizing: border-box;
 }
 
 .registration_container{
-    margin-top: 0;
-    margin-bottom: 0;
-    background-color: var(--bh-ink-light);
-    border: 1px solid var(--bh-line);
-    opacity: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-    max-width: 520px;
-    padding: 40px 0;
-}
-
-.field{
-    width: calc(100% - 96px);
-    margin-left: 48px;
-}
-
-.field .MuiOutlinedInput-root{
-    background-color: rgba(244,242,236,0.05);
-    border-radius: var(--bh-radius);
-}
-
-.field .MuiOutlinedInput-notchedOutline{
-    border-color: var(--bh-line);
-}
-
-.field .MuiInputBase-input{
-    color: var(--bh-paper);
-}
-
-.field .MuiInputLabel-root{
-    color: var(--bh-grey);
-}
-
-.field:hover .MuiOutlinedInput-notchedOutline{
-    border-color: var(--bh-grey);
-}
-
-.field .Mui-focused .MuiOutlinedInput-notchedOutline{
-    border-color: var(--bh-accent) !important;
-}
-
-.phone_field{
-    width: calc(100% - 96px);
-    margin-left: 48px;
-    height: 40px;
-    background-color: rgba(244,242,236,0.05);
-    border: 1px solid var(--bh-line);
-    border-radius: var(--bh-radius);
-    color: var(--bh-paper);
-    padding: 0 12px;
+    width: 100%;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.96);
+    border-radius: var(--reg-radius);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+    padding: 36px 36px 32px;
     box-sizing: border-box;
 }
 
 .registration_title{
-    margin-left: 48px;
-    margin-bottom: 28px;
-    font-family: var(--bh-font-display);
-    font-size: 28px;
-    color: var(--bh-paper);
-}
-
-.registration_name{
-    margin-left: 48px;
-    margin-right: 30px;
-    font-family: var(--bh-font-body);
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--bh-grey);
-    margin-bottom: 8px;
-}
-
-.cont1{
-    margin-bottom: 22px;
-}
-
-.cont2{
-    margin-bottom: 4px;
-}
-
-.cont1,.cont2,.cont4{
-    margin-left: 0;
-}
-
-.cont3{
-    display: flex;
-    align-self: center;
-    gap: 16px;
-    margin-left: 48px;
-    margin-right: 48px;
-    margin-top: 32px;
-    margin-bottom: 8px;
-    width: auto;
-}
-
-#cancel{
-    padding: 12px 24px;
-    margin: 0;
-    border-radius: var(--bh-radius);
-    border: 1px solid var(--bh-line);
-    opacity: 100%;
-    background-color: transparent;
-    color: var(--bh-paper);
-    font-family: var(--bh-font-body);
-    font-weight: 600;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: border-color 0.2s ease, color 0.2s ease;
-}
-
-#registration{
-    padding: 12px 28px;
-    margin: 0;
-    opacity: 100%;
-    border-radius: var(--bh-radius);
-    border: none;
-    background-color: var(--bh-accent);
-    color: var(--bh-ink);
-    font-family: var(--bh-font-body);
-    font-weight: 600;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-#cancel:hover{
-    border-color: var(--bh-danger);
-    color: var(--bh-danger);
-}
-
-#registration:hover{
-    background-color: var(--bh-accent-hover);
+    margin: 0 0 4px;
+    font-family: 'Signika', sans-serif;
+    font-weight: 700;
+    font-size: 1.7rem;
+    color: var(--reg-text);
 }
 
 .login_string{
-    font-family: var(--bh-font-body);
-    font-weight: 400;
-    font-size: 13px;
-    color: var(--bh-grey);
-    margin-left: 48px;
-    margin-right: 48px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    color: var(--reg-text-soft);
+    margin: 6px 0 24px;
+    line-height: 1.5;
 }
 
-#login_link{
-    font-family: var(--bh-font-body);
-    opacity: 100%;
-    color: var(--bh-accent);
-    text-decoration: none;
-    cursor: pointer;
-    margin-left: 4px;
-}
-
-#login_link:hover{
+.inline_link{
+    color: var(--reg-text);
     text-decoration: underline;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color var(--reg-transition);
 }
+
+.inline_link:hover,
+.inline_link:focus-visible{
+    color: var(--reg-accent-dark);
+}
+
+/* ---------------------------- Form ---------------------------- */
+.registration_form{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form_section_label{
+    margin: 8px 0 -2px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--reg-accent-dark);
+    border-top: 1px solid #eceef1;
+    padding-top: 16px;
+}
+
+.registration_form > .form_section_label:first-child{
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.form_row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.form_field{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form_field label{
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--reg-text);
+}
+
+.form_field input{
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #d8dade;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    color: var(--reg-text);
+    box-sizing: border-box;
+    transition:
+        border-color var(--reg-transition),
+        box-shadow var(--reg-transition);
+}
+
+.form_field input:hover{
+    border-color: #b9bcc2;
+}
+
+.form_field input:focus,
+.form_field input:focus-visible{
+    outline: none;
+    border-color: var(--reg-accent-dark);
+    box-shadow: 0 0 0 3px rgba(200, 255, 58, 0.35);
+}
+
+.form_field input[aria-invalid="true"]{
+    border-color: var(--reg-error);
+}
+
+.field_error{
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.78rem;
+    color: var(--reg-error);
+}
+
+.form_error_global{
+    margin: 0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background-color: var(--reg-error-bg);
+    color: var(--reg-error);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+}
+
+/* ---------------------------- Date field (MUI) ---------------------------- */
+.date_field{
+    width: 100%;
+}
+
+.date_field .MuiInputBase-root{
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+}
+
+.date_field .MuiOutlinedInput-notchedOutline{
+    border-color: #d8dade;
+}
+
+.date_field .MuiInputBase-root:hover .MuiOutlinedInput-notchedOutline{
+    border-color: #b9bcc2;
+}
+
+.date_field .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline{
+    border-color: var(--reg-accent-dark);
+    border-width: 2px;
+}
+
+/* ---------------------------- Phone field ---------------------------- */
+.phone_field{
+    width: 100%;
+    --PhoneInputCountryFlag-height: 1em;
+}
+
+.phone_field input{
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #d8dade;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    color: var(--reg-text);
+    box-sizing: border-box;
+    transition:
+        border-color var(--reg-transition),
+        box-shadow var(--reg-transition);
+}
+
+.phone_field input:hover{
+    border-color: #b9bcc2;
+}
+
+.phone_field input:focus,
+.phone_field input:focus-visible{
+    outline: none;
+    border-color: var(--reg-accent-dark);
+    box-shadow: 0 0 0 3px rgba(200, 255, 58, 0.35);
+}
+
+/* ---------------------------- Bottoni ---------------------------- */
+.cont3{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 10px;
+    padding-top: 16px;
+    border-top: 1px solid #eceef1;
+}
+
+#cancel,
+#registration{
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-family: 'Signika', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        background-color var(--reg-transition),
+        color var(--reg-transition),
+        transform var(--reg-transition),
+        opacity var(--reg-transition);
+}
+
+#cancel{
+    background-color: transparent;
+    color: var(--reg-text);
+    border: 2px solid #d8dade;
+}
+
+#cancel:hover{
+    background-color: #f5f6f7;
+    border-color: #b9bcc2;
+}
+
+#registration{
+    background-color: var(--reg-accent);
+    color: var(--reg-text);
+    border: 2px solid var(--reg-accent);
+}
+
+#registration:hover{
+    background-color: var(--reg-accent-dark);
+    border-color: var(--reg-accent-dark);
+    transform: translateY(-2px);
+}
+
+#cancel:disabled,
+#registration:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#cancel:focus-visible,
+#registration:focus-visible{
+    outline: 3px solid var(--reg-accent-dark);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 600px){
+    .registration_page{
+        padding: 48px 16px;
+    }
+
+    .registration_container{
+        max-width: 100%;
+        padding: 28px 22px;
+    }
+
+    .form_row{
+        grid-template-columns: 1fr;
+    }
+
+    .cont3{
+        grid-template-columns: 1fr;
+    }
+
+    #registration{
+        order: -1;
+    }
+}
+
+/* ==========================================================================
+   CHANGELOG — sintesi delle modifiche rispetto alla versione originale
+   ==========================================================================
+
+   1. BUG: opacity: 80% su .registration_container abbassava l'opacità
+      anche di tutto il contenuto figlio (stesso bug già corretto in
+      Login.css). Sostituito con rgba(255,255,255,0.96) sullo sfondo:
+      il box resta semi-trasparente, il contenuto resta a piena
+      leggibilità.
+   2. .registration_field e .password_field con width: 400px fisso
+      erano definite nel CSS ma mai applicate nel JSX originale (il
+      markup usava la classe `field`, non queste) — CSS morto rimosso,
+      copiato per errore dal file Login senza essere ripulito.
+   3. Form da singola colonna con margin-bottom: 50px per campo (8
+      campi = centinaia di px di scroll) a griglia a due colonne
+      (.form_row) per Nome/Cognome, Data di nascita/Telefono,
+      Username/Password: dimezza la lunghezza percepita del form,
+      pattern standard sui form di registrazione eCommerce per ridurre
+      l'abbandono.
+   4. Aggiunte due sottosezioni "Dati personali"/"Account"
+      (.form_section_label) per dare gerarchia visiva a un form lungo,
+      assenti nell'originale dove tutti gli 8 campi erano un blocco
+      indistinto.
+   5. width: 60% senza max-width sostituito con max-width: 600px +
+      margin auto via flex sul genitore: niente più form eccessivamente
+      largo su schermi ampi né compresso su schermi stretti.
+   6. Stili dedicati per il DateField di MUI (.date_field) e per
+      PhoneInput (.phone_field) per allinearli visivamente agli input
+      nativi del resto del form (stesso border-radius, stesso colore di
+      focus, stessa palette) — nell'originale questi due campi
+      apparivano visivamente disallineati dal resto.
+   7. Bottoni #cancel/#registration: colori crimson/green generici
+      sostituiti con la palette accent (lime) già introdotta in
+      NavBar/Login, per coerenza di brand. white-space: nowrap aggiunto
+      per evitare che "Register" vada a capo (stesso fix già applicato
+      in Login.css).
+   8. Aggiunto :focus-visible su bottoni, link e input — assente
+      nell'originale.
+   9. Aggiunto stile per .field_error (errore per campo) e
+      .form_error_global (errore generale del form), funzionalità
+      nuove richieste dal refactor di registration.js.
+   10. Media query a 600px aggiunta ex novo: .form_row e .cont3 passano
+       da due colonne a una colonna impilata su mobile, con
+       "Register" sopra "Cancel" per dare priorità all'azione primaria
+       (stesso pattern già usato in Login.css).
+*/

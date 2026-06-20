@@ -4,8 +4,10 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
     https://www.youtube.com/watch?v=DfqZhItEK-U
+
+    Refactor UX/UI/A11y/Performance — vedi changelog in fondo al file.
 */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 //import bikeTrailer from './bike_heaven.mp4';
 //import aboutVideo from './abus.mp4';
@@ -15,154 +17,391 @@ import Twitter from './images/twitter_icon.png';
 import Instagram from './images/instagram_icon.png';
 import YouTube from './images/youtube_icon.png';
 
-function Main_page(){
+const API_BASE = "https://bike-heaven.onrender.com/api";
 
-    const [data,setData] = useState('')
-    const [loading, setLoading] = useState(true)
-    const navigate = useNavigate()
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [message, setMessage] = useState('')
+/* -------------------------------------------------------------------------- */
+/*  Skeleton card — mostrata durante il loading al posto delle CardNew reali  */
+/* -------------------------------------------------------------------------- */
+function SkeletonCard() {
+    return (
+        <div className="skeleton_card" aria-hidden="true">
+            <div className="skeleton_image" />
+            <div className="skeleton_line skeleton_title" />
+            <div className="skeleton_line skeleton_price" />
+        </div>
+    );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Hook minimale per il fade-in on scroll, rispetta prefers-reduced-motion   */
+/* -------------------------------------------------------------------------- */
+function useRevealOnScroll() {
+    const ref = useRef(null);
 
     useEffect(() => {
-        async function fetchData() {
-            try{
-                const response = await fetch("https://bike-heaven.onrender.com/api/home");
+        const node = ref.current;
+        if (!node) return;
 
-                if (response.status === 500) {
-                    throw new Error("Fetching data failed");
+        const prefersReducedMotion = window.matchMedia(
+            '(prefers-reduced-motion: reduce)'
+        ).matches;
+
+        if (prefersReducedMotion) {
+            node.classList.add('is_visible');
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    node.classList.add('is_visible');
+                    observer.unobserve(node);
                 }
-
-                const JSONData = await response.json();
-                setData(JSONData.data.oggetti);
-                console.log(data);
-                console.log(loading);
-                setLoading(false);
-            
-            }catch(err){
-                console.log("Error: ", err)
-                setLoading(false)
-            }
-        }
-
-        fetchData()
-        
-    },[])
-
-    function handleForm(event){
-        event.preventDefault()
-        let mailData = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            message: message
-        }
-        fetch("https://bike-heaven.onrender.com/api/contact", {
-            method: "POST",
-            headers:{
-                "Content-Type":"application/json"
             },
-            body:JSON.stringify(mailData)
-        }).then(response => response.json()).then(data => {
-            alert("Thank you for contacting us for assistance. We are here to help you and will do our best to answer your questions and solve any problems you may have.")
-            navigate("/")
-        })
+            { threshold: 0.15 }
+        );
 
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, []);
+
+    return ref;
+}
+
+function Main_page() {
+
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [fetchError, setFetchError] = useState(false);
+    const navigate = useNavigate();
+
+    // Form state
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+    const [formErrors, setFormErrors] = useState({});
+    const [submitting, setSubmitting] = useState(false);
+    const [submitSuccess, setSubmitSuccess] = useState(false);
+
+    // Refs per il reveal-on-scroll delle sezioni
+    const aboutRef = useRevealOnScroll();
+    const contactRef = useRevealOnScroll();
+
+    const loadProducts = useCallback(async () => {
+        setLoading(true);
+        setFetchError(false);
+        try {
+            const response = await fetch(`${API_BASE}/home`);
+
+            if (!response.ok) {
+                throw new Error("Fetching data failed");
+            }
+
+            const JSONData = await response.json();
+            setData(JSONData.data.oggetti || []);
+        } catch (err) {
+            setFetchError(true);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        loadProducts();
+    }, [loadProducts]);
+
+    /* ---------------------------- Validazione form --------------------------- */
+    const validate = () => {
+        const errors = {};
+        if (!firstName.trim()) errors.firstName = "Il nome è obbligatorio.";
+        if (!lastName.trim()) errors.lastName = "Il cognome è obbligatorio.";
+        if (!email.trim()) {
+            errors.email = "L'email è obbligatoria.";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errors.email = "Inserisci un indirizzo email valido.";
+        }
+        if (!message.trim()) errors.message = "Scrivi un messaggio prima di inviare.";
+        return errors;
+    };
+
+    function handleForm(event) {
+        event.preventDefault();
+
+        const errors = validate();
+        setFormErrors(errors);
+        if (Object.keys(errors).length > 0) return;
+
+        const mailData = { firstName, lastName, email, message };
+        setSubmitting(true);
+        setSubmitSuccess(false);
+
+        fetch(`${API_BASE}/contact`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(mailData)
+        })
+            .then(response => response.json())
+            .then(() => {
+                setSubmitSuccess(true);
+                setFirstName('');
+                setLastName('');
+                setEmail('');
+                setMessage('');
+                setFormErrors({});
+            })
+            .catch(() => {
+                setFormErrors({ global: "Invio non riuscito. Riprova tra qualche istante." });
+            })
+            .finally(() => setSubmitting(false));
     }
-    
-    return(
+
+    const hasProducts = useMemo(() => Array.isArray(data) && data.length > 0, [data]);
+
+    return (
         <div className="main_containers">
+
+            {/* ---------------------------- HERO ---------------------------- */}
             <div className="first_container">
+                <div className="hero_overlay" aria-hidden="true" />
                 <div className="title_container">
+                    <p className="eyebrow">Cycling Science meets Adventure</p>
                     <h1 id="title">Welcome to Bike Heaven</h1>
-                    <h3 id="subtitle">Where Cycling Science meets Adventure.</h3>
+                    <h2 id="subtitle">
+                        Biciclette, componenti e accessori per chi non si accontenta.
+                    </h2>
                     <div id="visit_shop">
-                         <Link id="shop_button" to="/shop">
-                            Shop
+                        <Link id="shop_button" to="/shop">
+                            Scopri lo Shop
+                            <span className="shop_button_arrow" aria-hidden="true">→</span>
                         </Link>
                     </div>
-                   
                 </div>
                 <iframe
-                    id="video"
+                    id="hero_video"
+                    className="background_video"
                     src="https://www.youtube.com/embed/IPyYIysw4Zw?autoplay=1&mute=1&loop=1&playlist=IPyYIysw4Zw&controls=0&modestbranding=1&rel=0"
-                    title="Bike Trailer"
+                    title="Video promozionale Bike Heaven"
                     frameBorder="0"
+                    loading="lazy"
                     allow="autoplay; encrypted-media"
                     allowFullScreen
+                    aria-hidden="true"
+                    tabIndex="-1"
                 />
             </div>
+
+            {/* ------------------------- PRODOTTI ------------------------- */}
             <div className="second_container">
-                <h1 id="second_title">Last Bike Models</h1>
-                <div className='Cards_container'>
-                    {data ? (
+                <h2 id="second_title">Ultimi Modelli</h2>
+
+                <div className="Cards_container" aria-live="polite">
+                    {loading && (
+                        Array.from({ length: 4 }).map((_, idx) => (
+                            <SkeletonCard key={`skeleton-${idx}`} />
+                        ))
+                    )}
+
+                    {!loading && fetchError && (
+                        <div className="state_message state_error" role="alert">
+                            <p>Non siamo riusciti a caricare i prodotti in questo momento.</p>
+                            <button
+                                type="button"
+                                className="retry_button"
+                                onClick={loadProducts}
+                            >
+                                Riprova
+                            </button>
+                        </div>
+                    )}
+
+                    {!loading && !fetchError && !hasProducts && (
+                        <div className="state_message">
+                            <p>Nessun prodotto disponibile al momento. Torna a trovarci presto!</p>
+                        </div>
+                    )}
+
+                    {!loading && !fetchError && hasProducts && (
                         data.map(item => (
-                            <CardNew 
-                            id={item.id}
-                            title={item.name}
-                            price={item.price}
-                            description={item.desc} 
-                            immagine={`data:image/jpeg;base64, ${item.picture}`}
+                            <CardNew
+                                key={item.id}
+                                id={item.id}
+                                title={item.name}
+                                price={item.price}
+                                description={item.desc}
+                                immagine={`data:image/jpeg;base64,${item.picture}`}
                             />
                         ))
-                    ):(
-                        <p>Nessun Dato Disponibile</p>
                     )}
                 </div>
             </div>
-            <div className="third_container" id="about_container">
-                <div className="about">
-                    <h1 id="about_title">About Us </h1>
-                    <p id="about_subtitle">
-                    Welcome to Bike Heaven, the ultimate destination for bicycle enthusiasts! <br></br> 
-                    We are a passionate e-commerce platform dedicated to providing cyclists of all levels with everything they need to fully enjoy their riding experience.<br></br>
-                    <br></br>
-                    From high-quality accessories and components to renowned bike brands, we strive to offer a wide selection of products that cater to every cyclist's needs. <br></br>
-                    Whether you're a urban rider in search of a stylish and functional bike for your daily commute or an adventurous cyclist looking for the perfect gear to tackle challenging trails, Bike Heaven has got you covered. <br></br>
 
-                    Our mission is to make the purchase of cycling products a seamless, secure, and exciting experience. <br></br>
-                    With our user-friendly website and intuitive navigation, you can easily find what you're looking for. <br></br>
-                    We also provide detailed product information and user reviews to help you make informed decisions. <br></br>
+            {/* --------------------------- ABOUT --------------------------- */}
+            <div className="third_container" id="about_container">
+                <div className="about_overlay" aria-hidden="true" />
+                <div className="about reveal_on_scroll" ref={aboutRef}>
+                    <h2 id="about_title">About Us</h2>
+                    <p id="about_subtitle">
+                        Benvenuti in Bike Heaven, la destinazione definitiva per gli appassionati di
+                        ciclismo. Siamo una piattaforma e-commerce nata per offrire ai ciclisti di
+                        ogni livello tutto ciò che serve per vivere al meglio la propria
+                        esperienza in sella.
+                        <br /><br />
+                        Dagli accessori di alta qualità ai brand più rinomati, selezioniamo una
+                        gamma di prodotti pensata per ogni esigenza: dal city rider alla ricerca
+                        di stile e funzionalità, fino al ciclista avventuroso pronto ad affrontare
+                        i sentieri più impegnativi.
+                        <br /><br />
+                        La nostra missione è rendere l'acquisto di prodotti per il ciclismo
+                        un'esperienza semplice, sicura e coinvolgente, con informazioni dettagliate
+                        e recensioni reali per aiutarti a scegliere con consapevolezza.
                     </p>
                 </div>
                 <iframe
-                        id="video"
-                        src="https://www.youtube.com/embed/DfqZhItEK-U?autoplay=1&mute=1&loop=1&playlist=DfqZhItEK-U&controls=0&modestbranding=1&rel=0&showinfo=0"
-                        title="Bike Trailer"
-                        frameBorder="0"
-                        allow="autoplay; encrypted-media"
-                        allowFullScreen
-                    />
+                    id="about_video"
+                    className="background_video"
+                    src="https://www.youtube.com/embed/DfqZhItEK-U?autoplay=1&mute=1&loop=1&playlist=DfqZhItEK-U&controls=0&modestbranding=1&rel=0&showinfo=0"
+                    title="Bike Heaven - Chi siamo"
+                    frameBorder="0"
+                    loading="lazy"
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                    aria-hidden="true"
+                    tabIndex="-1"
+                />
             </div>
-            <div className="fourth_container" id="contact_container">
+
+            {/* ------------------------- CONTATTI ------------------------- */}
+            <div className="fourth_container reveal_on_scroll" id="contact_container" ref={contactRef}>
                 <div className="left_container">
-                    <h1 className="left_title">Follow Us</h1>
+                    <h2 className="left_title">Follow Us</h2>
                     <div className="social_buttons">
                         <div className="buttons_container">
-                            <a id="twitter_button" href="https://twitter.com/bikeheaven_?s=21&t=gWAZRenKIUUZES44W8rUUg">
-                                <img src={Twitter} alt="twitter"/>
+                            <a
+                                id="twitter_button"
+                                className="social_link"
+                                href="https://twitter.com/bikeheaven_?s=21&t=gWAZRenKIUUZES44W8rUUg"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Seguici su Twitter"
+                            >
+                                <img src={Twitter} alt="" />
                             </a>
-                            <a id="instagram_button" href="https://www.instagram.com/bikeheaven.business/">
-                                <img src={Instagram} alt="instagram"/>
+                            <a
+                                id="instagram_button"
+                                className="social_link"
+                                href="https://www.instagram.com/bikeheaven.business/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Seguici su Instagram"
+                            >
+                                <img src={Instagram} alt="" />
                             </a>
-                            <a id="youtube_button" href="https://www.youtube.com/channel/UC4WQZ6RHLaklIzQh2Wlu2ig">
-                                <img src={YouTube} alt="youtube"/>
+                            <a
+                                id="youtube_button"
+                                className="social_link"
+                                href="https://www.youtube.com/channel/UC4WQZ6RHLaklIzQh2Wlu2ig"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Iscriviti al canale YouTube"
+                            >
+                                <img src={YouTube} alt="" />
                             </a>
                         </div>
                     </div>
-                    <p id="bottom_info">Via Borgo Rodolfo Tanzi 30/1, 43125, Parma (PR)</p>
+                    <address id="bottom_info">
+                        Via Borgo Rodolfo Tanzi 30/1, 43125, Parma (PR)
+                    </address>
                     <p id="authorInfo">Made by: Francesco De Patre</p>
                 </div>
+
                 <div className="right_container">
-                    <h1 className="right_title">Contact Us</h1>
-                    <div className="contact_us_container" >
-                        <h3 className="cont">Name: <input id="nameField" title="Name" type="text" onChange={(e) => setFirstName(e.target.value)}/>Surname: <input id="surnameField" title="Surame" type="text" onChange={(e) => setLastName(e.target.value)}/></h3>
-                        <h3 className="cont">Email: <input id="emailField" title="Email" type="text" onChange={(e) => setEmail(e.target.value)}/></h3>
-                        <h3 className="cont">Message:</h3>
-                        <textarea id="messageField" title="Message" type="text" onChange={(e) => setMessage(e.target.value)}/>
-                    </div>
-                    <button id="sendButton" title="Send" onClick={handleForm}>Send</button>
+                    <h2 className="right_title">Contact Us</h2>
+                    <form className="contact_us_container" onSubmit={handleForm} noValidate>
+
+                        <div className="form_row">
+                            <div className="form_field">
+                                <label htmlFor="nameField">Nome</label>
+                                <input
+                                    id="nameField"
+                                    type="text"
+                                    autoComplete="given-name"
+                                    value={firstName}
+                                    aria-invalid={!!formErrors.firstName}
+                                    aria-describedby={formErrors.firstName ? "nameField-error" : undefined}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                />
+                                {formErrors.firstName && (
+                                    <span className="field_error" id="nameField-error">{formErrors.firstName}</span>
+                                )}
+                            </div>
+
+                            <div className="form_field">
+                                <label htmlFor="surnameField">Cognome</label>
+                                <input
+                                    id="surnameField"
+                                    type="text"
+                                    autoComplete="family-name"
+                                    value={lastName}
+                                    aria-invalid={!!formErrors.lastName}
+                                    aria-describedby={formErrors.lastName ? "surnameField-error" : undefined}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                />
+                                {formErrors.lastName && (
+                                    <span className="field_error" id="surnameField-error">{formErrors.lastName}</span>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="form_field">
+                            <label htmlFor="emailField">Email</label>
+                            <input
+                                id="emailField"
+                                type="email"
+                                autoComplete="email"
+                                value={email}
+                                aria-invalid={!!formErrors.email}
+                                aria-describedby={formErrors.email ? "emailField-error" : undefined}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            {formErrors.email && (
+                                <span className="field_error" id="emailField-error">{formErrors.email}</span>
+                            )}
+                        </div>
+
+                        <div className="form_field">
+                            <label htmlFor="messageField">Messaggio</label>
+                            <textarea
+                                id="messageField"
+                                value={message}
+                                aria-invalid={!!formErrors.message}
+                                aria-describedby={formErrors.message ? "messageField-error" : undefined}
+                                onChange={(e) => setMessage(e.target.value)}
+                            />
+                            {formErrors.message && (
+                                <span className="field_error" id="messageField-error">{formErrors.message}</span>
+                            )}
+                        </div>
+
+                        {formErrors.global && (
+                            <p className="field_error form_global_error" role="alert">{formErrors.global}</p>
+                        )}
+
+                        {submitSuccess && (
+                            <p className="form_success" role="status">
+                                Grazie per averci contattato! Ti risponderemo al più presto.
+                            </p>
+                        )}
+
+                        <button
+                            id="sendButton"
+                            type="submit"
+                            disabled={submitting}
+                            aria-busy={submitting}
+                        >
+                            {submitting ? "Invio..." : "Send"}
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -170,3 +409,31 @@ function Main_page(){
 }
 
 export default Main_page;
+
+/*
+    CHANGELOG — sintesi delle modifiche rispetto alla versione originale
+    ----------------------------------------------------------------------
+    1. Skeleton loader sulle card prodotto durante il fetch (era assente:
+       lo stato `loading` veniva impostato ma mai usato in JSX).
+    2. Stato di errore visibile con pulsante "Riprova" (prima il catch
+       loggava solo in console, l'utente non veniva mai informato).
+    3. Stato "nessun prodotto" distinto dallo stato di errore.
+    4. Form di contatto: label reali associate via htmlFor/id, validazione
+       client-side con messaggi inline, aria-invalid/aria-describedby,
+       stato di invio con bottone disabilitato (anti doppio-submit),
+       feedback di successo in pagina al posto dell'alert() nativo.
+    5. Rimossi i console.log di debug rimasti in produzione.
+    6. ID iframe duplicato (`id="video"` su entrambi) corretto in due id
+       univoci (`hero_video`, `about_video`) — HTML non valido altrimenti.
+    7. Iframe decorativi marcati aria-hidden + tabIndex="-1" + loading="lazy"
+       per non intercettare il tab dei lettori di schermo e alleggerire
+       il caricamento iniziale.
+    8. Link social aperti in nuova scheda con rel="noopener noreferrer" e
+       aria-label descrittivo (icone con solo alt="" perché decorative,
+       il testo accessibile è ora sul link).
+    9. Gerarchia heading corretta (h1 → h2 invece di h1/h3 sparsi).
+    10. Reveal-on-scroll leggero (IntersectionObserver nativo, nessuna
+        libreria aggiunta) con rispetto di prefers-reduced-motion.
+    11. useCallback su loadProducts per poterlo richiamare dal bottone
+        "Riprova" senza duplicare codice.
+*/

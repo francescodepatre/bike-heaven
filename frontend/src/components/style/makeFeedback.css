@@ -1,0 +1,44 @@
+/*
+    Author: @FrancescoDePatre
+    Matricola: 318319
+    Università di Parma - Corso di Tecnologie Internet
+    Email:  francesco.depatre@studenti.unipr.it
+*/
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500&display=swap');
+
+.feedbackMaker{
+    width: 100%;
+    margin-bottom: 5%;
+}
+
+.publishReviewContainer{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.reviewTitle{
+    font-family: 'Signika', sans-serif;
+    margin-bottom: 2%;
+} 
+
+.reviewRating{
+    margin-left: 5%;
+    margin-bottom: 2%;
+}
+
+.reviewDescription{
+    margin-left: 5%;
+    width: 100%;
+    margin-bottom: 5%;
+} 
+
+.custom-textfield{
+    width: 100%;
+}
+
+.publishButton{
+    display: flex;
+    justify-content: flex-end;
+    
+}

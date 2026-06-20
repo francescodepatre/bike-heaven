@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 
 .personalCart {
-    background-image: url("./components/login_wallpaper.png");
+    background-image: url("./components/images/login_wallpaper.png");
     background-size: cover;
     padding: 20px;
     min-height: 100vh;
