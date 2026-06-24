@@ -4,57 +4,21 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
-async function getEmployees(){
-    try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-
-        const MYSQLQUERY = `SELECT * FROM employees`
-
-        const [rows] = await connection.promise().query(MYSQLQUERY)
-        
-        if (rows.length === 0) {
-            console.log("Non ci sono risultati...")
-            return {
-                success: false,
-                data: null
-            };
-        }
-        else{
-            console.log(`${rows.length} risultati trovati`)
-        }
-
-        const JSONobjects = rows.map(row => ({
-            id: row.id,
-            firstname: row.firstname,
-            lastname: row.lastname,
-            email: row.email,
-            phone: row.phone,
-            address: row.address,
-            birth: row.birth,
-            username: row.username,
-            password: row.password
+async function getEmployees() {
+    try {
+        const { rows } = await pool.query('SELECT * FROM employees')
+        if (rows.length === 0) return { success: false, data: null }
+        const JSONobjects = rows.map(r => ({
+            id: r.id, firstname: r.firstname, lastname: r.lastname,
+            email: r.email, phone: r.phone, address: r.address,
+            birth: r.birth, username: r.username, password: r.password
         }))
-
-        const jsonData = { oggetti: JSONobjects }
-        
-        await connection.end()
-
-        return {
-            success: true,
-            data: jsonData
-        }
-
-        
-    }catch(err){
-        console.error("Error: ", err)
+        return { success: true, data: { oggetti: JSONobjects } }
+    } catch (err) {
+        console.error('getEmployees error:', err)
+        return { success: false, data: null }
     }
 }
 

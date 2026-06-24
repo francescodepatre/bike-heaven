@@ -4,162 +4,64 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 const categoryFinder = require('./categoryName')
 
-async function getProduct(id){
-    try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
+const BIKE_CATEGORIES = new Set(['Road Bicycles', 'Mountain Bikes', 'City Bikes', 'E-bikes', 'Bikes for Kids'])
 
-        const categoryName = await categoryFinder(id)
+async function getProduct(id) {
+    try {
+        const { category } = await categoryFinder(id)
+        if (!category) return { success: false, category: null, product: null }
 
-        if(categoryName.category === "Road Bicycles" || categoryName.category === "Mountain Bikes" || categoryName.category === "City Bikes" || categoryName.category === "E-bikes" || categoryName.category === "Bikes for Kids"){
-            
-            const MYSQLQUERY = `SELECT * FROM bicycles WHERE bicycles.id = ${id}`
-
-            const [rows] = await connection.promise().query(MYSQLQUERY)
-
-            if (rows.length === 0) {
-                console.log("Error no result")
-                return {
-                    success: false,
-                    category: null,
-                    data: null
-                }
-            }
-
-            const row = rows[0]
-            const name = row.name
-            const price = row.price
-            const description = row.description
-            const feedback = row.feedback
-            const brand = row.brand
-            const frame = row.frame
-            const dimensions = row.dimensions
-            const gear = row.gear
-            const brakes = row.brakes
-            const suspensions = row.suspensions
-            const weight = row.weight
-            const quantity = row.quantity
-            const picture = row.picture.toString('base64')
-
-            const product = {
-                name: name,
-                price: price,
-                description: description,
-                feedback: feedback,
-                brand: brand,
-                frame: frame,
-                dimensions: dimensions,
-                gear: gear,
-                brakes: brakes,
-                suspensions: suspensions,
-                weight: weight,
-                quantity: quantity,
-                picture: picture
-            }
-
-            await connection.end()
-
+        if (BIKE_CATEGORIES.has(category)) {
+            const { rows } = await pool.query('SELECT * FROM bicycles WHERE id = $1', [id])
+            if (rows.length === 0) return { success: false, category: null, product: null }
+            const r = rows[0]
             return {
-                success: true,
-                category: categoryName.category,
-                product: product
-
-            }
-
-        }
-        else if(categoryName.category === "Accessories"){
-            const MYSQLQUERY = `SELECT * FROM accessories WHERE accessories.id = ${id}`
-
-            const [rows] = await connection.promise().query(MYSQLQUERY)
-
-            if (rows.length === 0) {
-                console.log("Error no result")
-                return {
-                    success: false,
-                    category: null,
-                    data: null
+                success: true, category,
+                product: {
+                    name: r.name, price: r.price, description: r.description,
+                    feedback: r.feedback, brand: r.brand, frame: r.frame,
+                    dimensions: r.dimensions, gear: r.gear, brakes: r.brakes,
+                    suspensions: r.suspensions, weight: r.weight, quantity: r.quantity,
+                    picture: r.picture ? Buffer.from(r.picture).toString('base64') : null
                 }
-            }
-
-            const row = rows[0]
-            const name = row.name
-            const price = row.price
-            const description = row.description
-            const feedback = row.feedback
-            const brand = row.brand
-            const quantity = row.quantity
-            const picture = row.picture.toString('base64')
-
-            const product = {
-                name: name,
-                price: price,
-                description: description,
-                feedback: feedback,
-                brand: brand,
-                quantity: quantity,
-                picture: picture
-            }
-
-            await connection.end()
-
-            return {
-                success: true,
-                category: categoryName.category,
-                product: product
-
-            }
-        }
-        else if(categoryName.category === "Services"){
-            const MYSQLQUERY = `SELECT * FROM services WHERE services.id = ${id}`
-
-            const [rows] = await connection.promise().query(MYSQLQUERY)
-
-            if (rows.length === 0) {
-                console.log("Error no result")
-                return {
-                    success: false,
-                    category: null,
-                    data: null
-                }
-            }
-
-            const row = rows[0]
-            const name = row.name
-            const price = row.price
-            const description = row.description
-            const feedback = row.feedback
-            const brand = row.brand
-            const picture = row.picture.toString('base64')
-
-            const product = {
-                name: name,
-                price: price,
-                description: description,
-                feedback: feedback,
-                brand: brand,
-                picture: picture
-            }
-
-            await connection.end()
-
-            return {
-                success: true,
-                category: categoryName.category,
-                product: product
-
             }
         }
 
-    }catch(err){
-        console.error("Error: ", err)
+        if (category === 'Accessories') {
+            const { rows } = await pool.query('SELECT * FROM accessories WHERE id = $1', [id])
+            if (rows.length === 0) return { success: false, category: null, product: null }
+            const r = rows[0]
+            return {
+                success: true, category,
+                product: {
+                    name: r.name, price: r.price, description: r.description,
+                    feedback: r.feedback, brand: r.brand, quantity: r.quantity,
+                    picture: r.picture ? Buffer.from(r.picture).toString('base64') : null
+                }
+            }
+        }
+
+        if (category === 'Services') {
+            const { rows } = await pool.query('SELECT * FROM services WHERE id = $1', [id])
+            if (rows.length === 0) return { success: false, category: null, product: null }
+            const r = rows[0]
+            return {
+                success: true, category,
+                product: {
+                    name: r.name, price: r.price, description: r.description,
+                    feedback: r.feedback, brand: r.brand,
+                    picture: r.picture ? Buffer.from(r.picture).toString('base64') : null
+                }
+            }
+        }
+
+        return { success: false, category: null, product: null }
+    } catch (err) {
+        console.error('getProduct error:', err)
+        return { success: false, category: null, product: null }
     }
 }
 

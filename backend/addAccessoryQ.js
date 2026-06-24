@@ -4,28 +4,20 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
-async function addAccessoryQ(id, quantity){
-    try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-
-        const MYSQLQUERY = `UPDATE accessories SET quantity = quantity + ${quantity} WHERE id = ${id}`
-
-        if(await connection.execute(MYSQLQUERY)){
-            return{
-                success: true
-            }
-        }
-
-    }catch(err){
-        console.error("Error: ", err)
+async function addAccessoryQ(id, quantity) {
+    try {
+        await pool.query(
+            `UPDATE accessories
+             SET quantity = quantity + $1
+             WHERE id = $2`,
+            [quantity, id]
+        )
+        return { success: true }
+    } catch (err) {
+        console.error('addAccessoryQ error:', err)
+        return { success: false }
     }
 }
 

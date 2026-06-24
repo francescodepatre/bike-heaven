@@ -4,66 +4,35 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
-async function searchFunction(searchName){
-    try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-
-        console.log("Searching ", searchName)
-        const MYSQLQUERY = `
-        SELECT bicycles.id, bicycles.name, bicycles.brand, bicycles.price, bicycles.description, bicycles.picture 
-        FROM bicycles INNER JOIN categories ON bicycles.codCategory = categories.idcategory 
-        WHERE bicycles.name LIKE '%${searchName}%' OR bicycles.brand LIKE '%${searchName}%' OR categories.name LIKE '%${searchName}%'
-        UNION 
-        SELECT accessories.id, accessories.name, accessories.brand, accessories.price, accessories.description, accessories.picture 
-        FROM accessories INNER JOIN categories ON accessories.codCategory = categories.idcategory 
-        WHERE accessories.name LIKE '%${searchName}%'OR accessories.brand LIKE '%${searchName}%' OR categories.name LIKE '%${searchName}%'
-        UNION 
-        SELECT services.id, services.name, services.brand, services.price, services.description, services.picture 
-        FROM services INNER JOIN categories ON services.codCategory = categories.idcategory
-        WHERE services.name LIKE '%${searchName}%' OR services.brand LIKE '%${searchName}%' OR categories.name LIKE '%${searchName}%'`
-
-        const [rows] = await connection.promise().query(MYSQLQUERY)
-        
-        if (rows.length === 0) {
-            console.log("Non ci sono risultati...")
-            return {
-                success: false,
-                data: null
-            };
-        }
-        else{
-            console.log(`${rows.length} risultati trovati`)
-        }
-
+async function searchFunction(searchName) {
+    try {
+        const term = `%${searchName}%`
+        const { rows } = await pool.query(
+            `SELECT b.id, b.name, b.brand, b.price, b.description, b.picture
+             FROM bicycles b JOIN categories c ON b.codCategory = c.idcategory
+             WHERE b.name ILIKE $1 OR b.brand ILIKE $1 OR c.name ILIKE $1
+             UNION
+             SELECT a.id, a.name, a.brand, a.price, a.description, a.picture
+             FROM accessories a JOIN categories c ON a.codCategory = c.idcategory
+             WHERE a.name ILIKE $1 OR a.brand ILIKE $1 OR c.name ILIKE $1
+             UNION
+             SELECT s.id, s.name, s.brand, s.price, s.description, s.picture
+             FROM services s JOIN categories c ON s.codCategory = c.idcategory
+             WHERE s.name ILIKE $1 OR s.brand ILIKE $1 OR c.name ILIKE $1`,
+            [term]
+        )
+        if (rows.length === 0) return { success: false, data: null }
         const JSONobjects = rows.map(row => ({
-            id: row.id,
-            name: row.name,
-            brand: row.brand,
-            price: row.price,
+            id: row.id, name: row.name, brand: row.brand, price: row.price,
             desc: row.description,
-            picture: row.picture.toString('base64'),
+            picture: row.picture ? Buffer.from(row.picture).toString('base64') : null
         }))
-
-        const jsonData = { oggetti: JSONobjects }
-        
-        await connection.end()
-
-        return {
-            success: true,
-            data: jsonData
-        }
-
-        
-    }catch(err){
-        console.error("Error: ", err)
+        return { success: true, data: { oggetti: JSONobjects } }
+    } catch (err) {
+        console.error('searchFunction error:', err)
+        return { success: false, data: null }
     }
 }
 

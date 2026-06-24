@@ -4,46 +4,23 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+//const mysql = require('mysql2')
+const pool = require('./db')
 
-async function setAccessory(accessory){
-    try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-
-        const name = accessory.name
-        const price = accessory.price
-        const description = accessory.description
-        const feedback = accessory.feedback
-        const brand = accessory.brand
-        const quantity = accessory.quantity
-        const image = accessory.image
-        const category = accessory.category
-
-        const base64Data = image.split(',')[1];
-
-        const imageBuffer = Buffer.from(base64Data, 'base64');
-        
-        const MYSQLQUERY = `INSERT INTO accessories (name, price, description, feedback, brand, quantity, picture, codCategory) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-
-        if (await connection.execute(MYSQLQUERY, [name, price, description, feedback, brand, quantity, imageBuffer, category])) {
-            console.log("Query eseguita correttamente");
-            return {
-                success: true
-            };
-        }
-        }catch(err){
-            console.log("errore")
-            console.error(err);
-            return{
-                success: false
-            }
-        }
+async function setAccessory(accessory) {
+    try {
+        const imageBuffer = Buffer.from(accessory.image.split(',')[1], 'base64')
+        await pool.query(
+            `INSERT INTO accessories (name, price, description, feedback, brand, quantity, picture, codCategory)
+             VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
+            [accessory.name, accessory.price, accessory.description, accessory.feedback,
+             accessory.brand, accessory.quantity, imageBuffer, accessory.category]
+        )
+        return { success: true }
+    } catch (err) {
+        console.error('setAccessory error:', err)
+        return { success: false }
+    }
 }
 
 module.exports = setAccessory

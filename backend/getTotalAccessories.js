@@ -4,21 +4,12 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
 async function getTotalAccessories(){
     try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
+        const { rows } = await pool.query(`SELECT SUM(accessories.price) as totalAcc, SUM(accessories.quantity) as accNum FROM accessories`)
 
-        const MYSQLQUERY = `SELECT SUM(accessories.price) as totalAcc, SUM(accessories.quantity) as accNum FROM accessories`
-
-        const [rows] = await connection.promise().query(MYSQLQUERY)
         
         if (rows.length === 0) {
             console.log("Non ci sono risultati...")
@@ -32,8 +23,6 @@ async function getTotalAccessories(){
         const row = rows[0]
         const accNum = row.accNum
         const accValue = row.totalAcc
-        
-        await connection.end()
 
         return {
             success: true,

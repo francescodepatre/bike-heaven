@@ -4,25 +4,14 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
 async function setReview(idCustomer, value, reviewContent,codProduct){
     try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-        
-        const MYSQLQUERY = `INSERT INTO reviews (codCustomer,value,reviewContent,codProduct) VALUES (?,?,?,?);`;
+        await pool.query(`INSERT INTO reviews (codCustomer,value,reviewContent,codProduct) VALUES ($1,$2,$3,$4);`, [idCustomer, value, reviewContent,codProduct]);
 
-        if(await connection.execute(MYSQLQUERY, [idCustomer, value, reviewContent,codProduct])){
-            console.log("Query eseguita correttamente")
-            return{
-                success: true
-            }
+        return{
+            success: true
         }
     }catch(err){
         console.log("errore")

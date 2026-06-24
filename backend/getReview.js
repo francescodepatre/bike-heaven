@@ -4,32 +4,13 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
 async function getReview(id){
     try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-
-        const MYSQLQUERY2 = `
-        SELECT feedback
-        FROM bicycles
-        WHERE id = ${id}
-        UNION
-        SELECT feedback
-        FROM accessories
-        WHERE id = ${id}
-        UNION
-        SELECT feedback
-        FROM services
-        WHERE id = ${id}`
-
-        const [rows] = await connection.promise().query(MYSQLQUERY)
+        const { rows } = await pool.query(
+            'SELECT feedback FROM bicycles WHERE id = $1 UNION SELECT feedback FROM accessories WHERE id = $1 UNION SELECT feedback FROM services WHERE id = $1', [id]
+        )
         
         if (rows.length === 0) {
             console.log("Non ci sono risultati...")
@@ -45,8 +26,6 @@ async function getReview(id){
         const email = row.email
         const phone = row.phone
         const address = row.address
-        
-        await connection.end()
 
         return {
             success: true,

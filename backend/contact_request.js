@@ -6,41 +6,27 @@
 */
 const nodemailer = require('nodemailer')
 
-async function contactRequest(firstName, lastName, email, message){
-    try{
+async function contactRequest(firstName, lastName, email, message) {
+    try {
         const transporter = nodemailer.createTransport({
-            host: "smtp.office365.com",
+            host: 'smtp.office365.com',
             port: 587,
             secure: false,
             auth: {
-                user: "bikeheaven.business@hotmail.com",
-                pass: "BikeHeaven01."
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
             }
         })
-
-        const mailOptions = {
-            from: "bikeheaven.business@hotmail.com",
-            to: 'bikeheaven.business@hotmail.com',
-            subject: firstName + ' ' + lastName + ' ' + email,
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to:   process.env.EMAIL_USER,
+            subject: `${firstName} ${lastName} <${email}>`,
             text: message
-        }
-
-        await transporter.sendMail(mailOptions,(error, info) => {
-            if (error) {
-                console.error('Error sending email: ', error)
-                return{
-                    success: false
-                }
-            }
-            else{
-                console.log("Email sent successfully: ", info.response)
-                return{
-                    success: true
-                }
-            }
         })
-    }catch(err){
-        console.error("Error: ",err)
+        return { success: true }
+    } catch (err) {
+        console.error('contactRequest error:', err)
+        return { success: false }
     }
 }
 

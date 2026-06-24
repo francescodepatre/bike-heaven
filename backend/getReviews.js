@@ -4,21 +4,12 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
 async function getReviews(id){
     try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
 
-        const MYSQLQUERY = `SELECT customers.name as "FirstName", customers.surname as "LastName", reviews.value as "Value", reviews.reviewContent as "Content", reviews.id as "Id" FROM reviews JOIN customers ON reviews.codCustomer = customers.idcustomer WHERE reviews.codProduct = ${id}`
-        
-        const [rows] = await connection.promise().query(MYSQLQUERY)
+        const { rows } = await pool.query( `SELECT customers.name as "FirstName", customers.surname as "LastName", reviews.value as "Value", reviews.reviewContent as "Content", reviews.id as "Id" FROM reviews JOIN customers ON reviews.codCustomer = customers.idcustomer WHERE reviews.codProduct = $1`, [id])
         
         if (rows.length === 0) {
             console.log("Non ci sono risultati...")
@@ -41,7 +32,6 @@ async function getReviews(id){
 
         const jsonData = { oggetti: JSONobjects }
         
-        await connection.end()
 
         return {
             success: true,

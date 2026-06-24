@@ -4,28 +4,21 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
 async function updateBikesCart(id){
     try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
+        await pool.query(`UPDATE bicycles JOIN bikesCart ON bicycles.id = bikesCart.codBicycle JOIN cart ON bikesCart.codCart = cart.id SET quantity = quantity - 1 WHERE cart.id = $1`,[id])
 
-        const MYSQLQUERY = `UPDATE bicycles JOIN bikesCart ON bicycles.id = bikesCart.codBicycle JOIN cart ON bikesCart.codCart = cart.id SET quantity = quantity - 1 WHERE cart.id = ${id}`
-
-        if(await connection.execute(MYSQLQUERY)){
-            return{
-                success: true
-            }
+        return{
+            success: true
         }
 
     }catch(err){
         console.error("Error: ", err)
+        return{
+            success: false
+        }
     }
 }
 

@@ -4,17 +4,10 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
 async function setService(service){
     try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
 
         const name = service.name
         const price = service.price
@@ -29,14 +22,12 @@ async function setService(service){
 
         const imageBuffer = Buffer.from(base64Data, 'base64');
         
-        const MYSQLQUERY = `INSERT INTO services (name, price, description, feedback, brand, picture, codCategory) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        await pool.query(`INSERT INTO services (name, price, description, feedback, brand, picture, codCategory) VALUES ($1, $2, $3, $4, $5, $6, $7)`[name, price, description, feedback, brand, imageBuffer, category]);
 
-        if(await connection.execute(MYSQLQUERY, [name, price, description, feedback, brand, imageBuffer, category])){
-            console.log("Query eseguita correttamente")
-            return{
-                success: true
-            }
+        return{
+            success: true
         }
+        
     }catch(err){
         console.log("errore")
         console.error(err);

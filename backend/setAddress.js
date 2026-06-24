@@ -4,29 +4,18 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
+const pool = require('./db')
 
-const mysql = require('mysql2')
-
-async function updateAddressInfo(id, address, email, phone){
-    try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-
-        const MYSQLQUERY = `UPDATE customers SET address = "${address}", email = "${email}", phone = "${phone}" WHERE idcustomer = ${id}`
-
-        if(await connection.execute(MYSQLQUERY)){
-            return{
-                success: true
-            }
-        }
-
-    }catch(err){
-        console.error("Error: ", err)
+async function updateAddressInfo(id, address, email, phone) {
+    try {
+        await pool.query(
+            'UPDATE customers SET address = $1, email = $2, phone = $3 WHERE idcustomer = $4',
+            [address, email, phone, id]
+        )
+        return { success: true }
+    } catch (err) {
+        console.error('updateAddressInfo error:', err)
+        return { success: false }
     }
 }
 

@@ -5,28 +5,22 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 
-const mysql = require('mysql2')
+const pool = require('./db')
 
 async function updateDetails(id, name, surname, birth){
     try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
+        await pool.query(`UPDATE customers SET name = "$2", surname = "$3, birth = '$4' WHERE idcustomer = $1`,[id, name, surname, birth])
 
-        const MYSQLQUERY = `UPDATE customers SET name = "${name}", surname = "${surname}", birth = '${birth}' WHERE idcustomer = ${id}`
-
-        if(await connection.execute(MYSQLQUERY)){
-            return{
-                success: true
-            }
+        
+        return{
+            success: true
         }
 
     }catch(err){
         console.error("Error: ", err)
+        return{
+            success: false
+        }
     }
 }
 

@@ -4,36 +4,16 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2'); 
+const pool = require('./db')
 
 async function maxId() {
     try {
-        const connection = mysql.createConnection({ 
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        });
-
-        const MYSQLQUERY = `SELECT MAX(idcustomer) FROM customers;`; 
-
-        const [rows] = await connection.promise().query(MYSQLQUERY);
-
-        const maxCustomerId = rows[0]['MAX(idcustomer)'];
-
-        console.log("Max: " + maxCustomerId)
-        return { 
-            success: true,
-            maxId: maxCustomerId
-        };
+        const { rows } = await pool.query('SELECT MAX(idcustomer) AS maxid FROM customers')
+        return { success: true, maxId: rows[0].maxid || 0 }
     } catch (err) {
-        console.error("Errore durante l'operazione:", err);
-        return { 
-            success: false,
-            maxId: maxCustomerId
-        };
+        console.error('maxId error:', err)
+        return { success: false, maxId: 0 }
     }
 }
 
-module.exports = maxId;
+module.exports = maxId

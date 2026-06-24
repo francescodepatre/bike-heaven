@@ -4,48 +4,18 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
-async function getAddress(id){
-    try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-
-        const MYSQLQUERY = `SELECT address, phone, email FROM customers WHERE idcustomer = ${id}`
-
-        const [rows] = await connection.promise().query(MYSQLQUERY)
-        
-        if (rows.length === 0) {
-            console.log("Non ci sono risultati...")
-            return {
-                success: false,
-                address: null,
-                phone: null,
-                email: null
-            };
-        }
-
-        const row = rows[0]
-        const email = row.email
-        const phone = row.phone
-        const address = row.address
-        
-        await connection.end()
-
-        return {
-            success: true,
-            email: email,
-            phone: phone,
-            address: address
-        }
-
-    }catch(err){
-        console.error("Error: ", err)
+async function getAddress(id) {
+    try {
+        const { rows } = await pool.query(
+            'SELECT address, phone, email FROM customers WHERE idcustomer = $1', [id]
+        )
+        if (rows.length === 0) return { success: false, address: null, phone: null, email: null }
+        return { success: true, email: rows[0].email, phone: rows[0].phone, address: rows[0].address }
+    } catch (err) {
+        console.error('getAddress error:', err)
+        return { success: false }
     }
 }
 

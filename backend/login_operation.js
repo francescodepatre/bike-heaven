@@ -4,49 +4,24 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-
-const mysql = require('mysql2/promise'); 
+const pool = require('./db')
 
 async function loginOperation(usrn, psw) {
     try {
-        const connection = await mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        });
-
-        let MYSQLQUERY = `SELECT idcustomer, username, email, password FROM customers WHERE customers.username="${usrn}"  OR customers.email="${usrn}"  ;`;
-
-        const [rows] = await connection.query(MYSQLQUERY);
-
-        if (rows.length === 0) {
-            console.log("Username o email errata");
-            return { success: false };
-        }
-
-        const row = rows[0];
-        const email = row.email;
-        const username = row.username;
-        const password = row.password;
-        const id = row.idcustomer
-
-        if (password === psw) {
-            console.log("Login effettuato correttamente");
-            return { 
-                success: true,
-                username: username,
-                id: id
-            };
-        } else {
-            console.log("Password errata");
-            return { success: false };
-        }
+        const { rows } = await pool.query(
+            `SELECT idcustomer, username, email, password
+             FROM customers
+             WHERE username = $1 OR email = $1`,
+            [usrn]
+        )
+        if (rows.length === 0) return { success: false }
+        const row = rows[0]
+        if (row.password !== psw) return { success: false }
+        return { success: true, username: row.username, id: row.idcustomer }
     } catch (err) {
-        console.error("Errore durante l'operazione di login:", err);
-        return { success: false };
+        console.error('loginOperation error:', err)
+        return { success: false }
     }
 }
 
-module.exports = loginOperation;
+module.exports = loginOperation

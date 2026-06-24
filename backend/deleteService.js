@@ -4,32 +4,18 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
 async function deleteService(id){
     try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
+        const { rows } = await pool.query(
+            `DELETE FROM services WHERE id = $1`, [id]
+        )
+        if (rows.length === 0) return { success: true, data: null }
         
-        const MYSQLQUERY = `DELETE FROM services WHERE id = ${id}`;
-
-        if(await connection.execute(MYSQLQUERY)){
-            console.log("Query eseguita correttamente")
-            return{
-                success: true
-            }
-        }
     }catch(err){
-        console.log("errore")
-        console.error(err);
-        return{
-            success: false
-        }
+        console.error('deleteService error:', err)
+        return { success: false, data: null }
     }
 }
 

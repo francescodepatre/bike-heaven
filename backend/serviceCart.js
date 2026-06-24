@@ -4,63 +4,29 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
-async function serviceCart(idcustomer){
-    try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-
-        console.log("Customer ID: ", idcustomer)
-        const MYSQLQUERY = `
-        SELECT *
-        FROM cart
-        INNER JOIN servicesCart ON cart.id = servicesCart.codCart
-        INNER JOIN services ON servicesCart.codService = services.id
-        WHERE cart.codCustomer = ${idcustomer}`
-
-        const [rows] = await connection.promise().query(MYSQLQUERY)
-        
-        if (rows.length === 0) {
-            console.log("Non ci sono risultati...")
-            return {
-                success: true,
-                data: null
-            };
-        }
-        else{
-            console.log(`${rows.length} risultati trovati`)
-        }
-
-        const JSONobjects = rows.map(row => ({
-            id: row.id,
-            name: row.name,
-            brand: row.brand,
-            price: row.price,
-            feedback: row.feedback,
-            description: row.description,
-            quantity: row.quantity,
-            category: row.codCategory,
-            picture: row.picture.toString('base64')
+async function serviceCart(idcustomer) {
+    try {
+        const { rows } = await pool.query(
+            `SELECT s.*
+             FROM cart c
+             JOIN servicesCart sc ON c.id = sc.codCart
+             JOIN services s      ON sc.codService = s.id
+             WHERE c.codCustomer = $1`,
+            [idcustomer]
+        )
+        if (rows.length === 0) return { success: true, data: null }
+        const JSONobjects = rows.map(r => ({
+            id: r.id, name: r.name, brand: r.brand, price: r.price,
+            feedback: r.feedback, description: r.description, quantity: r.quantity,
+            category: r.codcategory,
+            picture: r.picture ? Buffer.from(r.picture).toString('base64') : null
         }))
-
-        const jsonData = { oggetti: JSONobjects }
-        
-        await connection.end()
-
-        return {
-            success: true,
-            data: jsonData
-        }
-
-        
-    }catch(err){
-        console.error("Error: ", err)
+        return { success: true, data: { oggetti: JSONobjects } }
+    } catch (err) {
+        console.error('serviceCart error:', err)
+        return { success: false, data: null }
     }
 }
 

@@ -4,8 +4,8 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-
-const mysql = require('mysql2')
+/*
+const pool = require('./db')
 
 async function setFeedBack(idProduct, value){
 
@@ -14,28 +14,8 @@ async function setFeedBack(idProduct, value){
     let newFeedback
     let setFeedback
     try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
+        const { rows1 } = await pool.query("SELECT feedback, codCategory FROM bicycles WHERE id = $1 UNION SELECT feedback, codCategory FROM accessories WHERE id = $1 UNION SELECT feedback, codCategory FROM services WHERE id = $1",[idProduct])
 
-        const getOldFeedback = `
-        SELECT feedback, codCategory
-        FROM bicycles
-        WHERE id = ${idProduct}
-        UNION
-        SELECT feedback, codCategory
-        FROM accessories
-        WHERE id = ${idProduct}
-        UNION
-        SELECT feedback, codCategory
-        FROM services
-        WHERE id = ${idProduct}`
-
-        const [rows1] = await connection.promise().query(getOldFeedback)
         
         if(rows1.length === 0){
             return{
@@ -110,3 +90,82 @@ async function setFeedBack(idProduct, value){
 }
 
 module.exports = setFeedBack
+*/
+/*
+    Author: @FrancescoDePatre
+    Matricola: 318319
+    Università di Parma - Corso di Tecnologie Internet
+    Email:  francesco.depatre@studenti.unipr.it
+*/
+
+const pool = require('./db');
+
+async function setFeedBack(idProduct, value) {
+    try {
+        // 1. Trova prodotto (unificato tra tabelle)
+        const [rows1] = await pool.execute(
+            `
+            SELECT feedback, codCategory
+            FROM bicycles
+            WHERE id = ?
+            UNION
+            SELECT feedback, codCategory
+            FROM accessories
+            WHERE id = ?
+            UNION
+            SELECT feedback, codCategory
+            FROM services
+            WHERE id = ?
+            `,
+            [idProduct, idProduct, idProduct]
+        );
+
+        if (rows1.length === 0) {
+            return { success: false };
+        }
+
+        const { feedback: oldFeedback, codCategory: category } = rows1[0];
+
+        // 2. Conta recensioni
+        const [rows2] = await pool.execute(
+            `SELECT COUNT(id) AS reviewNum FROM reviews WHERE codProduct = ?`,
+            [idProduct]
+        );
+
+        const numFeedback = rows2[0].reviewNum;
+
+        // 3. Calcolo nuovo feedback
+        let newFeedback;
+
+        const numericValue = parseFloat(value);
+
+        if (!oldFeedback || oldFeedback === 0) {
+            newFeedback = numericValue;
+        } else {
+            const oldSum = oldFeedback * numFeedback;
+            newFeedback = (oldSum + numericValue) / (numFeedback + 1);
+            newFeedback = parseFloat(newFeedback.toFixed(2));
+        }
+
+        // 4. Update tabella corretta
+        let updateQuery;
+
+        if (category >= 1 && category <= 5) {
+            updateQuery = `UPDATE bicycles SET feedback = ? WHERE id = ?`;
+        } else if (category === 6) {
+            updateQuery = `UPDATE accessories SET feedback = ? WHERE id = ?`;
+        } else {
+            updateQuery = `UPDATE services SET feedback = ? WHERE id = ?`;
+        }
+
+        await pool.execute(updateQuery, [newFeedback, idProduct]);
+
+        return { success: true };
+
+    } catch (err) {
+        console.error("Error:", err);
+        return { success: false, error: err.message };
+    }
+}
+
+module.exports = setFeedBack;

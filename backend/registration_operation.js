@@ -4,48 +4,22 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
-const maxId = require('./maxId')
+const pool = require('./db')
 
-async function signOperation(profile){
-    try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-
-        const firstName = profile.firstName;
-        const lastName = profile.lastName;
-        const birthDate = profile.birthDate;
-        const email = profile.email;
-        const phone = profile.phone;
-        const address = profile.address;
-        const username = profile.username;
-        const password = profile.password;
-        
-        const MYSQLQUERY = `INSERT INTO customers (name,surname,birth,email,phone,address,username,password) VALUES("${firstName}","${lastName}",'${birthDate}',"${email}","${phone}","${address}","${username}","${password}")`;
-
-        if(await connection.execute(MYSQLQUERY)){
-            console.log("Query eseguita correttamente")
-            const max = await maxId()
-            let tot = max.maxId + 1
-            return{
-                success: true, 
-                id: tot,
-                username: username 
-
-            }
-        }
-    }catch(err){
-        console.log("errore")
-        console.error(err);
-        return{
-            success: false
-        }
+async function signOperation(profile) {
+    try {
+        const { firstName, lastName, birthDate, email, phone, address, username, password } = profile
+        const { rows } = await pool.query(
+            `INSERT INTO customers (name, surname, birth, email, phone, address, username, password)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+             RETURNING idcustomer`,
+            [firstName, lastName, birthDate, email, phone, address, username, password]
+        )
+        return { success: true, id: rows[0].idcustomer, username }
+    } catch (err) {
+        console.error('signOperation error:', err)
+        return { success: false }
     }
 }
 
-module.exports = signOperation;
+module.exports = signOperation

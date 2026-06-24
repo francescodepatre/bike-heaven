@@ -4,28 +4,19 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 const updateAccessoriesCart = require('./updateAccessoriesCart')
 
 async function searchCategName(id){
     try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-
-        const MYSQLQUERY = `
-        SELECT SUM(price) as price 
+        const { rows } = await pool.query(
+        `SELECT SUM(price) as price 
         FROM accessories 
         JOIN accessoriesCart ON accessories.id = accessoriesCart.Codaccessory 
         JOIN cart ON accessoriesCart.codCart = cart.id 
-        WHERE cart.id =  ${id}`
+        WHERE cart.id =  $1`,[id]
+        )
 
-        const [rows] = await connection.promise().query(MYSQLQUERY)
-        
         if (rows.length === 0) {
             console.log("Non ci sono risultati...")
             return {
@@ -41,8 +32,6 @@ async function searchCategName(id){
             price = 0
         }
         
-        await connection.end()
-
         const update = await updateAccessoriesCart(id)
 
         if(update && update.success) {

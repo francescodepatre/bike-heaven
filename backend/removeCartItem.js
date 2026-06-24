@@ -4,61 +4,41 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
-async function removeCartItem(id, category, customer){
-    try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-
-        let table = ""
-        let target = ""
-        let tableAttribute = ""
-
-        if(category === 1){
-            table = "bikesCart"
-            target = "bicycles"
-            tableAttribute = "codBicycle"
+async function removeCartItem(id, category, customer) {
+    try {
+        let query
+        if (category === 1) {
+            query = `DELETE FROM bikesCart
+                     WHERE id IN (
+                         SELECT bc.id FROM bikesCart bc
+                         JOIN cart c ON bc.codCart = c.id
+                         WHERE c.codCustomer = $1 AND bc.codBicycle = $2
+                         LIMIT 1
+                     )`
+        } else if (category === 2) {
+            query = `DELETE FROM accessoriesCart
+                     WHERE id IN (
+                         SELECT ac.id FROM accessoriesCart ac
+                         JOIN cart c ON ac.codCart = c.id
+                         WHERE c.codCustomer = $1 AND ac.codAccessory = $2
+                         LIMIT 1
+                     )`
+        } else {
+            query = `DELETE FROM servicesCart
+                     WHERE id IN (
+                         SELECT sc.id FROM servicesCart sc
+                         JOIN cart c ON sc.codCart = c.id
+                         WHERE c.codCustomer = $1 AND sc.codService = $2
+                         LIMIT 1
+                     )`
         }
-        else if(category === 2){
-            table = "accessoriesCart"
-            target = "accessories"
-            tableAttribute = "codAccessory"
-        }
-        else{
-            table = "servicesCart"
-            target = "services"
-            tableAttribute = "codService"
-        }
-        
-        const MYSQLQUERY = `
-            DELETE FROM ${table}
-            WHERE id IN (
-                SELECT ${table}.id
-                FROM ${table}
-                INNER JOIN cart ON ${table}.codCart = cart.id
-                INNER JOIN ${target} ON ${table}.${tableAttribute} = ${target}.id
-                WHERE cart.codCustomer = ${customer} AND ${target}.id = ${id}
-            );`;
-
-        if(await connection.execute(MYSQLQUERY)){
-            console.log("Query eseguita correttamente")
-            return{
-                success: true
-            }
-        }
-        
-    }catch(err){
-        console.log("errore")
-        console.error(err);
-        return{
-            success: false
-        }
+        await pool.query(query, [customer, id])
+        return { success: true }
+    } catch (err) {
+        console.error('removeCartItem error:', err)
+        return { success: false }
     }
 }
 

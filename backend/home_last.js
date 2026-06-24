@@ -4,65 +4,24 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
+const pool = require('./db')
 
-const mysql = require('mysql2')
-
-async function homeRequest(){
-    try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
-
-        const MYSQLQUERY = "SELECT * FROM bicycles ORDER BY id DESC LIMIT 8"
-
-        const [rows] = await connection.promise().query(MYSQLQUERY)
-        
-        if (rows.length === 0) {
-            console.log("Non ci sono risultati...")
-            return {
-                success: false,
-                data: null
-            };
-        }
-        else{
-            console.log(`${rows.length} risultati trovati`)
-        }
-
+async function homeRequest() {
+    try {
+        const { rows } = await pool.query('SELECT * FROM bicycles ORDER BY id DESC LIMIT 8')
+        if (rows.length === 0) return { success: false, data: null }
         const JSONobjects = rows.map(row => ({
-            id: row.id,
-            name: row.name,
-            price: row.price,
-            desc: row.description,
-            fedb: row.feedback,
-            brand: row.brand,
-            fram: row.frame,
-            dimension: row.dimensions,
-            gear: row.gear,
-            brakes: row.brakes,
-            suspensions: row.suspensions,
-            weight: row.weight,
-            quantity: row.quantity,
-            picture: row.picture.toString('base64'),
-            category: row.codCategory
+            id: row.id, name: row.name, price: row.price, desc: row.description,
+            fedb: row.feedback, brand: row.brand, fram: row.frame,
+            dimension: row.dimensions, gear: row.gear, brakes: row.brakes,
+            suspensions: row.suspensions, weight: row.weight, quantity: row.quantity,
+            picture: row.picture ? Buffer.from(row.picture).toString('base64') : null,
+            category: row.codcategory
         }))
-
-        const jsonData = { oggetti: JSONobjects }
-
-        
-        await connection.end()
-
-        return {
-            success: true,
-            data: jsonData
-        }
-
-        
-    }catch(err){
-        console.error("Error: ", err)
+        return { success: true, data: { oggetti: JSONobjects } }
+    } catch (err) {
+        console.error('homeRequest error:', err)
+        return { success: false, data: null }
     }
 }
 

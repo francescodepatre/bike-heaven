@@ -4,42 +4,17 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
 
-async function getCart(id){
-    try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
+const pool = require('./db')
 
-        const MYSQLQUERY = `SELECT id FROM cart WHERE codCustomer = ${id}`
-
-        const [rows] = await connection.promise().query(MYSQLQUERY)
-        
-        if (rows.length === 0) {
-            console.log("Non ci sono risultati...")
-            return {
-                success: false,
-                idcart: null
-            };
-        }
-
-        const row = rows[0];
-        const idcart = row.id
-        
-        await connection.end()
-
-        return {
-            success: true,
-            idcart: idcart
-        }
-
-    }catch(err){
-        console.error("Error: ", err)
+async function getCart(id) {
+    try {
+        const { rows } = await pool.query('SELECT id FROM cart WHERE codCustomer = $1', [id])
+        if (rows.length === 0) return { success: false, idcart: null }
+        return { success: true, idcart: rows[0].id }
+    } catch (err) {
+        console.error('getCart error:', err)
+        return { success: false, idcart: null }
     }
 }
 

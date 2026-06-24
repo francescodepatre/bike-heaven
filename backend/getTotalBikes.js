@@ -4,21 +4,12 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-const mysql = require('mysql2')
+const pool = require('./db')
 
 async function getTotalBikes(){
     try{
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'bikeheaven',
-            port: '3307'
-        })
+        const { rows } = await pool.query(`SELECT SUM(bicycles.price) as totalBikes, SUM(bicycles.quantity) as bikeNum FROM bicycles`)
 
-        const MYSQLQUERY = `SELECT SUM(bicycles.price) as totalBikes, SUM(bicycles.quantity) as bikeNum FROM bicycles`
-
-        const [rows] = await connection.promise().query(MYSQLQUERY)
         
         if (rows.length === 0) {
             console.log("Non ci sono risultati...")
@@ -33,7 +24,6 @@ async function getTotalBikes(){
         const bikeNum = row.bikeNum
         const bikeValue = row.totalBikes
         
-        await connection.end()
 
         return {
             success: true,
