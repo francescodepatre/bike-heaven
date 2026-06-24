@@ -43,6 +43,7 @@ return (
       <NavBar />
 
       <Routes>
+        <Route path="/" element={<Main_page />} />
         <Route path="/bike-heaven" element={<Main_page />} />
 
         <Route path="/shop" element={<ShopMenu />} />

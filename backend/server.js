@@ -449,4 +449,8 @@ app.get('/api/download', async (req, res) => {
     fs.createReadStream(filePath).pipe(res)
 })
 
+app.get('/', (req, res) => {
+    res.status(200).send('Bike Heaven backend is running 🚀');
+});
+
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
