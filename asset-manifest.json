@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/bike-heaven/static/css/main.88c337a8.css",
-    "main.js": "/bike-heaven/static/js/main.2e9a0680.js",
+    "main.js": "/bike-heaven/static/js/main.b6573c29.js",
     "static/js/787.1be79a77.chunk.js": "/bike-heaven/static/js/787.1be79a77.chunk.js",
     "static/media/payement.jpeg": "/bike-heaven/static/media/payement.6db6d8661e19799b070a.jpeg",
     "static/media/login_wallpaper.png": "/bike-heaven/static/media/login_wallpaper.9b8b1590e14434381f33.png",
@@ -14,11 +14,11 @@
     "static/media/result.jpeg": "/bike-heaven/static/media/result.ea0b4815db68576b7b8b.jpeg",
     "index.html": "/bike-heaven/index.html",
     "main.88c337a8.css.map": "/bike-heaven/static/css/main.88c337a8.css.map",
-    "main.2e9a0680.js.map": "/bike-heaven/static/js/main.2e9a0680.js.map",
+    "main.b6573c29.js.map": "/bike-heaven/static/js/main.b6573c29.js.map",
     "787.1be79a77.chunk.js.map": "/bike-heaven/static/js/787.1be79a77.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.88c337a8.css",
-    "static/js/main.2e9a0680.js"
+    "static/js/main.b6573c29.js"
   ]
 }
