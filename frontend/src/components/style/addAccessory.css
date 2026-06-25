@@ -4,61 +4,117 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@400;600&family=Poppins:wght@300;400;500&display=swap');
+
 .accessoryUpload {
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-  }
+    width: 100%;
+    max-width: 640px;
+    padding: 32px 28px;
+    font-family: 'Poppins', sans-serif;
+}
+
 .accessoryTitle {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+}
+
+.accessoryTitle h1 {
+    font-family: 'Signika', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #f0f2f7;
+    margin: 0;
+}
+
 .accessoryContainer {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    gap: 16px;
+    margin-bottom: 16px;
 }
-  
-  .field {
-    flex: 1;
-  }
 
-  .currencySelector{
-    width: 40px;
-  }
-  
-  .accessoryName,
-  .accessoryPrice,
-  .accessoryDescription,
-  .accessoryFeedback,
-  .accessoryBrand,
-  .accessoryQuantity,
-  .accessoryImage {
-    flex-basis: 150px;
-    margin-right: 10px;
-  }
-  
-  .accessoryImage input[type='file'] {
-    margin-top: 5px;
-  }
-  
-  .accessoryContainer button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
+.accessoryContainer h3,
+.accessoryContainer .MuiTypography-root {
+    flex-basis: 140px;
+    flex-shrink: 0;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #888ea0 !important;
+    margin: 0 !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.field {
+    flex: 1;
+}
+
+.currencySelector {
+    width: 72px;
+}
+
+.accessoryContainer input[type="file"] {
+    flex: 1;
+    height: auto;
+    padding: 10px 13px;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    background: #22242c;
+    color: #888ea0;
+    font-size: 12px;
     cursor: pointer;
+}
+
+.accessoryContainer input[type="file"]::file-selector-button {
+    height: 26px;
+    padding: 0 12px;
     margin-right: 10px;
-  }
-  
-  #cancelAccessory,
-  #confirmAccessory {
-    background-color: #007bff;
-  }
-  
-  #confirmAccessory {
-    background-color: #28a745;
-  }
-  
+    background: #2a2d38;
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    color: #f0f2f7;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.18s;
+}
+
+.accessoryContainer input[type="file"]::file-selector-button:hover {
+    background: #c8ff3a;
+    color: #0f1013;
+    border-color: #c8ff3a;
+}
+
+#cancelAccessory,
+#confirmAccessory {
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-family: 'Signika', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.18s;
+}
+
+#cancelAccessory {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #888ea0;
+}
+
+#cancelAccessory:hover {
+    border-color: #888ea0;
+    color: #f0f2f7;
+    background: #22242c;
+}
+
+#confirmAccessory {
+    background: #c8ff3a;
+    border: none;
+    color: #0f1013;
+}
+
+#confirmAccessory:hover {
+    background: #9fd418;
+    transform: translateY(-1px);
+}

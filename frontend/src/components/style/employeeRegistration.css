@@ -4,54 +4,135 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-.employeeReg{
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@400;600&family=Poppins:wght@300;400;500&display=swap');
+
+.employeeReg {
+    width: 100%;
+    max-width: 640px;
+    padding: 32px 28px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .registrationTitle {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .itemContainer {
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+}
+
+.registrationTitle h1 {
+    font-family: 'Signika', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #f0f2f7;
+    margin: 0;
+}
+
+.itemContainer {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .field {
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.itemContainer h3 {
+    flex-basis: 140px;
+    flex-shrink: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: #888ea0;
+    margin: 0;
+}
+
+.field {
     flex: 1;
-  }
-  
-  .phone_field {
-    width: 100%;
-  }
-  
-  .employeeName,
-  .employeeSurname,
-  .employeeBirth,
-  .employeeEmail,
-  .employeePhone,
-  .employeeAddress,
-  .employeeUsername,
-  .employeePassword {
-    flex-basis: 150px;
-    margin-right: 10px;
-  }
-  
-  #cancelRegistration,
-  #confirmRegistration {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
+    height: 42px;
+    padding: 0 13px;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    background: #22242c;
+    color: #f0f2f7;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.field:focus {
+    outline: none;
+    border-color: #c8ff3a;
+    background: #2a2d38;
+    box-shadow: 0 0 0 3px rgba(200,255,58,0.1);
+}
+
+/* react-phone-number-input override */
+.phone_field {
+    flex: 1;
+}
+
+.phone_field .PhoneInput {
+    display: flex;
+    gap: 8px;
+}
+
+.phone_field .PhoneInputCountry {
+    height: 42px;
+    padding: 0 10px;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    background: #22242c;
+    color: #f0f2f7;
+}
+
+.phone_field .PhoneInputInput {
+    flex: 1;
+    height: 42px;
+    padding: 0 13px;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    background: #22242c;
+    color: #f0f2f7;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    transition: border-color 0.18s ease;
+}
+
+.phone_field .PhoneInputInput:focus {
+    outline: none;
+    border-color: #c8ff3a;
+    background: #2a2d38;
+    box-shadow: 0 0 0 3px rgba(200,255,58,0.1);
+}
+
+#cancelRegistration,
+#confirmRegistration {
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-family: 'Signika', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
     cursor: pointer;
-    margin-right: 10px;
+    transition: background 0.18s, transform 0.18s;
+}
+
+#cancelRegistration {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #888ea0;
+}
+
+#cancelRegistration:hover {
+    border-color: #888ea0;
+    color: #f0f2f7;
+    background: #22242c;
 }
 
 #confirmRegistration {
-    background-color: #28a745;
+    background: #c8ff3a;
+    border: none;
+    color: #0f1013;
 }
-  
+
+#confirmRegistration:hover {
+    background: #9fd418;
+    transform: translateY(-1px);
+}

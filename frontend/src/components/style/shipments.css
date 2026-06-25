@@ -4,73 +4,76 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@400;600&family=Poppins:wght@300;400;500&display=swap');
 
-.shipments{
-    margin-left: 10%;
-    margin-right: 10%;
-    width: 80%;
-    height: auto;
-}
-
-.shipmentsTitle{
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    font-family: 'Signika', sans-serif;
-}
-
-.shipmentstemp{
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    height: 100vh;
-    font-size: xx-large;
-    font-family: 'Signika', sans-serif;
-}
-
-.shipmentsContainer{
-    margin-left: 2%;
-    margin-right: 2%;
-    margin-bottom: 5%;
+.shipments {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
-    gap: 1%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.shipmentsTitle {
+    padding: 24px 28px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+}
+
+.shipmentsTitle h1 {
+    font-family: 'Signika', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #f0f2f7;
+    padding-bottom: 20px;
+    margin: 0;
+}
+
+.shipmentsContainer {
+    padding: 24px 28px;
+    width: 100%;
+    overflow-x: auto;
 }
 
 .shipmentsTable {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .shipmentsTable th,
-  .shipmentsTable td {
-    padding: 10px;
-    border: 1px solid #ccc;
-  }
-  
-  .shipmentsTable th {
-    background-color: #f5f5f5;
+    font-size: 13px;
+}
+
+.shipmentsTable thead th {
     text-align: left;
-    font-weight: bold;
-  }
-  
-  .shipmentsTable td {
-    text-align: center;
-  }
-  
-  .shipmentstemp {
-    font-size: 18px;
-    margin: 10px 0;
-  }
-  
-  .shipmentsTable thead th {
-    background-color: white;
-  }
-  
-  .shipmentsTable tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
+    padding: 11px 16px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #555a6e;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    background: #22242c;
+    white-space: nowrap;
+}
+
+.shipmentsTable tbody td {
+    padding: 11px 16px;
+    color: #888ea0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.04);
+    white-space: nowrap;
+}
+
+.shipmentsTable tbody td:first-child {
+    color: #f0f2f7;
+}
+
+.shipmentsTable tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.shipmentsTable tbody tr:hover td {
+    background: rgba(255,255,255,0.02);
+}
+
+.shipmentstemp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 48px 24px;
+    color: #555a6e;
+    font-size: 14px;
+}

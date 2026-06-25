@@ -4,69 +4,139 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@400;600&family=Poppins:wght@300;400;500&display=swap');
 
 .bikeUpload {
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-  }
-  
+    width: 100%;
+    max-width: 640px;
+    padding: 32px 28px;
+    font-family: 'Poppins', sans-serif;
+}
+
 .bikeTitle {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+}
+
+.bikeTitle h1 {
+    font-family: 'Signika', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #f0f2f7;
+    margin: 0;
+}
+
 .bikeContainer {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
-  }
-  
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.bikeContainer h3 {
+    flex-basis: 140px;
+    flex-shrink: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: #888ea0;
+    margin: 0;
+}
+
 .field {
     flex: 1;
-  }
+    height: 42px;
+    padding: 0 13px;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    background: #22242c;
+    color: #f0f2f7;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    transition: border-color 0.18s ease, background 0.18s ease;
+}
 
-.currencySelector{
-    width: 40px;
-  }
-  
-.bikeName,
-.bikePrice,
-.bikeDescription,
-.bikeFeedback,
-.bikeBrand,
-.bikeFrame,
-.bikeDimensions,
-.bikeGear,
-.bikeBrakes,
-.bikeSuspensions,
-.bikeQuantity,
-.bikeImage,
-.bikeCategory,
-.bikeWeight {
-    flex-basis: 150px;
-    margin-right: 10px;
-  }
-  
-.bikeImage input[type='file'] {
-    margin-top: 5px;
-  }
-  
-.bikeContainer button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
+.field:focus {
+    outline: none;
+    border-color: #c8ff3a;
+    background: #2a2d38;
+    box-shadow: 0 0 0 3px rgba(200,255,58,0.1);
+}
+
+.currencySelector {
+    width: 72px;
+    height: 42px;
+    padding: 0 10px;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    background: #22242c;
+    color: #f0f2f7;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.bikeContainer input[type="file"] {
+    flex: 1;
+    height: auto;
+    padding: 10px 13px;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    background: #22242c;
+    color: #888ea0;
+    font-size: 12px;
     cursor: pointer;
+}
+
+.bikeContainer input[type="file"]::file-selector-button {
+    height: 26px;
+    padding: 0 12px;
     margin-right: 10px;
-  }
-  
-  #cancelBike,
-  #confirmBike {
-    background-color: #007bff;
-  }
-  
-  #confirmBike {
-    background-color: #28a745;
-  }
-  
+    background: #2a2d38;
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    color: #f0f2f7;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.18s;
+}
+
+.bikeContainer input[type="file"]::file-selector-button:hover {
+    background: #c8ff3a;
+    color: #0f1013;
+    border-color: #c8ff3a;
+}
+
+#cancelBike,
+#confirmBike {
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-family: 'Signika', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.18s;
+}
+
+#cancelBike {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #888ea0;
+}
+
+#cancelBike:hover {
+    border-color: #888ea0;
+    color: #f0f2f7;
+    background: #22242c;
+}
+
+#confirmBike {
+    background: #c8ff3a;
+    border: none;
+    color: #0f1013;
+}
+
+#confirmBike:hover {
+    background: #9fd418;
+    transform: translateY(-1px);
+}
