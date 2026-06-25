@@ -35,27 +35,28 @@ const AddBike = () => {
         },
       ];
 
-      const [feedbackMsg, setFeedbackMsg] = useState('');
-      const [error, setError] = useState('');
-      const [loading, setLoading] = useState(false);
-      const navigate = useNavigate();
-      // e aggiungi useNavigate all'import di react-router-dom
+   
+    const [feedbackMsg, setFeedbackMsg] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-      const [base64Image,setBase64Image] = useState(null);
-      const [selectedImage, setSelectedImage] = useState(null);
-      const [bikeName, setBikeName] = useState(null);
-      const [price, setPrice] = useState(null);
-      const [description,setDescription] = useState("none");
-      const [feedback, setFeedback] = useState(0);
-      const [brand, setBrand] = useState(null);
-      const [frame, setFrame] = useState(null);
-      const [dimensions,setDimensions] = useState(null);
-      const [gear, setGear] = useState(null);
-      const [brakes,setBrakes] = useState(null);
-      const [suspensions, setSuspensions] = useState(null);
-      const [weight, setWeight] = useState(null);
-      const [quantity, setQuantity] = useState(0);
-      const [category, setCategory] = useState(1);
+    const [base64Image, setBase64Image] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const [bikeName, setBikeName] = useState("");
+    const [brand, setBrand] = useState("");
+    const [price, setPrice] = useState("");
+    const [quantity, setQuantity] = useState(0);
+    const [frame, setFrame] = useState("");
+    const [gear, setGear] = useState("");
+    const [brakes, setBrakes] = useState("");
+    const [suspensions, setSuspensions] = useState("");
+    const [dimensions, setDimensions] = useState("");
+    const [weight, setWeight] = useState("");
+    const [description, setDescription] = useState("");
+    const [feedback, setFeedback] = useState(0); // Gestito internamente o di default a 0
+    const [category, setCategory] = useState(1);  // Default sulla categoria 1
 
       const handleChange = (event) => {
         setCategory(event.target.value);
