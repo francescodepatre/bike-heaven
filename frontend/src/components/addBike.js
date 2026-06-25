@@ -5,6 +5,7 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
@@ -33,6 +34,12 @@ const AddBike = () => {
           label: '¥',
         },
       ];
+
+      const [feedbackMsg, setFeedbackMsg] = useState('');
+      const [error, setError] = useState('');
+      const [loading, setLoading] = useState(false);
+      const navigate = useNavigate();
+      // e aggiungi useNavigate all'import di react-router-dom
 
       const [base64Image,setBase64Image] = useState(null);
       const [selectedImage, setSelectedImage] = useState(null);
@@ -91,15 +98,11 @@ const AddBike = () => {
         },
         body: JSON.stringify(bikeData)
       }).then(response => response.json()).then(data => {
-        if(data.success){
-            alert('Bike posted successfully')
-        }
-        else{
-            alert("Attention: Bike not posted")
-        }
-      }).catch(error => {
-        console.log(error)
-      })
+    if (data.success) setFeedbackMsg('Bici pubblicata con successo.');
+        else setError('Pubblicazione non riuscita. Riprova.');
+    })
+    .catch(() => setError('Errore di connessione.'))
+    .finally(() => setLoading(false));
     }
 
   return (
