@@ -73,6 +73,7 @@ const AddBike = () => {
     reader.readAsDataURL(file);
     };  
 
+    /*
     const handleForm = (event) => {
       event.preventDefault();
       let bikeData = {
@@ -104,6 +105,55 @@ const AddBike = () => {
     .catch(() => setError('Errore di connessione.'))
     .finally(() => setLoading(false));
     }
+    */
+   const handleForm = (event) => {
+  event.preventDefault();
+
+  // Protezione contro il crash del backend se l'immagine manca
+  if (!base64Image) {
+    setError('Attenzione: L\'immagine è obbligatoria.');
+    return;
+  }
+
+  setLoading(true); // Attiva il caricamento
+  setError('');
+  setFeedbackMsg('');
+
+  let bikeData = {
+    name: bikeName,
+    price: price,
+    description: description,
+    feedback: feedback,
+    brand: brand,
+    frame: frame,
+    dimensions: dimensions,
+    gear: gear,
+    brakes: brakes,
+    suspensions: suspensions,
+    weight: weight,
+    quantity: quantity,
+    image: base64Image,
+    category: category
+  };
+
+  fetch('https://bike-heaven.onrender.com/api/setBike', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(bikeData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      setFeedbackMsg('Bici pubblicata con successo.');
+    } else {
+      setError('Pubblicazione non riuscita. Riprova.');
+    }
+  })
+  .catch(() => setError('Errore di connessione.'))
+  .finally(() => setLoading(false)); // Spegne il caricamento sia in caso di successo che di errore
+};
 
   return (
   <div>

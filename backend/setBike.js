@@ -8,6 +8,10 @@ const pool = require('./db')
 
 async function setBike(bike) {
     try {
+        if (!bike.image || !bike.image.includes(',')) {
+            console.error('setBike error: Immagine mancante o formato non valido');
+            return { success: false };
+        }
         const imageData = Buffer.from(bike.image.split(',')[1], 'base64')
         await pool.query(
             `INSERT INTO bicycles
