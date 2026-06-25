@@ -106,36 +106,42 @@ const AddBike = () => {
     .finally(() => setLoading(false));
     }
     */
-   const handleForm = (event) => {
+  const handleForm = (event) => {
   event.preventDefault();
 
-  // Protezione contro il crash del backend se l'immagine manca
-  if (!base64Image) {
-    setError('Attenzione: L\'immagine è obbligatoria.');
+  // 1. Controllo preventivo: tutti i campi sono obbligatori (NOT NULL nel DB)
+  if (
+    !bikeName || !brand || !price || !quantity || 
+    !frame || !gear || !brakes || !suspensions || 
+    !dimensions || !weight || !description || !base64Image
+  ) {
+    setError("Tutti i campi sono obbligatori, inclusa l'immagine!");
     return;
   }
 
-  setLoading(true); // Attiva il caricamento
+  setLoading(true);
   setError('');
   setFeedbackMsg('');
 
+  // 2. Costruzione dell'oggetto con conversione esplicita dei tipi di dato
   let bikeData = {
     name: bikeName,
-    price: price,
-    description: description,
-    feedback: feedback,
     brand: brand,
+    price: parseFloat(price),               // NUMERIC(10,2) -> Vuole un float
+    quantity: parseInt(quantity, 10),       // INTEGER -> Vuole un intero
     frame: frame,
-    dimensions: dimensions,
     gear: gear,
     brakes: brakes,
     suspensions: suspensions,
-    weight: weight,
-    quantity: quantity,
-    image: base64Image,
-    category: category
+    dimensions: parseFloat(dimensions),     // DOUBLE PRECISION -> Vuole un float
+    weight: parseFloat(weight),             // DOUBLE PRECISION -> Vuole un float
+    description: description,
+    feedback: parseInt(feedback, 10) || 0,  // INTEGER -> Vuole un intero
+    category: parseInt(category, 10),       // INTEGER -> Vuole un intero
+    image: base64Image                      // BYTEA (gestito dal backend tramite Buffer)
   };
 
+  // 3. Invio della richiesta HTTP POST
   fetch('https://bike-heaven.onrender.com/api/setBike', {
     method: 'POST',
     headers: {
@@ -143,16 +149,25 @@ const AddBike = () => {
     },
     body: JSON.stringify(bikeData)
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Errore del server");
+    }
+    return response.json();
+  })
   .then(data => {
     if (data.success) {
       setFeedbackMsg('Bici pubblicata con successo.');
+      setError('');
     } else {
-      setError('Pubblicazione non riuscita. Riprova.');
+      setError('Pubblicazione non riuscita nel database. Controlla i log del server.');
     }
   })
-  .catch(() => setError('Errore di connessione.'))
-  .finally(() => setLoading(false)); // Spegne il caricamento sia in caso di successo che di errore
+  .catch((err) => {
+    console.error(err);
+    setError('Errore di connessione o del server.');
+  })
+  .finally(() => setLoading(false));
 };
 
   return (
