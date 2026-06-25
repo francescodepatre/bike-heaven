@@ -21,6 +21,13 @@ async function setBike(bike) {
              bike.frame, bike.dimensions, bike.gear, bike.brakes, bike.suspensions,
              bike.weight, bike.quantity, imageData, bike.category]
         )
+
+        console.log('bikeData ricevuto:', {
+            name: bike.name,
+            price: bike.price,
+            category: bike.category,
+            imageLength: bike.image?.length
+        });
         return { success: true }
     } catch (err) {
         console.error('setBike error:', err)
