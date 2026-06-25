@@ -32,39 +32,40 @@ const Inventory = () => {
     },[])
 
     return (
-        <div className='inventory'>
-            <div className='inventoryTitle'>
-                <h1>Inventory</h1>
-            </div>
-            <div className='inventoryContainer'>
-                <table className='inventoryTable'>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Brand</th>
-                        <th>Price</th>
-                        <th>quantity</th>
-                    </tr>
-                    {data ? (
-                            data.map(item => (
-                                <tr>
-                                    <td>{item.id}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.brand}</td>
-                                    <td>€ {item.price}</td>
-                                    <td>{item.quantity}</td>
-                                </tr>
-                                
-                            ))
-                        ): loading? (
-                            <p className='temp'>Loading...</p>
-                        ) : (
-                            <p className='temp'>No data available</p>
-                        )}
-                </table>
-                
-            </div>
+    <div>
+        <div className="ep-header">
+        <p className="ep-eyebrow">Magazzino</p>
+        <h1 className="ep-title">Inventario</h1>
         </div>
+        <div className="ep-body">
+        <div className="ep-table-wrap">
+            <table className="ep-table">
+            <thead>
+                <tr>
+                <th>ID</th><th>Nome</th><th>Brand</th><th>Prezzo</th><th>Quantità</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loading && (
+                <tr><td colSpan={5} className="ep-state">Caricamento…</td></tr>
+                )}
+                {!loading && !data?.length && (
+                <tr><td colSpan={5} className="ep-state">Nessun prodotto disponibile.</td></tr>
+                )}
+                {data && data.map(item => (
+                <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                    <td>{item.brand}</td>
+                    <td>€ {item.price}</td>
+                    <td>{item.quantity}</td>
+                </tr>
+                ))}
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
     );
 }
 

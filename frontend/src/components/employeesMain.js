@@ -75,35 +75,62 @@ const EmployeesMain = () => {
         }
         fetchData()
     }, []);
+    
+
     return (
-        <div className='workInterface'>
-            <div className='sidePanel'>
-                <ul className='sideMenu'>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<Inventory />)}>Inventory</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<Orders />)}>Order List</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<Shipments />)}>Shipments</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<Employees />)}>Employee list</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<EmployeeRegistration />)}>Add new employee</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<RemoveEmployee />)}>Remove employee</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<MonthlyReport />)}>Monthly reports section</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<Refund />)}>Returns and refunds management</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<AddBike />)}>Add a Bike</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<AddAccessory />)}>Add an Accessory</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<AddService />)}>Add a Service</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<RemoveBike />)}>Remove a Bike</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<RemoveAccessories />)}>Remove an Accessory</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<RemoveService />)}>Remove a Service</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<BikeList />)}>Bike List</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<AccessoryList />)}>Accessory List</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<ServiceList />)}>Service List</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<AddAccessoryQuantity />)}>Increase Accessory Quantity</li>
-                    <li className='menuItem' onClick={() => handleMenuItemClick(<AddBikeQuantity />)}>Increase Bike Quantity</li>
-                </ul>
+    <div className="workInterface">
+        <div className="sidePanel">
+
+        <div className="sidePanel-logo">
+            <span className="sidePanel-logo-dot" />
+            <span className="sidePanel-logo-name">Bike Heaven</span>
+            <span className="sidePanel-logo-sub">Employee portal</span>
+        </div>
+
+        <ul className="sideMenu">
+            <li className="menuSection">Gestione</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<Inventory />)}>Inventario</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<Orders />)}>Ordini</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<Shipments />)}>Spedizioni</li>
+
+            <li className="menuSection">Dipendenti</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<Employees />)}>Lista dipendenti</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<EmployeeRegistration />)}>Aggiungi dipendente</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<RemoveEmployee />)}>Rimuovi dipendente</li>
+
+            <li className="menuSection">Catalogo</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<AddBike />)}>Aggiungi bici</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<AddAccessory />)}>Aggiungi accessorio</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<AddService />)}>Aggiungi servizio</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<RemoveBike />)}>Rimuovi bici</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<RemoveAccessories />)}>Rimuovi accessorio</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<RemoveService />)}>Rimuovi servizio</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<BikeList />)}>Lista bici</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<AccessoryList />)}>Lista accessori</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<ServiceList />)}>Lista servizi</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<AddBikeQuantity />)}>Aumenta qtà bici</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<AddAccessoryQuantity />)}>Aumenta qtà accessori</li>
+
+            <li className="menuSection">Report</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<MonthlyReport />)}>Report mensile</li>
+            <li className="menuItem" onClick={() => handleMenuItemClick(<Refund />)}>Rimborsi</li>
+        </ul>
+
+        <div className="sidePanel-user">
+            <div className="sidePanel-user-pill">
+            <div className="sidePanel-avatar">FD</div>
+            <div>
+                <div className="sidePanel-user-name">F. De Patre</div>
+                <div className="sidePanel-user-role">Amministratore</div>
             </div>
-            <div className='contentContainer'>
-                {currentComponent}
             </div>
         </div>
+        </div>
+
+        <div className="contentContainer">
+        {currentComponent}
+        </div>
+    </div>
     );
 }
 

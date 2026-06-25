@@ -32,19 +32,25 @@ const MonthlyReport = () => {
     }
 
     return (
-        <div>
-            <div className='monthlyReport'>
-                <div className='monthlyReportTitle'>
-                    <h1>Monthly Report</h1>
-                </div>
-                <div className='monthlyReportContent'>
-                    <h3>Click to download Monthly Report</h3>  
-                </div>
-                <div className='downloadButton'>
-                    <Button variant="contained" onClick={HandleDownload}>Download</Button>
-                </div>
+    <div>
+        <div className="ep-header">
+        <p className="ep-eyebrow">Report</p>
+        <h1 className="ep-title">Report mensile</h1>
+        </div>
+        <div className="ep-body">
+        <div className="ep-report-card">
+            <p className="ep-report-desc">
+            Scarica il report mensile in formato PDF con il riepilogo delle vendite,
+            le spedizioni e l'inventario aggiornato.
+            </p>
+            <div>
+            <button className="ep-download-btn" onClick={HandleDownload}>
+                ↓ Scarica PDF
+            </button>
             </div>
         </div>
+        </div>
+    </div>
     );
 }
 

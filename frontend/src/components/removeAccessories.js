@@ -41,29 +41,29 @@ const RemoveAccessories = () => {
     
     return (
         <div>
-            <div className='remove'>
-                    <div className="removeTitle">
-                        <h1>Remove an Accessory</h1>
-                    </div>
-                    <div className="remContainer">
-                        <h3 className="removeName">Accessory ID</h3>
-                        <TextField
-          id="outlined-number"
-          onChange={(e) => setAccessoryId(e.target.value)}
-          label="Number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-                    </div>
-                    <div className="remContainer">
-                        <button id="cancelRemove">Cancel</button>
-                        <button id='confirmRemove' onClick={HandleForm}>Confirm</button>
-                    </div>
+            <div className="ep-header">
+            <p className="ep-eyebrow">Catalogo</p>
+            <h1 className="ep-title">Rimuovi accessorio</h1>
+            </div>
+            <div className="ep-body">
+            <div className="ep-form-panel" style={{maxWidth: '400px'}}>
+                <div className="ep-form-grid single">
+                <div className="ep-field">
+                    <label htmlFor="rb-id">ID accessorio</label>
+                    <input id="rb-id" type="number" placeholder="es. 42"
+                    onChange={(e) => setBikeId(e.target.value)} />
                 </div>
+                </div>
+                {success && <p className="ep-alert ep-alert--success">{success}</p>}
+                {error && <p className="ep-alert ep-alert--error">{error}</p>}
+                <div className="ep-actions">
+                <button className="ep-btn ep-btn--ghost" onClick={() => navigate('/')}>Annulla</button>
+                <button className="ep-btn ep-btn--danger" onClick={HandleForm}>Rimuovi</button>
+                </div>
+            </div>
+            </div>
         </div>
-    );
+        );
 }
 
 export default RemoveAccessories;
