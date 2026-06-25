@@ -15,7 +15,7 @@ async function setBike(bike) {
         const imageData = Buffer.from(bike.image.split(',')[1], 'base64')
         await pool.query(
             `INSERT INTO bicycles
-             (name, price, description, feedback, brand, frame, dimensions, gear, brakes, suspensions, weight, quantity, picture, codCategory)
+             (name, price, description, feedback, brand, frame, dimensions, gear, brakes, suspensions, weight, quantity, picture, codcategory)
              VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)`,
             [bike.name, bike.price, bike.description, bike.feedback, bike.brand,
              bike.frame, bike.dimensions, bike.gear, bike.brakes, bike.suspensions,

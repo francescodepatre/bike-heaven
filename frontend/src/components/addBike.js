@@ -55,8 +55,8 @@ const AddBike = () => {
     const [dimensions, setDimensions] = useState("");
     const [weight, setWeight] = useState("");
     const [description, setDescription] = useState("");
-    const [feedback, setFeedback] = useState(0); // Gestito internamente o di default a 0
-    const [category, setCategory] = useState(1);  // Default sulla categoria 1
+    const [feedback, setFeedback] = useState(0);
+    const [category, setCategory] = useState(1);  
 
       const handleChange = (event) => {
         setCategory(event.target.value);
