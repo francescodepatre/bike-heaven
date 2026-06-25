@@ -121,6 +121,7 @@
 .item{
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
+    color: white;
 }
 
 .nav_link{
@@ -329,32 +330,3 @@ a, a:link, a:visited{
         font-size: 17px;
     }
 }
-
-/* ==========================================================================
-   CHANGELOG — sintesi delle modifiche rispetto alla versione originale
-   ==========================================================================
-
-   1. Da `position: absolute` a `position: fixed` con z-index dedicato:
-      la navbar resta visibile e utilizzabile anche dopo lo scroll
-      (prima scompariva scorrendo, comportamento non da sito premium).
-   2. Sfondo che passa da semi-trasparente a quasi opaco allo scroll
-      (.navBar_scrolled), garantendo leggibilità su qualunque contenuto
-      sottostante — nell'originale il testo bianco poteva risultare
-      illeggibile su sfondi chiari.
-   3. backdrop-filter: blur per un effetto "vetro" coerente con
-      l'estetica premium di Trek/Canyon.
-   4. font-size dei link portato da 11px (illeggibile) a 14px desktop /
-      16px mobile.
-   5. Sistema di sottolineatura animata (::after) per indicare hover e
-      route attiva — gerarchia visiva chiara, micro-animazione elegante.
-   6. Menu mobile con hamburger, transizione max-height/opacity fluida,
-      item impilati a piena larghezza con touch target adeguati.
-   7. Search bar ridisegnata come pill coerente con la palette del
-      brand, niente più stili inline forzati via prop MUI.
-   8. focus-visible su tutti gli elementi interattivi della navbar,
-      assente nella versione originale.
-   9. Rimossi margini fissi (margin-left: 10px ecc.) sostituiti da
-      `gap` su flex container — più prevedibile e manutenibile.
-   10. Media query a 900px / 768px / 420px aggiunte ex novo (il file
-       originale non ne aveva nessuna).
-*/
