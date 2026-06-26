@@ -11,7 +11,7 @@ async function setAccessory(accessory) {
     try {
         const imageBuffer = Buffer.from(accessory.image.split(',')[1], 'base64')
         await pool.query(
-            `INSERT INTO accessories (name, price, description, feedback, brand, quantity, picture, codCategory)
+            `INSERT INTO accessories (name, price, description, feedback, brand, quantity, picture, codcategory)
              VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
             [accessory.name, accessory.price, accessory.description, accessory.feedback,
              accessory.brand, accessory.quantity, imageBuffer, accessory.category]

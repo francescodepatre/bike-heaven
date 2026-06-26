@@ -22,7 +22,7 @@ async function setService(service){
 
         const imageBuffer = Buffer.from(base64Data, 'base64');
         
-        await pool.query(`INSERT INTO services (name, price, description, feedback, brand, picture, codCategory) VALUES ($1, $2, $3, $4, $5, $6, $7)`[name, price, description, feedback, brand, imageBuffer, category]);
+        await pool.query(`INSERT INTO services (name, price, description, feedback, brand, picture, codcategory) VALUES ($1, $2, $3, $4, $5, $6, $7)`[name, price, description, feedback, brand, imageBuffer, category]);
 
         return{
             success: true
