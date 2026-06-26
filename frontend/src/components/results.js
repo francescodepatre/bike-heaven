@@ -24,7 +24,7 @@ function Results() {
         setFetchError(false);
 
         try {
-            const response = await fetch(`/api/search/${encodeURIComponent(searchID)}`);
+            const response = await fetch(`https://bike-heaven.onrender.com/api/search/${encodeURIComponent(searchID)}`);
 
             if (!response.ok) {
                 throw new Error("Fetching data failed");
