@@ -8,8 +8,9 @@ const pool = require('./db')
 
 async function deleteBike(id){
     try{
+        const id_bike = parseInt(id,10)
         const { rows } = await pool.query(
-            `DELETE FROM bicycles WHERE id = $1`, [id]
+            `DELETE FROM bicycles WHERE id = $1`, [id_bike]
         )
         if (rows.length === 0) return { success: true, data: null }
         
