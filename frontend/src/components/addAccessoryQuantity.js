@@ -4,64 +4,81 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-import React, {useState} from 'react';
-import TextField from '@mui/material/TextField';
-import "./style/remove.css";
+import React, { useState } from 'react';
+import "./style/ep-shared.css";
 
 const AddAccessoryQuantity = () => {
+    const [accId, setAccId] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
+    async function HandleForm(event) {
+        event.preventDefault();
+        setSuccess(''); setError('');
 
-    const [accId, setaccId] = useState(0)
-    const [quantity, setQuantity] = useState(0)
-
-    function HandleForm(event){
-        event.preventDefault()
-        if(accId === null || accId === undefined || accId === 0){
-            alert("Please enter a bike id")
-            return
+        if (!accId || Number(accId) <= 0) {
+            setError("Inserisci un ID accessorio valido.");
+            return;
         }
-        let increase = {
-            id: accId,
-            quantity: quantity
+        if (!quantity || Number(quantity) <= 0) {
+            setError("Inserisci una quantità valida.");
+            return;
         }
-        fetch("https://bike-heaven.onrender.com/api/increaseAccessory", {
-            method: "POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify(increase)
-        }).then(response => response.json()).then(data => {
-            if(data.success){
-                alert("Accessory quantity increased successfully")
-            }
-            else{
-                alert("Attention: Accessory quantity was not increased")
-            }
-        }).catch(error => {
-            alert("Attention: Accessory increasing failed")
-        })
+
+        setLoading(true);
+        try {
+            const res = await fetch("https://bike-heaven.onrender.com/api/increaseAccessory", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: parseInt(accId, 10), quantity: parseInt(quantity, 10) })
+            });
+            const data = await res.json();
+            if (data.success) { setSuccess("Quantità aggiornata con successo."); setAccId(''); setQuantity(''); }
+            else setError("Aggiornamento non riuscito. Verifica l'ID.");
+        } catch { setError("Errore di connessione. Riprova più tardi."); }
+        finally { setLoading(false); }
     }
+
     return (
         <div>
-            <div className='remove'>
-                    <div className="removeTitle">
-                        <h1>Increase Accessory Quantity</h1>
+            <div className="ep-header">
+                <p className="ep-eyebrow">Catalogo</p>
+                <h1 className="ep-title">Aumenta quantità accessorio</h1>
+            </div>
+            <div className="ep-body">
+                <div className="ep-form-panel" style={{ maxWidth: '400px' }}>
+                    <div className="ep-form-grid single">
+                        <div className="ep-field">
+                            <label htmlFor="aaq-id">ID accessorio</label>
+                            <input id="aaq-id" type="number" placeholder="es. 17"
+                                value={accId} onChange={(e) => setAccId(e.target.value)} />
+                        </div>
+                        <div className="ep-field">
+                            <label htmlFor="aaq-qty">Quantità da aggiungere</label>
+                            <input id="aaq-qty" type="number" placeholder="es. 10"
+                                value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                        </div>
                     </div>
-                    <div className="remContainer">
-                        <h3 className="removeName">Accessory ID</h3>
-                        <TextField id="outlined-number" onChange={(e) => setaccId(e.target.value)} label="Accessory Id" type="number" InputLabelProps={{shrink: true,}}/>
-                    </div>
-                    <div className="remContainer">
-                        <h3 className="removeName">Quantity</h3>
-                        <TextField id="outlined-number" onChange={(e) => setQuantity(e.target.value)} label="Quantity" type="number" InputLabelProps={{shrink: true,}}/>
-                    </div>
-                    <div className="remContainer">
-                        <button id="cancelRemove">Cancel</button>
-                        <button id='confirmRemove' onClick={HandleForm}>Confirm</button>
+
+                    {success && <p className="ep-alert ep-alert--success">{success}</p>}
+                    {error   && <p className="ep-alert ep-alert--error" role="alert">{error}</p>}
+
+                    <div className="ep-actions">
+                        <button className="ep-btn ep-btn--ghost" type="button"
+                            onClick={() => { setAccId(''); setQuantity(''); setSuccess(''); setError(''); }}>
+                            Annulla
+                        </button>
+                        <button className="ep-btn ep-btn--primary" type="button"
+                            onClick={HandleForm} disabled={loading} aria-busy={loading}>
+                            {loading ? 'Aggiornamento…' : 'Conferma'}
+                        </button>
                     </div>
                 </div>
+            </div>
         </div>
     );
-}
+};
 
 export default AddAccessoryQuantity;

@@ -1,0 +1,442 @@
+/*
+    Author: @FrancescoDePatre
+    Matricola: 318319
+    Università di Parma - Corso di Tecnologie Internet
+    Email:  francesco.depatre@studenti.unipr.it
+
+    ep-shared.css — componenti UI riutilizzabili.
+    I token :root sono definiti in employeesMain.css che viene
+    sempre caricato per primo. Importare questo file in ogni
+    sotto-componente che usa header, form, tabelle, bottoni o alert.
+*/
+
+/* ================================================================
+   PAGE HEADER
+   ================================================================ */
+.ep-header {
+    padding: 24px 28px 0;
+    border-bottom: 0.5px solid var(--ep-border);
+    flex-shrink: 0;
+}
+
+.ep-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ep-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 0 0 4px;
+}
+
+.ep-title {
+    font-family: var(--ep-font-d);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ep-text);
+    padding-bottom: 20px;
+    margin: 0;
+}
+
+.ep-body {
+    padding: 24px 28px;
+    flex: 1;
+}
+
+/* ================================================================
+   STAT CARDS
+   ================================================================ */
+.ep-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ep-stat {
+    background: var(--ep-bg);
+    border: 0.5px solid var(--ep-border);
+    border-radius: var(--ep-r);
+    padding: 14px 16px;
+}
+
+.ep-stat-label {
+    font-size: 11px;
+    color: var(--ep-text-muted);
+    margin-bottom: 8px;
+}
+
+.ep-stat-value {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ep-text);
+    font-family: var(--ep-font-d);
+}
+
+.ep-stat-value.accent { color: var(--ep-accent); }
+
+/* ================================================================
+   TABELLE
+   ================================================================ */
+.ep-table-wrap {
+    background: var(--ep-bg);
+    border: 0.5px solid var(--ep-border);
+    border-radius: var(--ep-r);
+    overflow: hidden;
+}
+
+.ep-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.ep-table thead th {
+    text-align: left;
+    padding: 11px 16px;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--ep-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 0.5px solid var(--ep-border);
+    background: var(--ep-surface2);
+    white-space: nowrap;
+}
+
+.ep-table tbody td {
+    padding: 11px 16px;
+    color: var(--ep-text-soft);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.04);
+    white-space: nowrap;
+}
+
+.ep-table tbody td:first-child { color: var(--ep-text); }
+.ep-table tbody tr:last-child td { border-bottom: none; }
+.ep-table tbody tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+/* ================================================================
+   BADGE
+   ================================================================ */
+.ep-badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.ep-badge--success { background: var(--ep-success-bg); color: var(--ep-success); }
+.ep-badge--warning { background: var(--ep-warning-bg); color: var(--ep-warning); }
+.ep-badge--danger  { background: var(--ep-danger-bg);  color: var(--ep-danger);  }
+
+/* ================================================================
+   STATI VUOTO / ERRORE
+   ================================================================ */
+.ep-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--ep-text-muted);
+    font-size: 14px;
+}
+
+.ep-state--error { color: var(--ep-danger); }
+
+/* ================================================================
+   FORM PANEL
+   ================================================================ */
+.ep-form-panel {
+    background: var(--ep-bg);
+    border: 0.5px solid var(--ep-border);
+    border-radius: var(--ep-r-lg);
+    padding: 28px 32px;
+    max-width: 560px;
+}
+
+.ep-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.ep-form-grid.single { grid-template-columns: 1fr; }
+
+/* ================================================================
+   FIELD
+   ================================================================ */
+.ep-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ep-field.full { grid-column: 1 / -1; }
+
+.ep-field label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ep-text-soft);
+}
+
+.ep-field input,
+.ep-field select,
+.ep-field textarea {
+    height: 42px;
+    padding: 0 13px;
+    border: 1px solid var(--ep-border);
+    border-radius: 8px;
+    background: var(--ep-surface);
+    color: var(--ep-text);
+    font-family: var(--ep-font);
+    font-size: 13px;
+    transition: border-color var(--ep-transition),
+                background   var(--ep-transition),
+                box-shadow   var(--ep-transition);
+}
+
+.ep-field textarea {
+    height: auto;
+    padding: 11px 13px;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.ep-field input::placeholder,
+.ep-field textarea::placeholder { color: var(--ep-text-muted); }
+
+.ep-field input:hover,
+.ep-field select:hover,
+.ep-field textarea:hover {
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+.ep-field input:focus,
+.ep-field select:focus,
+.ep-field textarea:focus {
+    outline: none;
+    border-color: var(--ep-accent);
+    background: var(--ep-surface2);
+    box-shadow: 0 0 0 3px rgba(200, 255, 58, 0.1);
+}
+
+.ep-field input[aria-invalid="true"],
+.ep-field textarea[aria-invalid="true"] {
+    border-color: var(--ep-danger);
+    box-shadow: 0 0 0 3px rgba(224, 82, 82, 0.1);
+}
+
+.ep-field-error {
+    font-size: 11px;
+    color: var(--ep-danger);
+    margin-top: 2px;
+}
+
+/* File input */
+.ep-field input[type="file"] {
+    height: auto;
+    padding: 10px 13px;
+    cursor: pointer;
+    color: var(--ep-text-soft);
+}
+
+.ep-field input[type="file"]::file-selector-button {
+    height: 26px;
+    padding: 0 12px;
+    margin-right: 10px;
+    background: var(--ep-surface2);
+    border: 0.5px solid var(--ep-border);
+    border-radius: 6px;
+    color: var(--ep-text);
+    font-family: var(--ep-font);
+    font-size: 12px;
+    cursor: pointer;
+    transition: background var(--ep-transition), color var(--ep-transition);
+}
+
+.ep-field input[type="file"]::file-selector-button:hover {
+    background: var(--ep-accent);
+    color: var(--ep-bg);
+    border-color: var(--ep-accent);
+}
+
+/* Select arrow color override */
+.ep-field select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888ea0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 13px center;
+    padding-right: 36px;
+}
+
+/* ================================================================
+   RATING ROW (feedback clienti — readonly)
+   ================================================================ */
+.ep-rating-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 0.5px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.ep-rating-label {
+    font-size: 12px;
+    color: var(--ep-text-muted);
+    flex-shrink: 0;
+}
+
+.ep-stars {
+    color: var(--ep-text-muted);
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+/* ================================================================
+   BOTTONI
+   ================================================================ */
+.ep-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 0.5px solid var(--ep-border);
+}
+
+.ep-btn {
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-family: var(--ep-font-d);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background  var(--ep-transition),
+                color       var(--ep-transition),
+                transform   var(--ep-transition),
+                opacity     var(--ep-transition),
+                border-color var(--ep-transition);
+}
+
+/* Primary — lime */
+.ep-btn--primary {
+    background: var(--ep-accent);
+    color: var(--ep-bg);
+    border: none;
+}
+
+.ep-btn--primary:hover:not(:disabled) {
+    background: var(--ep-accent-d);
+    transform: translateY(-1px);
+}
+
+/* Ghost — bordo sottile */
+.ep-btn--ghost {
+    background: transparent;
+    border: 1px solid var(--ep-border);
+    color: var(--ep-text-soft);
+}
+
+.ep-btn--ghost:hover {
+    border-color: var(--ep-text-soft);
+    color: var(--ep-text);
+    background: var(--ep-surface2);
+}
+
+/* Danger — rosso per azioni distruttive */
+.ep-btn--danger {
+    background: var(--ep-danger-bg);
+    border: 1px solid var(--ep-danger);
+    color: var(--ep-danger);
+}
+
+.ep-btn--danger:hover:not(:disabled) {
+    background: var(--ep-danger);
+    color: #fff;
+    transform: translateY(-1px);
+    border-color: var(--ep-danger);
+}
+
+/* Stato disabilitato */
+.ep-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Focus visibile per navigazione da tastiera */
+.ep-btn:focus-visible {
+    outline: 3px solid var(--ep-accent);
+    outline-offset: 2px;
+}
+
+/* ================================================================
+   ALERT INLINE
+   ================================================================ */
+.ep-alert {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: var(--ep-font);
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+.ep-alert--success {
+    background: var(--ep-success-bg);
+    color: var(--ep-success);
+}
+
+.ep-alert--error {
+    background: var(--ep-danger-bg);
+    color: var(--ep-danger);
+}
+
+/* ================================================================
+   REPORT CARD (monthlyReport)
+   ================================================================ */
+.ep-report-card {
+    background: var(--ep-bg);
+    border: 0.5px solid var(--ep-border);
+    border-radius: var(--ep-r-lg);
+    padding: 36px;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ep-report-desc {
+    font-size: 14px;
+    color: var(--ep-text-soft);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.ep-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 22px;
+    background: var(--ep-accent);
+    color: var(--ep-bg);
+    border: none;
+    border-radius: 8px;
+    font-family: var(--ep-font-d);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background var(--ep-transition), transform var(--ep-transition);
+    width: fit-content;
+}
+
+.ep-download-btn:hover {
+    background: var(--ep-accent-d);
+    transform: translateY(-1px);
+}
+
+.ep-download-btn:focus-visible {
+    outline: 3px solid var(--ep-accent);
+    outline-offset: 2px;
+}
