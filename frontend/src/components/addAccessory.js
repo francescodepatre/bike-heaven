@@ -5,146 +5,131 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
 import "./style/addAccessory.css";
 
 const AddAccessory = () => {
 
-    const currencies = [
-        {
-          value: 'USD',
-          label: '$',
-        },
-        {
-          value: 'EUR',
-          label: '€',
-        },
-        {
-          value: 'BTC',
-          label: '฿',
-        },
-        {
-          value: 'JPY',
-          label: '¥',
-        },
-      ];
+    const [base64Image, setBase64Image] = useState(null);
+    const [accessoryName, setAccessoryName] = useState('');
+    const [price, setPrice] = useState('');
+    const [description, setDescription] = useState('');
+    const [brand, setBrand] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [feedbackMsg, setFeedbackMsg] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [base64Image,setBase64Image] = useState(null);
-    const [accessoryName, setaccessoryName] = useState(null);
-    const [price, setPrice] = useState(null);
-    const [description,setDescription] = useState("none");
-    const feedback = 0;
-    const [brand, setBrand] = useState(null);
-    const [quantity, setQuantity] = useState(null);
-    const category = 6;
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => setBase64Image(reader.result);
+        reader.readAsDataURL(file);
+    };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-  const reader = new FileReader();
-  
-  reader.onload = () => {
-    setSelectedImage(file);
-    setBase64Image(reader.result);
-  };
-  
-  reader.readAsDataURL(file);
-  };
+    const handleForm = (event) => {
+        event.preventDefault();
+        setError(''); setFeedbackMsg('');
 
-  const handleForm = (event) => {
-    event.preventDefault();
-    let bikeData = {
-      name: accessoryName,
-      price: price,
-      description: description,
-      feedback: feedback,
-      brand: brand,
-      quantity: quantity,
-      image: base64Image,
-      category: category
-    }
-    fetch('https://bike-heaven.onrender.com/api/setAccessory', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bikeData)
-    }).then(response => response.json()).then(data => {
-      if(data.success){
-          alert('Accessory posted successfully')
-      }
-      else{
-          alert("Attention: Accessory not posted")
-      }
-    }).catch(error => {
-      console.log(error)
-    })
-  }
+        if (!accessoryName || !price || !brand || !quantity || !base64Image) {
+            setError("Tutti i campi sono obbligatori, inclusa l'immagine.");
+            return;
+        }
 
-  return (
-    <div>
-        <div className='accessoryUpload'>
-                    <div className="accessoryTitle">
-                        <h1>Sell an Accessory</h1>
-                    </div>
-                    <div className="accessoryContainer">
-                        <h3 className="accessoryName">Name Accessory</h3>
-                        <TextField id="outlined-basic" className="field" label="Accessory Name" variant="outlined" onChange={(e) => setaccessoryName(e.target.value)}/>
-                    </div>
-                    <div className="accessoryContainer">
-                        <h3 className="accessoryPrice">Price</h3>
-                        <TextField id="outlined-basic" className="field" label="Accessory Price" variant="outlined" type="number" InputLabelProps={{shrink: true,}} onChange={(e) => setPrice(e.target.value)}/>
-                        <TextField
-                              id="outlined-select-currency-native"
-                              className='currencySelector'
-                              select
-                              label="Currency"
-                              defaultValue="EUR"
-                              SelectProps={{
-                                native: true,
-                              }}
-                            >
-                              {currencies.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                  {option.label}
-                                </option>
-                              ))}
-                          </TextField>                    
-                      </div>
-                    <div className="accessoryContainer">
-                        <h3 className="accessoryDescription">Description</h3>
-                        <TextField id="outlined-multiline-static" label="Description" multiline rows={5} defaultValue="none" onChange={(e) => setDescription(e.target.value)}/>
-                    </div>
-                    <div className="accessoryContainer">
-                      <Typography component="legend" className="accessoryFeedback">Feedback (set up by customers)</Typography>
-                      <Rating name="disabled" value={feedback} disabled />
-                    </div>
-                    <div className="accessoryContainer">
-                        <h3 className="accessoryBrand">Brand</h3>
-                        <TextField id="outlined-basic" className="field" label="Brand" variant="outlined" onChange={(e) => setBrand(e.target.value)}/>
-                    </div>
-                    
-                    <div className="accessoryContainer">
-                        <h3 className="accessoryQuantity">Quantity</h3>
-                        <TextField id="outlined-basic" className="field" label="Quantity" variant="outlined" type="number" InputLabelProps={{shrink: true,}} onChange={(e) => setQuantity(e.target.value)}/>
-                    </div>
-                    <div className="accessoryContainer">
-                        <h3 className="accessoryImage">Image</h3>
-                          <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageChange}
-                          />
-                    </div>
-                    <div className="accessoryContainer">
-                        <button id="cancelAccessory">Cancel</button>
-                        <button id='confirmAccessory' onClick={handleForm}>Confirm</button>
-                    </div>
-                </div>
-    </div>
-  );
+        setLoading(true);
+        const accessoryData = {
+            name: accessoryName,
+            price: parseFloat(price),
+            description: description || 'none',
+            feedback: 0,
+            brand: brand,
+            quantity: parseInt(quantity, 10),
+            image: base64Image,
+            category: 6
+        };
+
+        fetch('https://bike-heaven.onrender.com/api/setAccessory', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(accessoryData)
+        })
+        .then(res => { if (!res.ok) throw new Error(); return res.json(); })
+        .then(data => {
+            if (data.success) setFeedbackMsg('Accessorio pubblicato con successo.');
+            else setError('Pubblicazione non riuscita. Controlla i log del server.');
+        })
+        .catch(() => setError('Errore di connessione o del server.'))
+        .finally(() => setLoading(false));
+    };
+
+    return (
+        <div className="accessoryUpload">
+            <div className="accessoryTitle">
+                <h1>Aggiungi un Accessorio</h1>
+            </div>
+
+            <div className="accessoryContainer">
+                <label className="fieldLabel" htmlFor="acc-name">Nome accessorio</label>
+                <input id="acc-name" className="field" type="text"
+                    placeholder="es. Casco Giro Syntax"
+                    onChange={(e) => setAccessoryName(e.target.value)} />
+            </div>
+
+            <div className="accessoryContainer">
+                <label className="fieldLabel" htmlFor="acc-price">Prezzo (€)</label>
+                <input id="acc-price" className="field" type="number"
+                    placeholder="0.00"
+                    onChange={(e) => setPrice(e.target.value)} />
+            </div>
+
+            <div className="accessoryContainer">
+                <label className="fieldLabel" htmlFor="acc-brand">Brand</label>
+                <input id="acc-brand" className="field" type="text"
+                    placeholder="es. Shimano"
+                    onChange={(e) => setBrand(e.target.value)} />
+            </div>
+
+            <div className="accessoryContainer">
+                <label className="fieldLabel" htmlFor="acc-qty">Quantità</label>
+                <input id="acc-qty" className="field" type="number"
+                    placeholder="0"
+                    onChange={(e) => setQuantity(e.target.value)} />
+            </div>
+
+            <div className="accessoryContainer accessoryContainer--textarea">
+                <label className="fieldLabel" htmlFor="acc-desc">Descrizione</label>
+                <textarea id="acc-desc" className="field fieldTextarea"
+                    placeholder="Descrivi l'accessorio…"
+                    rows={4}
+                    onChange={(e) => setDescription(e.target.value)} />
+            </div>
+
+            <div className="accessoryContainer">
+                <label className="fieldLabel" htmlFor="acc-img">Immagine</label>
+                <input id="acc-img" type="file" accept="image/*"
+                    onChange={handleImageChange} />
+            </div>
+
+            <div className="feedbackRow">
+                <span className="feedbackLabel">Feedback clienti</span>
+                <span className="stars">★★★★★</span>
+                <span className="feedbackNote">impostato dai clienti</span>
+            </div>
+
+            {feedbackMsg && <p className="formAlert formAlert--success">{feedbackMsg}</p>}
+            {error && <p className="formAlert formAlert--error" role="alert">{error}</p>}
+
+            <div className="formActions">
+                <button id="cancelAccessory" type="button"
+                    onClick={() => { setError(''); setFeedbackMsg(''); }}>
+                    Annulla
+                </button>
+                <button id="confirmAccessory" type="button"
+                    onClick={handleForm} disabled={loading}>
+                    {loading ? 'Pubblicazione…' : 'Pubblica accessorio'}
+                </button>
+            </div>
+        </div>
+    );
 };
 
 export default AddAccessory;

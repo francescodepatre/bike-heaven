@@ -250,8 +250,8 @@ const AddBike = () => {
           </div>
         </div>
 
-        {feedback && <p className="ep-alert ep-alert--success">{feedback}</p>}
-        {error && <p className="ep-alert ep-alert--error">{error}</p>}
+        {feedbackMsg && <p className="formAlert formAlert--success">{feedbackMsg}</p>}
+        {error && <p className="formAlert formAlert--error" role="alert">{error}</p>}
 
         <div className="ep-actions">
           <button className="ep-btn ep-btn--ghost" onClick={() => navigate('/')}>Annulla</button>

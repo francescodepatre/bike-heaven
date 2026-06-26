@@ -4,142 +4,123 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-
 import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
 import "./style/addService.css";
 
 const AddService = () => {
 
-    const currencies = [
-        {
-          value: 'USD',
-          label: '$',
-        },
-        {
-          value: 'EUR',
-          label: '€',
-        },
-        {
-          value: 'BTC',
-          label: '฿',
-        },
-        {
-          value: 'JPY',
-          label: '¥',
-        },
-      ];
-
-      const [base64Image,setBase64Image] = useState(null);
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [serviceName, setServiceName] = useState(null);
-    const [price, setPrice] = useState(null);
-    const [description,setDescription] = useState("none");
-    const feedback = 0;
-    const [brand, setBrand] = useState(null);
-    const category = 7;
+    const [base64Image, setBase64Image] = useState(null);
+    const [serviceName, setServiceName] = useState('');
+    const [price, setPrice] = useState('');
+    const [description, setDescription] = useState('');
+    const [brand, setBrand] = useState('');
+    const [feedbackMsg, setFeedbackMsg] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleImageChange = (event) => {
-      const file = event.target.files[0];
-    const reader = new FileReader();
-    
-    reader.onload = () => {
-      setSelectedImage(file);
-      setBase64Image(reader.result);
-    };
-    
-    reader.readAsDataURL(file);
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => setBase64Image(reader.result);
+        reader.readAsDataURL(file);
     };
 
     const handleForm = (event) => {
-      event.preventDefault();
-      let bikeData = {
-        name: serviceName,
-        price: price,
-        description: description,
-        feedback: feedback,
-        brand: brand,
-        image: base64Image,
-        category: category
-      }
-      console.log(bikeData);
-      fetch('https://bike-heaven.onrender.com/api/postService', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(bikeData)
-      }).then(response => response.json()).then(data => {
-        if(data.success){
-            alert('Service posted successfully')
-        }
-        else{
-            alert("Attention: Service not posted")
-        }
-      }).catch(error => {
-        console.log(error)
-      })
-    }
+        event.preventDefault();
+        setError(''); setFeedbackMsg('');
 
-  return (
-    <div>
-        <div className='serviceUpload'>
-                    <div className="serviceTitle">
-                        <h1>Offer a Service</h1>
-                    </div>
-                    <div className="serviceContainer">
-                        <h3 className="serviceName">Name Service</h3>
-                        <TextField id="outlined-basic" className="field" label="Service Name" variant="outlined" onChange={(e) => setServiceName(e.target.value)}/>
-                    </div>
-                    <div className="serviceContainer">
-                        <h3 className="servicePrice">Price</h3>
-                        <TextField id="outlined-basic" className="field" label="Service Price" variant="outlined" type="number" InputLabelProps={{shrink: true,}} onChange={(e) => setPrice(e.target.value)}/>
-                        <TextField
-                              id="outlined-select-currency-native"
-                              className='currencySelector'
-                              select
-                              label="Currency"
-                              defaultValue="EUR"
-                              SelectProps={{
-                                native: true,
-                              }}
-                            >
-                              {currencies.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                  {option.label}
-                                </option>
-                              ))}
-                          </TextField>                    
-                      </div>
-                    <div className="serviceContainer">
-                        <h3 className="serviceDescription">Description</h3>
-                        <TextField id="outlined-multiline-static" label="Description" multiline rows={5} defaultValue="none" onChange={(e) => setDescription(e.target.value)}/>
-                    </div>
-                    <div className="serviceContainer">
-                      <Typography component="legend" className="serviceFeedback">Feedback (set up by customers)</Typography>
-                      <Rating name="disabled" value={feedback} disabled />
-                    </div>
-                    <div className="serviceContainer">
-                        <h3 className="serviceBrand">Brand</h3>
-                        <TextField id="outlined-basic" className="field" label="Brand" variant="outlined" onChange={(e) => setBrand(e.target.value)}/>
-                    </div>
-                    <div className="serviceContainer">
-                        <h3 className="serviceImage">Image</h3>
-                          <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageChange}
-                          />
-                    </div>
-                    <div className="serviceContainer">
-                        <button id="cancelService">Cancel</button>
-                        <button id='confirmService' onClick={handleForm}>Confirm</button>
-                    </div>
-                </div>
-    </div>
-  );
+        if (!serviceName || !price || !brand || !base64Image) {
+            setError("Tutti i campi sono obbligatori, inclusa l'immagine.");
+            return;
+        }
+
+        setLoading(true);
+        const serviceData = {
+            name: serviceName,
+            price: parseFloat(price),
+            description: description || 'none',
+            feedback: 0,
+            brand: brand,
+            image: base64Image,
+            category: 7
+        };
+
+        fetch('https://bike-heaven.onrender.com/api/postService', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(serviceData)
+        })
+        .then(res => { if (!res.ok) throw new Error(); return res.json(); })
+        .then(data => {
+            if (data.success) setFeedbackMsg('Servizio pubblicato con successo.');
+            else setError('Pubblicazione non riuscita. Controlla i log del server.');
+        })
+        .catch(() => setError('Errore di connessione o del server.'))
+        .finally(() => setLoading(false));
+    };
+
+    return (
+        <div className="serviceUpload">
+            <div className="serviceTitle">
+                <h1>Aggiungi un Servizio</h1>
+            </div>
+
+            <div className="serviceContainer">
+                <label className="fieldLabel" htmlFor="srv-name">Nome servizio</label>
+                <input id="srv-name" className="field" type="text"
+                    placeholder="es. Cambio gomme"
+                    onChange={(e) => setServiceName(e.target.value)} />
+            </div>
+
+            <div className="serviceContainer">
+                <label className="fieldLabel" htmlFor="srv-price">Prezzo (€)</label>
+                <input id="srv-price" className="field" type="number"
+                    placeholder="0.00"
+                    onChange={(e) => setPrice(e.target.value)} />
+            </div>
+
+            <div className="serviceContainer">
+                <label className="fieldLabel" htmlFor="srv-brand">Brand</label>
+                <input id="srv-brand" className="field" type="text"
+                    placeholder="es. BikeHeaven"
+                    onChange={(e) => setBrand(e.target.value)} />
+            </div>
+
+            <div className="serviceContainer serviceContainer--textarea">
+                <label className="fieldLabel" htmlFor="srv-desc">Descrizione</label>
+                <textarea id="srv-desc" className="field fieldTextarea"
+                    placeholder="Descrivi il servizio…"
+                    rows={4}
+                    onChange={(e) => setDescription(e.target.value)} />
+            </div>
+
+            <div className="serviceContainer">
+                <label className="fieldLabel" htmlFor="srv-img">Immagine</label>
+                <input id="srv-img" type="file" accept="image/*"
+                    onChange={handleImageChange} />
+            </div>
+
+            <div className="feedbackRow">
+                <span className="feedbackLabel">Feedback clienti</span>
+                <span className="stars">★★★★★</span>
+                <span className="feedbackNote">impostato dai clienti</span>
+            </div>
+
+            {feedbackMsg && <p className="formAlert formAlert--success">{feedbackMsg}</p>}
+            {error && <p className="formAlert formAlert--error" role="alert">{error}</p>}
+
+            <div className="formActions">
+                <button id="cancelService" type="button"
+                    onClick={() => { setError(''); setFeedbackMsg(''); }}>
+                    Annulla
+                </button>
+                <button id="confirmService" type="button"
+                    onClick={handleForm} disabled={loading}>
+                    {loading ? 'Pubblicazione…' : 'Pubblica servizio'}
+                </button>
+            </div>
+        </div>
+    );
 };
 
 export default AddService;

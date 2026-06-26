@@ -17,12 +17,17 @@ async function setService(service){
         const image = service.image
         const category = service.category
 
+        if (!service.image || !service.image.includes(',')) {
+            console.error('setService error: immagine mancante o formato non valido');
+            return { success: false };
+        }
+
 
         const base64Data = image.split(',')[1];
 
         const imageBuffer = Buffer.from(base64Data, 'base64');
         
-        await pool.query(`INSERT INTO services (name, price, description, feedback, brand, picture, codcategory) VALUES ($1, $2, $3, $4, $5, $6, $7)`[name, price, description, feedback, brand, imageBuffer, category]);
+        await pool.query(`INSERT INTO services (name, price, description, feedback, brand, picture, codcategory) VALUES ($1, $2, $3, $4, $5, $6, $7)`[name, parseFloat(price), description, parseInt(feedback,10) || 0, brand, imageBuffer, parseInt(category,10)]);
 
         return{
             success: true
