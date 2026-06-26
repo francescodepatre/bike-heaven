@@ -5,88 +5,102 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 import React, { useState, useEffect } from 'react';
-import "./style/myAddress.css";
-import PhoneInput from 'react-phone-number-input';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import "./style/myProfile.css";
 
 const MyAddress = () => {
-
-    const [email, setEmail] = useState()
-    const [phone, setPhone] = useState()
-    const [address, setAddress] = useState()
-    const navigate = useNavigate()
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
-            const token = localStorage.getItem("token")
-            try{
-                const response = await fetch(`https://bike-heaven.onrender.com/api/getAddress/${token}`)
-                if (response.status === 500) {
-                    throw new Error("Fetching data failed");
-                }
-                const JSONData = await response.json();
-                setEmail(JSONData.email)
-                setPhone(JSONData.phone)
-                setAddress(JSONData.address)
-            
-            }catch(error){
-                console.log("Error: " + error)
+            const token = localStorage.getItem("token");
+            try {
+                const response = await fetch(`https://bike-heaven.onrender.com/api/getAddress/${token}`);
+                if (!response.ok) throw new Error("Fetching data failed");
+                const data = await response.json();
+                setEmail(data.email || '');
+                setPhone(data.phone || '');
+                setAddress(data.address || '');
+            } catch {
+                setError("Impossibile caricare i dati. Riprova.");
             }
         }
+        fetchData();
+    }, []);
 
-        fetchData()
-
-    },[])
-
-    function HandleForm(event){
-        event.preventDefault()
-        let userData = {
-            token: localStorage.getItem("token"),
-            email: email,
-            phone: phone,
-            address: address,
+    async function HandleForm(event) {
+        event.preventDefault();
+        setSuccess(''); setError('');
+        setLoading(true);
+        try {
+            const response = await fetch("https://bike-heaven.onrender.com/api/setAddress", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    token: localStorage.getItem("token"),
+                    email, phone, address
+                })
+            });
+            const data = await response.json();
+            if (data.success) setSuccess("Contatti aggiornati con successo.");
+            else setError("Aggiornamento non riuscito. Riprova.");
+        } catch {
+            setError("Errore di connessione. Riprova più tardi.");
+        } finally {
+            setLoading(false);
         }
-        fetch("https://bike-heaven.onrender.com/api/setAddress", {
-            method: "POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify(userData)
-        }).then(response => response.json()).then(data => {
-            if(data.success){
-                alert("Details successfully upgraded")
-            }
-            else{
-                alert("Attention: something went wrong")
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-
     }
 
     return (
-        <div className='contactsPage'>
-            <div className='contactsContainer'>
-                <div className='contactsItem'>
-                    <p className='itemDescription'>Email: </p><TextField id="outlined-basic" variant="outlined" value={email} onChange={(e) => setEmail(e.target.value)}/>
+        <div className="mp-page">
+            <p className="mp-eyebrow">Profilo</p>
+            <h1 className="mp-title">Contatti e indirizzo</h1>
+
+            <div className="mp-field">
+                <label htmlFor="ma-email">Email</label>
+                <input id="ma-email" type="email" value={email}
+                    autoComplete="email"
+                    onChange={(e) => setEmail(e.target.value)} />
+            </div>
+
+            <div className="mp-field">
+                <label>Telefono</label>
+                <div className="mp-phone-input">
+                    <PhoneInput value={phone} onChange={setPhone}
+                        placeholder="Inserisci numero" />
                 </div>
-                <div className='contactsItem'>
-                    <p className='itemDescription'>Phone: </p><TextField id="outlined-basic" variant="outlined" value={phone} onChange={(e) => setPhone(e.target.value)}/>
-                </div>
-                <div className='contactsItem'>
-                    <p className='itemDescription'>Address: </p><TextField id="outlined-basic" variant="outlined" value={address} onChange={(e) => setAddress(e.target.value)}/>
-                </div>
-                <div className='cancelConfirmaddress'>
-                    <Button className="addressButton" variant="contained" onClick={() => navigate('/')}>Cancel</Button>
-                    <Button className="addressButton" variant="contained" onClick={HandleForm}>Confirm</Button>
-                </div>
+            </div>
+
+            <div className="mp-field">
+                <label htmlFor="ma-address">Indirizzo</label>
+                <input id="ma-address" type="text" value={address}
+                    autoComplete="street-address"
+                    onChange={(e) => setAddress(e.target.value)} />
+            </div>
+
+            {success && <p className="mp-alert mp-alert--success">{success}</p>}
+            {error   && <p className="mp-alert mp-alert--error" role="alert">{error}</p>}
+
+            <div className="mp-actions">
+                <button className="mp-btn mp-btn--ghost" type="button"
+                    onClick={() => navigate('/')}>
+                    Annulla
+                </button>
+                <button className="mp-btn mp-btn--primary" type="button"
+                    onClick={HandleForm} disabled={loading}>
+                    {loading ? 'Salvataggio…' : 'Salva modifiche'}
+                </button>
             </div>
         </div>
     );
-}
+};
 
 export default MyAddress;

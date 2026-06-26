@@ -9,17 +9,24 @@ import "./style/Help.css";
 
 const Help = () => {
     return (
-        <div className='helpPage'>
-            <p>
-                If you have any problems, please contact us at: <br />
-                bikeheaven.business@hotmail.com or by filling out <br />
-                the form at the bottom of the main ecommerce section. <br />
-                <br /> <br />
-                This ecommerce was created by Francesco De Patre  <br />
-                as a project for the Internet Technologies course at UNIPR. <br />
-            </p>
+        <div className="help-page">
+            <div className="help-card">
+                <p className="help-eyebrow">Supporto</p>
+                <h1 className="help-title">Come possiamo aiutarti?</h1>
+                <p className="help-text">
+                    Per qualsiasi problema puoi contattarci via email o compilando
+                    il modulo nella sezione contatti in fondo alla pagina principale.
+                </p>
+                <a className="help-email" href="mailto:bikeheaven.business@hotmail.com">
+                    bikeheaven.business@hotmail.com
+                </a>
+                <p className="help-footer">
+                    Questo e-commerce è stato realizzato da Francesco De Patre
+                    come progetto per il corso di Tecnologie Internet — Università di Parma.
+                </p>
+            </div>
         </div>
     );
-}
+};
 
 export default Help;

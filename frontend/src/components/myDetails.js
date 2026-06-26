@@ -5,95 +5,97 @@
     Email:  francesco.depatre@studenti.unipr.it
 */
 import React, { useState, useEffect } from 'react';
-import dayjs from 'dayjs'
-import "./style/myDetails.css";
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { DateField } from '@mui/x-date-pickers/DateField';
+import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import "./style/myProfile.css";
 
 const MyDetails = () => {
-
-    //invia richiesta che riceve nome, cognome e data di nascita del cliente e alla pressione del tasto confirm invia modifiche
-    const [name, setName] = useState()
-    const [surname, setSurname] = useState()
-    const [birth, setBirth] = useState()
-    const navigate = useNavigate()
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [birth, setBirth] = useState('');
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
-            const token = localStorage.getItem("token")
-            try{
-                const response = await fetch(`https://bike-heaven.onrender.com/api/getDetails/${token}`)
-                if (response.status === 500) {
-                    throw new Error("Fetching data failed");
-                }
-                const JSONData = await response.json();
-                setName(JSONData.firstName)
-                setSurname(JSONData.lastName)
-                const birthDate = dayjs(JSONData.birthDate);
-                setBirth(birthDate)
-            
-            }catch(error){
-                console.log("Error: " + error)
+            const token = localStorage.getItem("token");
+            try {
+                const response = await fetch(`https://bike-heaven.onrender.com/api/getDetails/${token}`);
+                if (!response.ok) throw new Error("Fetching data failed");
+                const data = await response.json();
+                setName(data.firstName || '');
+                setSurname(data.lastName || '');
+                setBirth(dayjs(data.birthDate).format('YYYY-MM-DD'));
+            } catch (err) {
+                setError("Impossibile caricare i dati. Riprova.");
             }
         }
+        fetchData();
+    }, []);
 
-        fetchData()
-
-    },[])
-
-    function HandleForm(event){
-        event.preventDefault()
-        let userData = {
-            token: localStorage.getItem("token"),
-            name:name,
-            surname: surname,
-            birth: birth,
+    async function HandleForm(event) {
+        event.preventDefault();
+        setSuccess(''); setError('');
+        setLoading(true);
+        try {
+            const response = await fetch("https://bike-heaven.onrender.com/api/setDetails", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    token: localStorage.getItem("token"),
+                    name, surname, birth
+                })
+            });
+            const data = await response.json();
+            if (data.success) setSuccess("Dati aggiornati con successo.");
+            else setError("Aggiornamento non riuscito. Riprova.");
+        } catch {
+            setError("Errore di connessione. Riprova più tardi.");
+        } finally {
+            setLoading(false);
         }
-        fetch("https://bike-heaven.onrender.com/api/setAddress", {
-            method: "POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify(userData)
-        }).then(response => response.json()).then(data => {
-            if(data.success){
-                alert("Details successfully upgraded")
-            }
-            else{
-                alert("Attention: something went wrong")
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-
     }
 
     return (
-        <div className='detailsPage'>
-            <div className='detailsContainer'>
-                <div className='detailsItem'>
-                    <p className='itemDescription'>Name: </p><TextField id="outlined-basic" variant="outlined" value={name} onChange={(e) => setName(e.target.value)}/>
-                </div>
-                <div className='detailsItem'>
-                    <p className='itemDescription'>Surname: </p><TextField id="outlined-basic" variant="outlined" value={surname} onChange={(e) => setSurname(e.target.value)}/>
-                </div>
-                <div className='detailsItem'>
-                    <p className='itemDescription'>Date of Birth: </p>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateField label="Date of Birth" format="YYYY-MM-DD" value={birth} onChange={newDate => setBirth(dayjs(newDate))}/>
-                    </LocalizationProvider>
-                </div>
-                <div className='cancelConfirm'>
-                    <Button className="detailButton" variant="contained" onClick={() => navigate('/')}>Cancel</Button>
-                    <Button className="detailButton" variant="contained" onClick={() => HandleForm}>Confirm</Button>
-                </div>
+        <div className="mp-page">
+            <p className="mp-eyebrow">Profilo</p>
+            <h1 className="mp-title">Dati personali</h1>
+
+            <div className="mp-field">
+                <label htmlFor="md-name">Nome</label>
+                <input id="md-name" type="text" value={name}
+                    onChange={(e) => setName(e.target.value)} />
+            </div>
+
+            <div className="mp-field">
+                <label htmlFor="md-surname">Cognome</label>
+                <input id="md-surname" type="text" value={surname}
+                    onChange={(e) => setSurname(e.target.value)} />
+            </div>
+
+            <div className="mp-field">
+                <label htmlFor="md-birth">Data di nascita</label>
+                <input id="md-birth" type="date" value={birth}
+                    onChange={(e) => setBirth(e.target.value)} />
+            </div>
+
+            {success && <p className="mp-alert mp-alert--success">{success}</p>}
+            {error   && <p className="mp-alert mp-alert--error" role="alert">{error}</p>}
+
+            <div className="mp-actions">
+                <button className="mp-btn mp-btn--ghost" type="button"
+                    onClick={() => navigate('/')}>
+                    Annulla
+                </button>
+                <button className="mp-btn mp-btn--primary" type="button"
+                    onClick={HandleForm} disabled={loading}>
+                    {loading ? 'Salvataggio…' : 'Salva modifiche'}
+                </button>
             </div>
         </div>
     );
-}
+};
 
 export default MyDetails;
