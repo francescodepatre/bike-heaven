@@ -4,26 +4,153 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-.feedbackList{
-    width: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@400;600&family=Poppins:wght@300;400;500&display=swap');
+
+/* ── Lista recensioni ── */
+.fl-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-.singleFeedback{
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-bottom: 5%;
+/* ── Card singola ── */
+.fl-card {
+    background: #f7f8f9;
+    border: 1px solid #e2e4e8;
+    border-radius: 12px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: box-shadow 0.2s ease;
 }
 
-.feedbackTitle{
-    margin-bottom: 2%;
+.fl-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
 }
 
-.feedbackRating{
-    margin-left: 2%;
-    margin-bottom: 2%;
+/* ── Header: avatar + nome + stelle ── */
+.fl-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
 }
 
-.feedbackTextContent{
-    margin-left: 2%;
+.fl-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #c8ff3a;
+    color: #0f1013;
+    font-family: 'Signika', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.fl-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.fl-name {
+    font-family: 'Signika', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #16181c;
+}
+
+/* ── Stelle ── */
+.fl-stars {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+
+.fl-star {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.fl-star--full  { color: #f5a623; }
+.fl-star--half  { color: #f5a623; opacity: 0.55; }
+.fl-star--empty { color: #d1d5db; }
+
+.fl-star-value {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #888ea0;
+    margin-left: 6px;
+}
+
+/* ── Testo recensione ── */
+.fl-content {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555c66;
+    margin: 0;
+}
+
+/* ── Stato vuoto ── */
+.fl-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 40px 24px;
+    background: #f7f8f9;
+    border: 1px dashed #d1d5db;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.fl-empty-icon {
+    font-size: 24px;
+    color: #c8ff3a;
+}
+
+.fl-empty p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: #888ea0;
+    margin: 0;
+}
+
+/* ── Skeleton loader ── */
+.fl-skeleton {
+    background: #f7f8f9;
+    border: 1px solid #e2e4e8;
+    border-radius: 12px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.fl-sk-line {
+    border-radius: 4px;
+    background: linear-gradient(90deg, #ececec 25%, #f6f6f6 37%, #ececec 63%);
+    background-size: 400% 100%;
+    animation: fl-shimmer 1.4s ease infinite;
+}
+
+.fl-sk-name  { height: 14px; width: 40%; }
+.fl-sk-stars { height: 14px; width: 25%; }
+.fl-sk-text  { height: 12px; width: 85%; }
+
+@keyframes fl-shimmer {
+    0%   { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fl-sk-line { animation: none; }
 }
