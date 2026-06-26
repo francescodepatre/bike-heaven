@@ -21,7 +21,7 @@ const RemoveEmployee = () => {
         let employee = {
             id: removeId
         }
-        fetch("api/deleteEmployee", {
+        fetch("https://bike-heaven.onrender.com/api/deleteEmployee", {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"

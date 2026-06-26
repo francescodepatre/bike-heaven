@@ -19,7 +19,7 @@ const RemoveService = () => {
         if (!serviceId || Number(serviceId) <= 0) { setError("Inserisci un ID servizio valido."); return; }
         setLoading(true);
         try {
-            const res = await fetch("/api/removeService", {
+            const res = await fetch("https://bike-heaven.onrender.com/api/removeService", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: serviceId })

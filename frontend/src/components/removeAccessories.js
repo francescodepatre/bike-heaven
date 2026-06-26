@@ -19,7 +19,7 @@ const RemoveAccessories = () => {
         if (!accessoryId || Number(accessoryId) <= 0) { setError("Inserisci un ID accessorio valido."); return; }
         setLoading(true);
         try {
-            const res = await fetch("/api/removeAccessory", {
+            const res = await fetch("https://bike-heaven.onrender.com/api/removeAccessory", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: accessoryId })

@@ -21,7 +21,7 @@ const RemoveBike = () => {
         if (!bikeId || Number(bikeId) <= 0) { setError("Inserisci un ID bici valido."); return; }
         setLoading(true);
         try {
-            const res = await fetch("/api/removeBike", {
+            const res = await fetch("https://bike-heaven.onrender.com/api/removeBike", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: bikeId })
