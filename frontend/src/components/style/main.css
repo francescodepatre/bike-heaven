@@ -640,6 +640,10 @@ textarea{
     }
 }
 
+.for_id1 .for_id2 .for_id3 .for_id4{
+    color: white;
+}
+
 /* ==========================================================================
    CHANGELOG — sintesi delle modifiche rispetto alla versione originale
    ==========================================================================

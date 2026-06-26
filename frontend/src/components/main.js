@@ -321,7 +321,7 @@ function Main_page() {
 
                         <div className="form_row">
                             <div className="form_field">
-                                <label htmlFor="nameField">Nome</label>
+                                <label className="for_id1"  htmlFor="nameField">Nome</label>
                                 <input
                                     id="nameField"
                                     type="text"
@@ -337,7 +337,7 @@ function Main_page() {
                             </div>
 
                             <div className="form_field">
-                                <label htmlFor="surnameField">Cognome</label>
+                                <label className="for_id2" htmlFor="surnameField">Cognome</label>
                                 <input
                                     id="surnameField"
                                     type="text"
@@ -354,7 +354,7 @@ function Main_page() {
                         </div>
 
                         <div className="form_field">
-                            <label htmlFor="emailField">Email</label>
+                            <label className="for_id3" htmlFor="emailField">Email</label>
                             <input
                                 id="emailField"
                                 type="email"
@@ -370,7 +370,7 @@ function Main_page() {
                         </div>
 
                         <div className="form_field">
-                            <label htmlFor="messageField">Messaggio</label>
+                            <label className="for_id4" htmlFor="messageField">Messaggio</label>
                             <textarea
                                 id="messageField"
                                 value={message}
@@ -409,31 +409,3 @@ function Main_page() {
 }
 
 export default Main_page;
-
-/*
-    CHANGELOG — sintesi delle modifiche rispetto alla versione originale
-    ----------------------------------------------------------------------
-    1. Skeleton loader sulle card prodotto durante il fetch (era assente:
-       lo stato `loading` veniva impostato ma mai usato in JSX).
-    2. Stato di errore visibile con pulsante "Riprova" (prima il catch
-       loggava solo in console, l'utente non veniva mai informato).
-    3. Stato "nessun prodotto" distinto dallo stato di errore.
-    4. Form di contatto: label reali associate via htmlFor/id, validazione
-       client-side con messaggi inline, aria-invalid/aria-describedby,
-       stato di invio con bottone disabilitato (anti doppio-submit),
-       feedback di successo in pagina al posto dell'alert() nativo.
-    5. Rimossi i console.log di debug rimasti in produzione.
-    6. ID iframe duplicato (`id="video"` su entrambi) corretto in due id
-       univoci (`hero_video`, `about_video`) — HTML non valido altrimenti.
-    7. Iframe decorativi marcati aria-hidden + tabIndex="-1" + loading="lazy"
-       per non intercettare il tab dei lettori di schermo e alleggerire
-       il caricamento iniziale.
-    8. Link social aperti in nuova scheda con rel="noopener noreferrer" e
-       aria-label descrittivo (icone con solo alt="" perché decorative,
-       il testo accessibile è ora sul link).
-    9. Gerarchia heading corretta (h1 → h2 invece di h1/h3 sparsi).
-    10. Reveal-on-scroll leggero (IntersectionObserver nativo, nessuna
-        libreria aggiunta) con rispetto di prefers-reduced-motion.
-    11. useCallback su loadProducts per poterlo richiamare dal bottone
-        "Riprova" senza duplicare codice.
-*/
