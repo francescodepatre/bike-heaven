@@ -10,8 +10,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import jwtDecode from "jwt-decode";
 import "./style/product_page.css";
 import { useNavigate, useParams } from 'react-router-dom';
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
 import FeedbackList from "./feedbackList";
 import MakeFeedback from "./makeFeedback";
 
@@ -236,8 +234,19 @@ function ProductPage() {
                     </div>
 
                     <div className="productRatings">
-                        <Typography component="legend">Product Feedback</Typography>
-                        <Rating name="read-only" value={feedback} readOnly precision={0.5} />
+                        <p className="ratingsLabel">Feedback clienti</p>
+                        <div className="starsRow" aria-label={`Valutazione: ${feedback} su 5`}>
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <span
+                                    key={star}
+                                    className={`star ${feedback >= star ? 'star--full' : feedback >= star - 0.5 ? 'star--half' : 'star--empty'}`}
+                                    aria-hidden="true"
+                                >
+                                    ★
+                                </span>
+                            ))}
+                            <span className="ratingsValue">{Number(feedback).toFixed(1)}</span>
+                        </div>
                     </div>
 
                     <div className="productSpecs">

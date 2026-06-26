@@ -394,46 +394,36 @@
     }
 }
 
-/* ==========================================================================
-   CHANGELOG — sintesi delle modifiche rispetto alla versione originale
-   ==========================================================================
+.ratingsLabel {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--pp-text-soft);
+    margin: 0 0 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
 
-   1. Layout immagine/contenuto da due blocchi al 40% (con 20% di
-      spazio implicito non dichiarato, probabile errore di calcolo) a
-      una vera grid a due colonne (.productPage) con gap esplicito,
-      che collassa a una colonna sotto i 900px — assente
-      nell'originale, dove sotto ~600px le colonne si comprimevano
-      illeggibili.
-   2. Immagine prodotto resa "sticky" su desktop (resta visibile
-      durante lo scroll del contenuto/specifiche), pattern comune sui
-      siti eCommerce premium per tenere il prodotto sempre in vista.
-   3. Gerarchia visiva tra i due bottoni: nell'originale erano
-      identici (entrambi neri pieni). Ora "Buy Now" (azione primaria,
-      porta dritto al checkout) usa il colore accent del brand,
-      "Add To Cart" (azione secondaria) resta in stile outline.
-   4. height: 200% sui bottoni (valore CSS fragile/imprevedibile su un
-      elemento senza riferimento di altezza esplicito) sostituito con
-      padding verticale generoso (16px), comportamento prevedibile.
-   5. font-weight: 1000 (non valido, i browser lo clampano
-      silenziosamente a 900) corretto a 600, valore standard.
-   6. Disponibilità prodotto: prima comunicata solo tramite colore del
-      testo (verde/coral/rosso), violando WCAG su non affidarsi al solo
-      colore. Aggiunto un badge con pallino colorato + testo sempre
-      presente, leggibile anche senza percezione del colore.
-   7. Tabella specifiche: th invece di td per le etichette (gestito in
-      JS), qui aggiunto styling con zebra striping leggero
-      (nth-child(even)) e bordo inferiore per migliorare la leggibilità
-      di un set di 7 righe dati, assente nell'originale.
-   8. Aggiunto skeleton loader (immagine + righe di testo) per lo stato
-      di caricamento, e uno stato di errore con CTA "Riprova" —
-      entrambi assenti nell'originale, dove la pagina restava vuota o
-      con dati incoerenti durante/dopo un fetch fallito.
-   9. Stile per .action_message (sostituisce i 6 alert() nativi
-      dell'originale) con varianti di successo/errore.
-   10. Bottoni con stato :disabled visivamente distinto durante
-       l'invio della richiesta, assente nell'originale.
-   11. Media query a 900px / 600px aggiunte ex novo (il file originale
-       non ne aveva nessuna): su mobile i bottoni passano da affiancati
-       a impilati a piena larghezza, con "Buy Now" per primo.
-   12. focus-visible su bottoni interattivi, assente nell'originale.
-*/
+.starsRow {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.star {
+    font-size: 22px;
+    line-height: 1;
+    transition: transform 0.15s ease;
+}
+
+.star--full  { color: #f5a623; }
+.star--half  { color: #f5a623; opacity: 0.6; }
+.star--empty { color: #d1d5db; }
+
+.ratingsValue {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--pp-text-soft);
+    margin-left: 8px;
+}
