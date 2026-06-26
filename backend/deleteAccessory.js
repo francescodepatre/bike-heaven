@@ -9,7 +9,7 @@ const pool = require('./db')
 async function deleteAccessory(id){
     try{
         const { rows } = await pool.query(
-            `DELETE FROM accessories WHERE id = $1`, [id]
+            `DELETE FROM accessories WHERE accessories.id = $1`, [id]
         )
         if (rows.length === 0) return { success: true, data: null }
         
