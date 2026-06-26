@@ -4,46 +4,25 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-
 import React from "react";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import './style/card_new.css';
 import { useNavigate } from 'react-router-dom';
+import './style/card_new.css';
 
-function CardNew({id, title, price, description, immagine}){
+function CardNew({ id, title, price, description, immagine }) {
+    const navigate = useNavigate();
 
-    const navigate = useNavigate()
-
-    function handleClick(event){
-        navigate(`/product/${id}`)
-    }
-    return(
-        <div className="cardContainer">
-        <Card className="singleCard">
-            <CardActionArea onClick={handleClick}>
-                <CardMedia
-                    component="img"
-                    height="140"
-                    image={immagine}
-                    alt="BikeHeaven®"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom className="ellipsis" variant="h5" component="div">
-                            {title} 
-                        </Typography>
-                        <Typography gutterBottom variant="h6" component="div">
-                            € {price}
-                        </Typography>
-                        <Typography className="ellipsis" variant="body2" color="text.secondary">
-                            {description}
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-        </Card>
+    return (
+        <div className="card" onClick={() => navigate(`/product/${id}`)} role="button" tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && navigate(`/product/${id}`)}>
+            <div className="card-img-wrap">
+                <img className="card-img" src={immagine} alt={title} loading="lazy" />
+                <span className="card-price">€ {price}</span>
+            </div>
+            <div className="card-body">
+                <h3 className="card-title">{title}</h3>
+                <p className="card-desc">{description}</p>
+                <span className="card-cta">Scopri →</span>
+            </div>
         </div>
     );
 }
