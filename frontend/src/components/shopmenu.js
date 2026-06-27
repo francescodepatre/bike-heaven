@@ -54,7 +54,6 @@ function ShopMenu() {
                         key={category.path}
                         to={category.path}
                         className={`menu-item ${category.accent}`}>
-                        {
 
                           {category.image && (
                               <img
@@ -64,7 +63,7 @@ function ShopMenu() {
                                   loading="lazy"
                               />
                           )}
-                        }
+                        
                         <span className="menu_item_overlay" aria-hidden="true" />
                         <span className="menu_item_label">
                             {category.label}
