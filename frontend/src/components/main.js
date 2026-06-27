@@ -31,6 +31,42 @@ function SkeletonCard() {
         </div>
     );
 }
+function Disclaimer() {
+    const [visible, setVisible] = useState(
+        () => sessionStorage.getItem('disclaimer_closed') !== 'true'
+    );
+
+    const close = useCallback(() => {
+        sessionStorage.setItem('disclaimer_closed', 'true');
+        setVisible(false);
+    }, []);
+
+    if (!visible) return null;
+
+    return (
+        <div className="disclaimer_banner" role="region" aria-label="Avviso progetto accademico">
+            <div className="disclaimer_content">
+                <span className="disclaimer_icon" aria-hidden="true">🎓</span>
+                <p className="disclaimer_text">
+                    <strong>Progetto accademico</strong> — Questo sito è stato realizzato
+                    esclusivamente a scopo didattico nell'ambito del corso di{' '}
+                    <em>Tecnologie Internet</em>, Università di Parma.
+                    Non costituisce un'attività commerciale reale: nessun prodotto è in
+                    vendita, nessun dato personale viene conservato e i contenuti non hanno
+                    valore legale, contrattuale o pubblicitario.
+                </p>
+                <button
+                    className="disclaimer_close"
+                    onClick={close}
+                    aria-label="Chiudi avviso"
+                    type="button"
+                >
+                    ✕
+                </button>
+            </div>
+        </div>
+    );
+}
 
 /* -------------------------------------------------------------------------- */
 /*  Hook minimale per il fade-in on scroll, rispetta prefers-reduced-motion   */
@@ -160,6 +196,7 @@ function Main_page() {
 
     return (
         <div className="main_containers">
+            <Disclaimer />
 
             {/* ---------------------------- HERO ---------------------------- */}
             <div className="first_container">

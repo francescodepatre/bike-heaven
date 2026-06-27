@@ -9,6 +9,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './style/shopmenu.css';
+import roadImg from './images/road_bicycle.png';
+import mountainImg from './images/mountain_bikes.jpg';
+import cityImg from './images/city_bike.png';
+import ebikeImg from './images/ebike.jpg';
+import kidsImg from './images/baby_bike.jpg';
+import accessoriesImg from './images/accessories.jpg';
+import servicesImg from './images/bike_serv.jpg';
 
 /*
     Struttura dati delle categorie. Aggiungere una nuova categoria in
@@ -21,13 +28,13 @@ import './style/shopmenu.css';
     pronta per riceverla, vedi commento in renderCategoryCard.
 */
 const CATEGORIES = [
-    { label: "Road Bicycles", path: "/results/Road Bicycles", accent: "accent_road", image: null },
-    { label: "Mountain Bikes", path: "/results/Mountain Bikes", accent: "accent_mountain", image: null },
-    { label: "City Bikes", path: "/results/City Bikes", accent: "accent_city", image: null },
-    { label: "E-Bikes", path: "/results/E-Bikes", accent: "accent_ebike", image: null },
-    { label: "Bikes for Kids", path: "/results/Bikes for Kids", accent: "accent_kids", image: null },
-    { label: "Accessories", path: "/results/Accessories", accent: "accent_accessories", image: null },
-    { label: "Services", path: "/results/Services", accent: "accent_services", image: null },
+    { label: "Road Bicycles",  path: "/results/Road Bicycles",  accent: "accent_road",        image: roadImg },
+    { label: "Mountain Bikes", path: "/results/Mountain Bikes", accent: "accent_mountain",     image: mountainImg },
+    { label: "City Bikes",     path: "/results/City Bikes",     accent: "accent_city",         image: cityImg },
+    { label: "E-Bikes",        path: "/results/E-Bikes",        accent: "accent_ebike",        image: ebikeImg },
+    { label: "Bikes for Kids", path: "/results/Bikes for Kids", accent: "accent_kids",         image: kidsImg },
+    { label: "Accessories",    path: "/results/Accessories",    accent: "accent_accessories",  image: accessoriesImg },
+    { label: "Services",       path: "/results/Services",       accent: "accent_services",     image: servicesImg },
 ];
 
 function ShopMenu() {
@@ -46,12 +53,8 @@ function ShopMenu() {
                     <Link
                         key={category.path}
                         to={category.path}
-                        className={`menu-item ${category.accent}`}
-                    >
-                        {/*
-                          Quando saranno disponibili le immagini reali di
-                          categoria, basta scommentare e popolare `image`
-                          in CATEGORIES:
+                        className={`menu-item ${category.accent}`}>
+                        {
 
                           {category.image && (
                               <img
@@ -61,7 +64,7 @@ function ShopMenu() {
                                   loading="lazy"
                               />
                           )}
-                        */}
+                        }
                         <span className="menu_item_overlay" aria-hidden="true" />
                         <span className="menu_item_label">
                             {category.label}

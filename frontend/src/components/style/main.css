@@ -644,6 +644,71 @@ textarea{
     color: white;
 }
 
+/* ======================== DISCLAIMER BANNER ======================== */
+.disclaimer_banner {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: #1a1a2e;
+    border-bottom: 2px solid #e94560;
+    padding: 0.75rem 1.5rem;
+}
+
+.disclaimer_content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.disclaimer_icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.disclaimer_text {
+    flex: 1;
+    font-size: 0.85rem;
+    color: #ccc;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.disclaimer_text strong {
+    color: #fff;
+}
+
+.disclaimer_text em {
+    color: #e94560;
+    font-style: normal;
+}
+
+.disclaimer_close {
+    background: transparent;
+    border: 1px solid #555;
+    color: #aaa;
+    border-radius: 50%;
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+}
+
+.disclaimer_close:hover,
+.disclaimer_close:focus-visible {
+    background: #e94560;
+    color: #fff;
+    border-color: #e94560;
+    outline: none;
+}
+
 /* ==========================================================================
    CHANGELOG — sintesi delle modifiche rispetto alla versione originale
    ==========================================================================
