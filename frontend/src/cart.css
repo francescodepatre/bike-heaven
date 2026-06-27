@@ -11,7 +11,7 @@
    PAGINA
    ============================================================ */
 .cart_page {
-    background-image: url("./components/images/login_wallpaper.png");
+    background-image: url("./components/images/cartWallpaper.jpeg");
     background-size: cover;
     background-position: center;
     min-height: 100vh;
