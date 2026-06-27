@@ -4,106 +4,233 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
 
-.personalCart {
+/* ============================================================
+   PAGINA
+   ============================================================ */
+.cart_page {
     background-image: url("./components/images/login_wallpaper.png");
     background-size: cover;
-    padding: 20px;
+    background-position: center;
     min-height: 100vh;
+    padding: 100px 40px 80px;
+    box-sizing: border-box;
 }
 
-.cartTitle{
-  margin-top: 5%;
-  margin-left: 5%;
+/* ============================================================
+   HEADER
+   ============================================================ */
+.cart_header {
+    margin-bottom: 40px;
 }
 
-.titleCart,.bicycleTitle,.accessoriesTitle,.servicesTitle{
-  font-family: 'Signika', sans-serif;
-  color: white;
+.cart_title {
+    font-family: 'Signika', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
 }
 
-.nodata{
-  font-size: larger;
-  font-family: 'Signika', sans-serif;
-  color: white;
+/* ============================================================
+   LAYOUT: prodotti + sidebar
+   ============================================================ */
+.cart_layout {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
 }
 
-.cartContainer {
-    margin-top: 2%;
-  display: flex;
-  justify-content: space-between;
+.cart_products {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
-.productsContainer {
-  flex: 70%;
-  margin-right: 2%;
+/* ============================================================
+   SEZIONE (Bicycles / Accessories / Services)
+   ============================================================ */
+.cart_section_title {
+    font-family: 'Signika', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 16px;
 }
 
-.bikesContainer,.accessoriesContainer,.servicesContainer{
+.cart_grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
-    gap: 1%;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
 }
 
-.productsDetails {
-  flex: 20%;
-  height: fit-content;
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.cart_empty {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
 }
 
-.detailTitle h1 {
-  font-family: 'Signika', sans-serif;
-  font-size: 24px;
-  margin-bottom: 10px;
+/* ============================================================
+   SIDEBAR – RIEPILOGO
+   ============================================================ */
+.cart_summary {
+    flex: 0 0 320px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 28px 24px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 100px;
 }
 
-.productTable {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+.cart_summary_title {
+    font-family: 'Signika', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 20px;
 }
 
-.productTable table {
-  width: 100%;
-  border-collapse: collapse;
+/* ============================================================
+   TABELLA RIEPILOGO
+   ============================================================ */
+.cart_summary_table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 24px;
 }
 
-.productTable th,
-.productTable td {
-  padding: 8px 12px;
-  border-bottom: 1px solid #e0e0e0;
-  text-align: left;
+.cart_summary_table td {
+    padding: 8px 4px;
+    border-bottom: 1px solid #eeeeee;
+    vertical-align: middle;
 }
 
-.productTable .subtotal-row {
-  font-weight: bold;
+.cart_price {
+    text-align: right;
+    white-space: nowrap;
+    font-weight: 500;
 }
 
-/* Stili per il pulsante Checkout */
-.check-out {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
+.cart_divider_row td {
+    border-bottom: 2px solid #dddddd;
+    padding: 4px 0;
 }
 
-.check-out button {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  color: white;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.cart_subtotal_row td {
+    font-weight: 600;
+    color: #111;
 }
 
-.check-out button:hover {
-  background-color: #0056b3;
+.cart_total_row td {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+    padding-top: 12px;
+    border-bottom: none;
 }
 
-/* Altri stili personalizzati */
+.cart_empty_summary {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    padding: 16px 0;
+    border-bottom: none !important;
+}
+
+/* ============================================================
+   PULSANTE CHECKOUT
+   ============================================================ */
+.cart_checkout_btn {
+    width: 100%;
+    padding: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: #111111;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
+.cart_checkout_btn:hover:not(:disabled) {
+    background-color: #333333;
+    transform: translateY(-2px);
+}
+
+.cart_checkout_btn:disabled {
+    background-color: #cccccc;
+    color: #888888;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ============================================================
+   STATI: loading / errore
+   ============================================================ */
+.cart_state_msg {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 20vh;
+}
+
+.cart_state_error {
+    color: #ff6b6b;
+}
+
+.cart_retry {
+    background: transparent;
+    border: 1px solid #ff6b6b;
+    color: #ff6b6b;
+    border-radius: 6px;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: 8px;
+    transition: background 0.2s;
+}
+
+.cart_retry:hover {
+    background: rgba(255, 107, 107, 0.15);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+    .cart_layout {
+        flex-direction: column;
+    }
+
+    .cart_summary {
+        flex: none;
+        width: 100%;
+        position: static;
+    }
+}
+
+@media (max-width: 560px) {
+    .cart_page {
+        padding: 80px 16px 60px;
+    }
+
+    .cart_grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cart_summary {
+        padding: 20px 16px;
+    }
+}
