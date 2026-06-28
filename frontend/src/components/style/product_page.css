@@ -152,29 +152,37 @@
     width: 100%;
     border-collapse: collapse;
     font-size: 0.9rem;
+    border-radius: var(--pp-radius);
+    overflow: hidden;
+}
+
+.productSpecs tr{
+    background-color: transparent;
 }
 
 .productSpecs tr:nth-child(even){
-    background-color: #f7f8f9;
+    background-color: rgba(255, 255, 255, 0.04);
 }
 
 .TableData,
 .BikeData{
-    padding: 10px 12px;
+    padding: 12px 16px;
     text-align: left;
-    border-bottom: 1px solid var(--pp-border);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .TableData{
     font-family: 'Signika', sans-serif;
     font-weight: 600;
-    color: var(--pp-text);
+    color: inherit;
     width: 35%;
+    opacity: 0.9;
 }
 
 .BikeData{
     font-family: 'Poppins', sans-serif;
-    color: var(--pp-text-soft);
+    color: inherit;
+    opacity: 0.7;
 }
 
 /* ---------------------------- Messaggi azione ---------------------------- */
