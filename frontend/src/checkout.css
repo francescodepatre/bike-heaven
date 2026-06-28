@@ -4,66 +4,225 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-.checkoutPage{
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap');
+
+/* ============================================================
+   PAGINA
+   ============================================================ */
+.checkout_page {
     width: 100%;
-    height: max-content;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+    box-sizing: border-box;
     background-image: url("./components/images/payement.jpeg");
     background-size: cover;
+    background-position: center;
 }
 
-.checkOut{
-    justify-content: center;
-    width: 80%;
-    margin-top: 20%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-bottom: 10%;
-    background-color: rgba(255, 255, 255, 0.8);
+/* ============================================================
+   CARD CENTRALE
+   ============================================================ */
+.checkout_card {
+    width: 100%;
+    max-width: 480px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px 36px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+    box-sizing: border-box;
 }
 
-.payContent{
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-bottom: 10%;
-    margin-top: 10%;
-
-}
-#paytitle{
-    margin-left: 10%;
+/* ============================================================
+   HEADER
+   ============================================================ */
+.checkout_header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e2e4e8;
 }
 
-.cardDetails{
-    justify-content: center;
-    margin-top: 5%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-bottom: 5%;
+.checkout_eyebrow {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: #5a7a1a;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin: 0 0 4px;
 }
 
-.payementActions{
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+.checkout_title {
+    font-family: 'Signika', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #16181c;
+    margin: 0;
+}
+
+/* ============================================================
+   BADGE STRIPE
+   ============================================================ */
+.checkout_stripe_badge {
     display: flex;
-    flex-direction: row;
-    margin-bottom: 5%;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    color: #555c66;
+    background: #f4f5f7;
+    border: 1px solid #e2e4e8;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 24px;
 }
 
-.accept{
-    margin-left: 20%;
-    margin-right: 20%;
+/* ============================================================
+   CAMPO CARTA
+   ============================================================ */
+.checkout_card_field {
+    margin-bottom: 20px;
 }
 
-.deny{
-    margin-left: 20%;
-    margin-right: 20%;
+.checkout_label {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #555c66;
+    margin-bottom: 8px;
 }
-#acc,#den{
-    height: 50px;
-    margin-left: 20px;
-    margin-right: 20px;
+
+.checkout_card_element {
+    padding: 13px 14px;
+    border: 1px solid #e2e4e8;
+    border-radius: 8px;
+    background: #f7f8f9;
+    transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+}
+
+.checkout_card_element:focus-within {
+    border-color: #16181c;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(22, 24, 28, 0.08);
+}
+
+.checkout_card_field.has_error .checkout_card_element {
+    border-color: #d8453b;
+    background: #fff8f8;
+}
+
+.checkout_field_error {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    color: #d8453b;
+    margin: 6px 0 0;
+}
+
+/* ============================================================
+   ERRORE GLOBALE
+   ============================================================ */
+.checkout_global_error {
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: #fdecea;
+    border: 1px solid #f5b8b5;
+    color: #d8453b;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+/* ============================================================
+   SUCCESSO
+   ============================================================ */
+.checkout_success {
+    padding: 16px 20px;
+    border-radius: 10px;
+    background: #e8f7ee;
+    border: 1px solid #b6e8cc;
+    color: #1f8a4d;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* ============================================================
+   AZIONI
+   ============================================================ */
+.checkout_actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e4e8;
+}
+
+.checkout_btn {
+    height: 48px;
+    padding: 0 24px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.15s, opacity 0.18s, border-color 0.18s;
+}
+
+.checkout_btn_ghost {
+    background: transparent;
+    border: 1px solid #e2e4e8;
+    color: #555c66;
+    flex-shrink: 0;
+}
+
+.checkout_btn_ghost:hover:not(:disabled) {
+    border-color: #16181c;
+    color: #16181c;
+    background: #f7f8f9;
+}
+
+.checkout_btn_primary {
+    flex: 1;
+    background: #16181c;
+    color: #ffffff;
+    border: none;
+}
+
+.checkout_btn_primary:hover:not(:disabled) {
+    background: #2d3139;
+    transform: translateY(-1px);
+}
+
+.checkout_btn_primary:disabled,
+.checkout_btn_ghost:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.checkout_btn:focus-visible {
+    outline: 3px solid #c8ff3a;
+    outline-offset: 2px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 520px) {
+    .checkout_card {
+        padding: 28px 20px;
+    }
+
+    .checkout_actions {
+        flex-direction: column-reverse;
+    }
+
+    .checkout_btn_ghost {
+        text-align: center;
+    }
 }
