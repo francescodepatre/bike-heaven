@@ -4,17 +4,21 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-@import url('https://fonts.googleapis.com/css2?family=Signika:wght@400;600&family=Poppins:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap');
 
-/* ── Lista recensioni ── */
-.fl-list {
+/* ============================================================
+   LISTA
+   ============================================================ */
+.fl_list {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-/* ── Card singola ── */
-.fl-card {
+/* ============================================================
+   CARD
+   ============================================================ */
+.fl_card {
     background: #f7f8f9;
     border: 1px solid #e2e4e8;
     border-radius: 12px;
@@ -25,25 +29,27 @@
     transition: box-shadow 0.2s ease;
 }
 
-.fl-card:hover {
+.fl_card:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
 }
 
-/* ── Header: avatar + nome + stelle ── */
-.fl-card-header {
+/* ============================================================
+   HEADER CARD
+   ============================================================ */
+.fl_card_header {
     display: flex;
     align-items: center;
     gap: 14px;
 }
 
-.fl-avatar {
+.fl_avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     background: #c8ff3a;
     color: #0f1013;
     font-family: 'Signika', sans-serif;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -51,38 +57,41 @@
     flex-shrink: 0;
     text-transform: uppercase;
     letter-spacing: 0.02em;
+    user-select: none;
 }
 
-.fl-card-meta {
+.fl_card_meta {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-.fl-name {
+.fl_name {
     font-family: 'Signika', sans-serif;
     font-size: 15px;
     font-weight: 600;
     color: #16181c;
 }
 
-/* ── Stelle ── */
-.fl-stars {
+/* ============================================================
+   STELLE
+   ============================================================ */
+.fl_stars {
     display: flex;
     align-items: center;
     gap: 1px;
 }
 
-.fl-star {
+.fl_star {
     font-size: 16px;
     line-height: 1;
 }
 
-.fl-star--full  { color: #f5a623; }
-.fl-star--half  { color: #f5a623; opacity: 0.55; }
-.fl-star--empty { color: #d1d5db; }
+.fl_star_full  { color: #f5a623; }
+.fl_star_half  { color: #f5a623; opacity: 0.55; }
+.fl_star_empty { color: #d1d5db; }
 
-.fl-star-value {
+.fl_star_value {
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 500;
@@ -90,17 +99,21 @@
     margin-left: 6px;
 }
 
-/* ── Testo recensione ── */
-.fl-content {
+/* ============================================================
+   TESTO RECENSIONE
+   ============================================================ */
+.fl_content {
     font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.65;
     color: #555c66;
     margin: 0;
 }
 
-/* ── Stato vuoto ── */
-.fl-empty {
+/* ============================================================
+   STATO VUOTO / ERRORE
+   ============================================================ */
+.fl_empty {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -112,20 +125,40 @@
     text-align: center;
 }
 
-.fl-empty-icon {
+.fl_empty_icon {
     font-size: 24px;
     color: #c8ff3a;
 }
 
-.fl-empty p {
+.fl_empty p {
     font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
-    color: #888ea0;
+    color: #555c66;
     margin: 0;
 }
 
-/* ── Skeleton loader ── */
-.fl-skeleton {
+.fl_retry {
+    margin-top: 4px;
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: 1px solid #d8453b;
+    background: transparent;
+    color: #d8453b;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+}
+
+.fl_retry:hover {
+    background: #d8453b;
+    color: #ffffff;
+}
+
+/* ============================================================
+   SKELETON
+   ============================================================ */
+.fl_skeleton {
     background: #f7f8f9;
     border: 1px solid #e2e4e8;
     border-radius: 12px;
@@ -135,22 +168,22 @@
     gap: 10px;
 }
 
-.fl-sk-line {
+.fl_sk_line {
     border-radius: 4px;
     background: linear-gradient(90deg, #ececec 25%, #f6f6f6 37%, #ececec 63%);
     background-size: 400% 100%;
-    animation: fl-shimmer 1.4s ease infinite;
+    animation: fl_shimmer 1.4s ease infinite;
 }
 
-.fl-sk-name  { height: 14px; width: 40%; }
-.fl-sk-stars { height: 14px; width: 25%; }
-.fl-sk-text  { height: 12px; width: 85%; }
+.fl_sk_name  { height: 14px; width: 40%; }
+.fl_sk_stars { height: 14px; width: 25%; }
+.fl_sk_text  { height: 12px; width: 85%; }
 
-@keyframes fl-shimmer {
+@keyframes fl_shimmer {
     0%   { background-position: 100% 50%; }
-    100% { background-position: 0 50%; }
+    100% { background-position: 0    50%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .fl-sk-line { animation: none; }
+    .fl_sk_line { animation: none; }
 }

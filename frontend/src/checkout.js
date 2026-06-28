@@ -60,7 +60,7 @@ function Checkout() {
                 return;
             }
 
-            const res = await fetch("/api/payment", {
+            const res = await fetch("https://bike-heaven.onrender.com/api/payment", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
