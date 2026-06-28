@@ -4,52 +4,131 @@
     Università di Parma - Corso di Tecnologie Internet
     Email:  francesco.depatre@studenti.unipr.it
 */
-.accountPage{
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap');
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.account_page {
     display: flex;
-    width: 100%;
-    height: fit-content;
-    background-image: url("../images/accountBackground.jpeg");
-    height: 800px;
-    background-position: center top;
-    background-size: cover;
+    min-height: 100vh;
+    background: #f4f5f7;
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.account_sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    background: #ffffff;
+    border-right: 1px solid #e2e4e8;
+    padding: 48px 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.account_sidebar_title {
+    font-family: 'Signika', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #16181c;
+    padding: 0 24px;
+    margin: 0;
+}
+
+/* ============================================================
+   NAVIGAZIONE
+   ============================================================ */
+.account_nav {
+    list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
-.accountContainer{
-    margin-top: 10%;
-    margin-bottom: 5%;
-    margin-left: 5%;
-    margin-right: 5%;
-    width: 20%;
-    background-color: white;
-    opacity: 80%;
+.account_nav_item {
+    width: 100%;
+    display: block;
+    padding: 10px 24px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #555c66;
+    background: transparent;
+    border: none;
+    border-left: 3px solid transparent;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
 }
 
-.accountTitle{
-    margin-top: 20%;
-    margin-left: 20%;
-    margin-right: 20%;
+.account_nav_item:hover {
+    background: #f4f5f7;
+    color: #16181c;
 }
 
-.accountOptions{
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 15%;
-    margin-bottom: 15%;
+.account_nav_item.is_active {
+    background: #f0f9e6;
+    color: #16181c;
+    font-weight: 500;
+    border-left-color: #c8ff3a;
 }
 
-.optionItem{
-    margin-top: 5%;
-    margin-bottom: 5%;
+.account_nav_item:focus-visible {
+    outline: 3px solid #c8ff3a;
+    outline-offset: -3px;
 }
 
-/* da togliere colore ecc... */
-.contentContainer{
-    margin-top: 10%;
-    margin-bottom: 5%;
-    margin-left: 5%;
-    margin-right: 5%;
-    width: 60%;
-    background-color: rgba(255, 255, 255, 0.800);
+/* ============================================================
+   CONTENUTO
+   ============================================================ */
+.account_content {
+    flex: 1;
+    padding: 48px 40px;
+    overflow-y: auto;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    .account_page {
+        flex-direction: column;
+    }
+
+    .account_sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e2e4e8;
+        padding: 24px 0 16px;
+        gap: 12px;
+    }
+
+    .account_nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0 16px;
+        gap: 4px;
+    }
+
+    .account_nav_item {
+        white-space: nowrap;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        padding: 8px 16px;
+    }
+
+    .account_nav_item.is_active {
+        border-left-color: transparent;
+        border-bottom-color: #c8ff3a;
+        background: #f0f9e6;
+    }
+
+    .account_content {
+        padding: 24px 16px;
+    }
 }
