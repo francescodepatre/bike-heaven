@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/bike-heaven/static/css/main.f42bd64a.css",
-    "main.js": "/bike-heaven/static/js/main.790dedcd.js",
+    "main.css": "/bike-heaven/static/css/main.909f4655.css",
+    "main.js": "/bike-heaven/static/js/main.9025a842.js",
     "static/js/787.1be79a77.chunk.js": "/bike-heaven/static/js/787.1be79a77.chunk.js",
     "static/media/payement.jpeg": "/bike-heaven/static/media/payement.6db6d8661e19799b070a.jpeg",
     "static/media/registration_background.jpeg": "/bike-heaven/static/media/registration_background.d24b92a02ed4ab058ec1.jpeg",
@@ -18,12 +18,12 @@
     "static/media/accessories.jpg": "/bike-heaven/static/media/accessories.ee980e70336ab4bcc2df.jpg",
     "static/media/baby_bike.jpg": "/bike-heaven/static/media/baby_bike.27aa3b45163da5254e93.jpg",
     "index.html": "/bike-heaven/index.html",
-    "main.f42bd64a.css.map": "/bike-heaven/static/css/main.f42bd64a.css.map",
-    "main.790dedcd.js.map": "/bike-heaven/static/js/main.790dedcd.js.map",
+    "main.909f4655.css.map": "/bike-heaven/static/css/main.909f4655.css.map",
+    "main.9025a842.js.map": "/bike-heaven/static/js/main.9025a842.js.map",
     "787.1be79a77.chunk.js.map": "/bike-heaven/static/js/787.1be79a77.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f42bd64a.css",
-    "static/js/main.790dedcd.js"
+    "static/css/main.909f4655.css",
+    "static/js/main.9025a842.js"
   ]
 }
